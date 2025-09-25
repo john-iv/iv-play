@@ -10,16 +10,18 @@
     </script>
 
     <meta charset="UTF-8">
-    <meta name="description" content="Homepage for IV/Play, Icons, Snaps, and MAME Benchmarking.">
-    <meta name="keywords" content="MAME IV/Play BENCHMARKS MAMEUI MAME32QA Icons Snaps John IV">
+    <meta name="description" content="Official IV/Play homepage: MAME front-end with icons, snaps, and benchmark archives for preservation and research.">
+    <meta name="keywords" content="MAME IV/Play BENCHMARKS BENCHMARKING MAMEUI MAME32QA Icons Snaps John IV">
     <meta http-equiv="content-language" content="en">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IV/Play Home Page</title>
+    <title>IV/Play – MAME Front-End, Icons, Snaps & Benchmarks</title>
+    <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" type="image/png" href="favicon.png">
+
     <style>
         body {
             color: #FFFF00; /* all text yellow by default */
-            background: #000 url('bkground.png') fixed;
+            background: #000 url('bkground.jpg') fixed;
             font-family: "Courier New", Courier, monospace;
         }
 
@@ -28,9 +30,9 @@
             text-decoration: none;
         }
 
-            a:visited {
-                color: #CCCC00;
-            }
+        a:visited {
+            color: #CCCC00;
+        }
 
         img {
             border: 0;
@@ -52,24 +54,37 @@
 
 <body>
     <p>
-        <a href="IV-Play%20User%20Guide.pdf">
-            <img src="1.png" alt="IV/Play Snap and Link to User Guide" width="1015">
-        </a>
+        <img src="1.png" alt="IV/Play Screenshot" width="1015">
     </p>
 
     <p>
         <strong>IV/Play is a front-end for baseline </strong>
         <a href="http://www.mamedev.org"><strong>MAME</strong></a>
-        <strong>™ (click the image above for the user guide).</strong>
+        <strong>™.</strong>
     </p>
 
-    <p class="indent"><a href="IV-Play.zip"><strong>IV/Play 1.8.5</strong></a></p>
-    <p class="indent"><a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z" onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'MAME_Snapshots' });"><strong>MAME Snapshots</strong></a></p>
-    <p class="indent"><a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z" onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'MAME_Icons' });"><strong>MAME Icons</strong></a></p>
-    <p class="indent"><a href="bench.html"><strong>MAME Benchmarks (2002 To Current)</strong></a></p>
+    <p class="indent">
+        <a href="IV-Play.zip"><strong>IV/Play 1.8.5</strong></a> | 
+        <a href="IV-Play%20User%20Guide.pdf"><strong>User Guide (PDF)</strong></a>
+    </p>
+    <p class="indent">
+        <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z" 
+           onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'MAME_Snapshots' });">
+           <strong>MAME Snapshots</strong>
+        </a>
+    </p>
+    <p class="indent">
+        <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z" 
+           onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'MAME_Icons' });">
+           <strong>MAME Icons</strong>
+        </a>
+    </p>
+    <p class="indent">
+        <a href="bench.html"><strong>MAME Benchmarks (2002 To Current)</strong></a>
+    </p>
 
     <p class="highlight"><strong>Art assets updated to MAME 0.280 as of 10:23 PM 9/24/2025</strong></p>
-	<img src="2025.png" alt="Latest Benchmark Run" width="1015">
+    <img src="2025.png" alt="Latest Benchmark Run" width="1015">
     <p><strong>© john iv / Est. 8/11/1998</strong></p>
 </body>
 </html>
