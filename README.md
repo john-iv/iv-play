@@ -1,5 +1,7 @@
 # IV/Play - A High-Performance MAME™ Frontend
 
+<img width="1504" height="639" alt="1" src="https://github.com/user-attachments/assets/a70bd6f2-40cd-4a6b-ab1c-e098810be953" />
+
 ## Overview
 
 IV/Play (pronounced ‘Four Play’) is a desktop/keyboard-oriented GUI front-end for MAME™ designed for high-end Windows 11 systems. It was conceived in 2006 and originally commissioned in 2011 by John IV, a member of the original MAMEUI team.
@@ -95,4 +97,5 @@ IV/Play is a portable application and does not require a formal installer.
 
 * Creator & Designer (2006-Present): John Hardy IV
 * Initial Development (2011-2016): Matan Bareket
+
 * Modernization & AI Pair-Programming (2025): Gemini / CoPilot / ChatGPT / Grok
