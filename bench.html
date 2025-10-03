@@ -75,6 +75,16 @@
         .highlight {
             color: #ff9966;
         }
+    #script-box {
+        width: 95%;
+        height: 600px; /* Adjust height as needed */
+        background-color: #1E1E1E; /* A slightly off-black looks good */
+        color: #FFFF00; /* Your existing text color */
+        font-family: "Courier New", Courier, monospace; /* Your existing font */
+        border: 1px solid #FFFF00; /* A border to define the area */
+        padding: 10px;
+        resize: vertical; /* Allows user to resize it vertically */
+    }
     </style>
 </head>
 
@@ -98,6 +108,601 @@
     <p><a href="2020.png"><img src="2020.png" alt="MAME Benchmarks 2020"></a></p>
     <p><a href="2019.png"><img src="2019.png" alt="MAME Benchmarks 2019"></a></p>
     <p><a href="2018.png"><img src="2018.png" alt="MAME Benchmarks 2018"></a></p>
-<p> <a href="https://web.archive.org/web/20240626081105/http://www.mameui.info/Bench.htm"> Pre-2018 Historical Benchmarks </a></p>
+
+
+
+<p><strong><a href="https://web.archive.org/web/20240626081105/http://www.mameui.info/Bench.htm"> Pre-2018 Historical Benchmarks </a></strong></p>
+<p><strong>My BigBench Benchmarking Script; copy and paste into a text file, name it BigBench.ps1, and run it via Powershell 7.x.</strong></p>
+
+<textarea readonly id="script-box">
+
+<#
+.SYNOPSIS
+   BigBench.ps1 - Interrogates system hardware and OS details, then runs a series of MAME benchmarks to produce a comprehensive performance report.
+
+.DESCRIPTION
+   This script provides a full system benchmark by combining hardware interrogation with application-level performance
+   testing using MAME. First, it queries the local system to gather a detailed hardware summary which is displayed
+   on the console.
+
+   Second, it iterates through a predefined list of MAME games, executing MAME's built-in benchmark for each one.
+   The results are compiled into two reports: a simplified version for the local desktop, and a full, comprehensive
+   version (including all hardware details) which is saved to a network share.
+
+.VERSION
+   BigBench.ps1 v2.4.0 (2025-10-01)
+
+.CHANGELOG
+   v2.4.0 (2025-10-01)
+     - ADDED: A boolean variable '$EnableRemoteCopy' to easily disable the network copy step.
+     - REFACTORED: Centralized all user-configurable paths into a single block at the top of the script.
+     - ADDED: A dedicated '$OutputDirectory' for logs and other generated files, created alongside the script.
+   v2.3.1 (2025-09-22)
+     - RESTORED: Full hardware summary is now included in the report file sent to the remote share.
+     - CHANGED: The local report remains simplified, containing only benchmark metrics and timing.
+   v2.3.0 (2025-09-22)
+     - ADDED: Logical volume report (C:, D:, space usage) to the initial console summary.
+     - CHANGED: Simplified the final saved report to only include game metrics and timing.
+#>
+
+#region Header & Initialization
+
+#================================================================
+# SCRIPT CONFIGURATION
+# - All user-configurable paths and settings are here.
+#================================================================
+
+# --- Core Application & Asset Paths ---
+
+# The base directory for the MAME installation.
+$MameBaseDir = "C:\games\mame"
+
+# The directory where output files (Logs, Reports) will be saved.
+# Using '$PSScriptRoot' places this folder in the same directory as the script.
+$OutputDirectory = Join-Path $PSScriptRoot "BigBench_Output"
+
+# The network share where the full report will be copied.
+$RemoteSharePath = "\\xx\users\xx\desktop"
+
+# --- Script Behavior ---
+
+# Set to $false to disable copying the final report to the remote network share.
+$EnableRemoteCopy = $false
+
+
+#================================================================
+# DERIVED & SYSTEM VARIABLES (DO NOT MODIFY)
+#================================================================
+
+# --- Script & System Variables ---
+$scriptName    = [System.IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Path)
+$ScriptVersion = "2.4.0"
+$machineName   = $env:COMPUTERNAME
+$DesktopPath   = "$env:USERPROFILE\Desktop"
+
+# --- Create Output Directory ---
+# Creates the output directory if it doesn't already exist.
+if (-not (Test-Path $OutputDirectory)) {
+    New-Item -Path $OutputDirectory -ItemType Directory | Out-Null
+}
+
+# --- Derived File Paths ---
+# These paths are built automatically from the configuration above.
+$LogFile          = Join-Path $OutputDirectory ("${scriptName}_Log.txt")
+$StateFile        = Join-Path $OutputDirectory ("${scriptName}_State.txt") # Note: $StateFile is defined but not used elsewhere.
+$MAMEExe          = Join-Path $MameBaseDir "mame.exe"
+$ReportFile       = Join-Path $DesktopPath ("MAME_Benchmark_Report_${machineName}.txt")
+$ReportFileRemote = Join-Path $RemoteSharePath ("MAME_Benchmark_Report_${machineName}.txt")
+$BenchImagePath   = Join-Path $MameBaseDir "snap\bench.png"
+
+# --- Time & Logging Setup ---
+$TimeFormat = "MM/dd/yyyy hh:mm:ss tt"
+Set-Content -Path $LogFile -Value ("$scriptName Log File - Started at $([datetime]::Now.ToString($TimeFormat))`r`n")
+
+# --- MAME & Benchmark Configuration ---
+$Games = @(
+    "blitz", "crusnusa", "cubeqst", "cyvern", "dkong", "drivedge", "gauntleg",
+    "gnbarich", "gradius4", "gtfore06", "harddriv", "kidniki", "kof98", "mario",
+    "mk4", "pacman", "pinkswts", "pong", "propcycl", "radikalb", "roadblst",
+    "robotron", "rvschool", "scud", "sf2", "sfa2", "sfiii", "slrasslt", "spacfury",
+    "starblad", "starsldr", "sushibar", "tekken", "tekken3", "vf2", "vfkids"
+)
+$BenchmarkDuration = 90
+$SnapName          = "bench"  # Must remain as specified
+
+# Log script start
+$startTime = Get-Date
+$startTimeFormatted = $startTime.ToString($TimeFormat)
+Add-Content -Path $LogFile -Value ("Script started at: $startTimeFormatted")
+
+#endregion
+
+#region Helper Function: Sort-DriveLetters
+function Sort-DriveLetters {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory)]
+        [string[]]$Letters
+    )
+    # Sort the drive letters alphabetically (case-insensitive)
+    return ($Letters | Sort-Object { $_.ToUpper() }) -join ", "
+}
+#endregion
+
+#region Logging Function
+function Write-Log {
+    param (
+        [string]$Message,
+        [string]$Level = "INFO"
+    )
+    $timestamp = (Get-Date).ToString($TimeFormat)
+    $entry = "$timestamp [$Level] $Message"
+    Add-Content -Path $LogFile -Value $entry
+    if (($Level -eq "INFO") -or ($Level -eq "ERROR")) {
+        Write-Host $entry
+    } elseif ($Level -eq "DEBUG" -and $PSBoundParameters.ContainsKey("Debug")) {
+        Write-Host $entry
+    }
+}
+#endregion
+
+#region Stay-awake functions
+# Import SetThreadExecutionState from kernel32
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public class Power {
+    [DllImport("kernel32.dll", SetLastError = true)]
+    public static extern uint SetThreadExecutionState(uint esFlags);
+}
+"@
+
+# Execution state flags
+$ES_CONTINUOUS      = [System.Convert]::ToUInt32('80000000', 16)
+$ES_SYSTEM_REQUIRED = [System.Convert]::ToUInt32('00000001', 16)
+
+function Prevent-Sleep {
+    [Power]::SetThreadExecutionState($ES_CONTINUOUS -bor $ES_SYSTEM_REQUIRED) | Out-Null
+    Write-Log "System sleep prevention engaged." "INFO"
+}
+function Allow-Sleep {
+    [Power]::SetThreadExecutionState($ES_CONTINUOUS) | Out-Null
+    Write-Log "System sleep prevention released." "INFO"
+}
+#endregion
+
+#region Function: Get-GpuInfoFromDxDiag
+function Get-GpuInfoFromDxDiag {
+    Write-Log "GPU: Attempting Stage 1 (DxDiag XML method)..."
+    $tempXmlFile = Join-Path $env:TEMP "dxdiag-info.xml"
+    $gpuList = @()
+
+    try {
+        $process = Start-Process "dxdiag.exe" -ArgumentList "/x $tempXmlFile" -Wait -PassThru -NoNewWindow
+        
+        if ($process.ExitCode -ne 0 -or -not (Test-Path $tempXmlFile)) {
+            Write-Log "GPU: DxDiag process failed or did not create the output file." "ERROR"
+            return $null
+        }
+
+        [xml]$dxdiagXml = Get-Content -Path $tempXmlFile
+        $displayDevices = $dxdiagXml.DxDiag.DisplayDevices.DisplayDevice
+
+        foreach ($device in $displayDevices) {
+            $vramString = $device.DedicatedMemory.Trim()
+            $vramBytes = 0
+
+            try {
+                if ($vramString -like '*MB') {
+                    $vramValue = [long]($vramString -replace ' MB', '')
+                    $vramBytes = $vramValue * 1MB
+                }
+                elseif ($vramString -like '*GB') {
+                    $vramValue = [long]($vramString -replace ' GB', '')
+                    $vramBytes = $vramValue * 1GB
+                }
+                elseif ($vramString -like '*bytes') {
+                    $vramBytes = [long]($vramString -replace ' bytes', '')
+                }
+                else {
+                    $vramBytes = [long]$vramString
+                }
+            }
+            catch { Write-Log "GPU: Could not parse VRAM value: '$vramString'" "ERROR" }
+
+            $vramGB = if ($vramBytes -gt 0) { [math]::Round($vramBytes / 1GB, 2) } else { "N/A" }
+
+            $gpuList += [PSCustomObject]@{
+                Name          = $device.CardName
+                DriverVersion = $device.DriverVersion
+                MemoryGB      = $vramGB
+            }
+        }
+        Write-Log "GPU: Stage 1 (DxDiag XML method) Succeeded."
+        
+        # De-duplicate the list before returning.
+        return $gpuList | Sort-Object -Property Name, DriverVersion, MemoryGB -Unique
+    }
+    catch {
+        Write-Log "An error occurred during the DxDiag process: $_" "ERROR"
+        return $null
+    }
+    finally {
+        if (Test-Path $tempXmlFile) { Remove-Item $tempXmlFile -Force }
+    }
+}
+#endregion
+
+#region Function: Get-SystemSummary
+function Get-SystemSummary {
+    [CmdletBinding()]
+    param(
+        [string]$ComputerName = $env:COMPUTERNAME
+    )
+    $isLocal      = ($ComputerName -eq $env:COMPUTERNAME -or $ComputerName -eq 'localhost' -or $ComputerName -eq '127.0.0.1')
+    $cimParameter = @{} # Local query by default
+
+    $summary = [PSCustomObject]@{
+        ComputerName    = $ComputerName
+        CPU             = $null
+        RAMGB           = "N/A"
+        RAMSpeeds       = "N/A"
+        OS              = $null
+        Volumes         = @()
+        Drives          = @()
+        BIOS            = $null
+        BaseBoard       = $null
+        VideoController = @()
+        NetworkAdapters = @()
+    }
+
+    # CPU
+    try {
+        $summary.CPU = Get-CimInstance Win32_Processor @cimParameter |
+                       Select-Object -First 1 Name, MaxClockSpeed, NumberOfCores, NumberOfLogicalProcessors
+    }
+    catch { Write-Log "Failed to get CPU info: $_" "ERROR" }
+
+    # RAM
+    try {
+        $memoryModules = Get-CimInstance Win32_PhysicalMemory @cimParameter
+        if ($memoryModules) {
+            $summary.RAMGB     = [math]::Round(($memoryModules.Capacity | Measure-Object -Sum).Sum / 1GB, 2)
+            $summary.RAMSpeeds = ($memoryModules | Select-Object -ExpandProperty Speed | Sort-Object -Unique) -join ", " + " MHz"
+        }
+    }
+    catch { Write-Log "Failed to get RAM info: $_" "ERROR" }
+
+    # OS
+    try {
+        $summary.OS = Get-CimInstance Win32_OperatingSystem @cimParameter |
+                      Select-Object Caption, Version, OSArchitecture
+    }
+    catch { Write-Log "Failed to get OS info: $_" "ERROR" }
+
+    # Logical Volumes (for space details)
+    try {
+        $summary.Volumes = Get-CimInstance Win32_LogicalDisk @cimParameter | Where-Object { $_.DriveType -in 2,3 } | ForEach-Object {
+            try {
+                if ($_.Size -le 0) {
+                    return [PSCustomObject]@{ DriveLetter = $_.DeviceID; VolumeName = $_.VolumeName; SizeGB = 0; UsedGB = 0; FreeGB = 0; PercentUsed = "N/A"; PercentFree = "N/A" }
+                }
+                $usedBytes = $_.Size - $_.FreeSpace
+                [PSCustomObject]@{
+                    DriveLetter = $_.DeviceID
+                    VolumeName  = $_.VolumeName
+                    SizeGB      = "{0:N2}" -f ($_.Size / 1GB)
+                    UsedGB      = "{0:N2}" -f ($usedBytes / 1GB)
+                    FreeGB      = "{0:N2}" -f ($_.FreeSpace / 1GB)
+                    PercentUsed = "{0:P0}" -f ($usedBytes / $_.Size)
+                    PercentFree = "{0:P0}" -f ($_.FreeSpace / $_.Size)
+                }
+            }
+            catch { Write-Log "Logical disk processing failed for $($_.DeviceID): $_" "ERROR"; return $null }
+        }
+    }
+    catch { Write-Log "Failed to get logical disk info: $_" "ERROR" }
+
+
+    # Physical Drives (for hardware details)
+    try {
+        $summary.Drives = Get-CimInstance Win32_DiskDrive @cimParameter | ForEach-Object {
+            try {
+                $partitions = $_ | Get-CimAssociatedInstance -ResultClassName Win32_DiskPartition @cimParameter
+                $logicalDisks = $partitions | Get-CimAssociatedInstance -ResultClassName Win32_LogicalDisk @cimParameter
+                $letters = $logicalDisks | Select-Object -ExpandProperty DeviceID
+                [PSCustomObject]@{
+                    Model        = $_.Model
+                    Interface    = $_.InterfaceType
+                    MediaType    = $_.MediaType
+                    SizeGB       = "{0:N2}" -f ($_.Size / 1GB)
+                    Removable    = ($_.MediaType -like "*Removable*")
+                    DriveLetters = Sort-DriveLetters -Letters $letters
+                }
+            }
+            catch { Write-Log "Failed processing drive information: $($_)" "ERROR"; return $null }
+        } | Sort-Object -Property DriveLetters # Sort the entire collection of drives by their letters
+    }
+    catch { Write-Log "Failed to get drive information: $($_)" "ERROR" }
+    
+    # BIOS/UEFI
+    try {
+        $bios = Get-CimInstance Win32_BIOS @cimParameter | Select-Object Manufacturer, SMBIOSBIOSVersion, ReleaseDate
+        $summary.BIOS = $bios
+    }
+    catch { Write-Log "Failed to get BIOS info: $_" "ERROR" }
+
+    # Motherboard
+    try {
+        $baseBoard = Get-CimInstance Win32_BaseBoard @cimParameter | Select-Object Manufacturer, Product, SerialNumber
+        $summary.BaseBoard = $baseBoard
+    }
+    catch { Write-Log "Failed to get BaseBoard info: $_" "ERROR" }
+    
+    # GPU
+    try {
+        $gpuList = @()
+        
+        # STAGE 1: DxDiag XML method (Promoted to Primary).
+        if ($isLocal) {
+             $gpuList = Get-GpuInfoFromDxDiag
+        } else {
+             Write-Log "GPU: Skipping Stage 1 (DxDiag) because target is a remote machine." "INFO"
+        }
+
+        #<# --- STUBBED OUT: This Modern WMI check fails in some environments --- #>
+        
+        # STAGE 2: If the primary method fails, use the old WMI method as a last resort.
+        if ($gpuList.Count -eq 0) {
+            try {
+                Write-Log "GPU: Attempting Stage 2 Fallback (Win32_VideoController)..." "INFO"
+                $gpus = Get-CimInstance Win32_VideoController @cimParameter -ErrorAction Stop
+                if ($gpus) {
+                    Write-Log "GPU: Stage 2 Fallback Succeeded. Using last resort Win32_VideoController." "INFO"
+                    $gpuList = $gpus | ForEach-Object {
+                        [PSCustomObject]@{
+                            Name          = $_.Name
+                            DriverVersion = $_.DriverVersion
+                            MemoryGB      = if ($_.AdapterRAM) { [math]::Round($_.AdapterRAM / 1GB, 2) } else { "N/A" }
+                        }
+                    }
+                }
+            }
+            catch { Write-Log "GPU: Stage 2 Fallback FAILED as well." "ERROR" }
+        }
+        $summary.VideoController = $gpuList
+    }
+    catch { Write-Log "A critical, unexpected error occurred in the main GPU block: $_" "ERROR" }
+
+    # Network Adapters
+    try {
+        $netAdapters = Get-CimInstance Win32_NetworkAdapterConfiguration @cimParameter | Where-Object { $_.IPEnabled -eq $true }
+        $summary.NetworkAdapters = $netAdapters | Select-Object Description, MACAddress, IPAddress, DefaultIPGateway
+    }
+    catch { Write-Log "Failed to get network adapter info: $_" "ERROR" }
+    
+    return $summary
+}
+#endregion
+
+#region Function: Run-BenchmarkForGame
+function Run-BenchmarkForGame {
+    param (
+        [string]$Game
+    )
+    Write-Log ("Starting benchmark for game: ${Game}")
+    
+    # Build MAME command arguments.
+    $args = @($Game, "-bench", $BenchmarkDuration, "-snapname", $SnapName)
+    Write-Log ("Executing command: ${MAMEExe} $($args -join ' ')")
+    try {
+        $output = & $MAMEExe @args 2>&1 | Out-String
+        Write-Host "MAME output for ${Game}:" -ForegroundColor Cyan
+        Write-Host $output -ForegroundColor Cyan
+        Write-Log ("Command executed for ${Game}.")
+        # Extract benchmark statistics using regex.
+        $pattern = 'Average speed:\s*([\d\.]+)%\s*\(\s*(\d+)\s*seconds\)'
+        $match = [regex]::Match($output, $pattern)
+        if ($match.Success) {
+            $speed = $match.Groups[1].Value
+            $secs  = $match.Groups[2].Value
+            Write-Log ("Parsed for ${Game}: Speed=${speed}, Seconds=${secs}")
+            return [PSCustomObject]@{
+                Game    = $Game
+                Speed   = [double]$speed
+                Seconds = [int]$secs
+            }
+        }
+        else {
+            Write-Log ("Benchmark output for ${Game} did not match expected pattern. Output: '$output'") "ERROR"
+            return [PSCustomObject]@{ Game = $Game; Speed = ""; Seconds = "" }
+        }
+    }
+    catch {
+        Write-Log ("Error running benchmark for game ${Game}: $($_)") "ERROR"
+        return [PSCustomObject]@{ Game = $Game; Speed = ""; Seconds = "" }
+    }
+}
+#endregion
+
+#region Main Script Logic
+
+$headerText = @"
+==========================================
+Script: ${scriptName} - Version ${ScriptVersion}
+Date: $(Get-Date -Format $TimeFormat)
+Description: Benchmark machine running MAME games and report system capabilities.
+Log File: ${LogFile}
+==========================================
+"@
+Add-Content -Path $LogFile -Value $headerText
+
+#----------------------
+# SYSTEM INTERROGATION
+#----------------------
+$intStartTime = Get-Date
+Write-Log "Performing system interrogation..."
+$systemSummary = Get-SystemSummary -ComputerName $env:COMPUTERNAME
+$intEndTime = Get-Date
+$intDuration = New-TimeSpan -Start $intStartTime -End $intEndTime
+
+# Build System Summary text block for console output.
+$sysText = "==== System Summary ====" + "`r`n"
+$sysText += ("{0,-14}: {1}" -f "System Name", $systemSummary.ComputerName) + "`r`n"
+if ($systemSummary.OS) {
+    $sysText += ("{0,-14}: {1}" -f "OS", "$($systemSummary.OS.Caption) (Version: $($systemSummary.OS.Version), $($systemSummary.OS.OSArchitecture))") + "`r`n"
+}
+if ($systemSummary.CPU) {
+    $cpuInfo = "{0} @ {1} MHz ({2} cores / {3} threads)" -f $systemSummary.CPU.Name, $systemSummary.CPU.MaxClockSpeed, $systemSummary.CPU.NumberOfCores, $systemSummary.CPU.NumberOfLogicalProcessors
+    $sysText += ("{0,-14}: {1}" -f "CPU", $cpuInfo) + "`r`n"
+}
+$sysText += ("{0,-14}: {1} GB ({2})" -f "RAM", $systemSummary.RAMGB, $systemSummary.RAMSpeeds) + "`r`n"
+if ($systemSummary.BIOS) {
+    $biosInfo = "$($systemSummary.BIOS.Manufacturer) - Version: $($systemSummary.BIOS.SMBIOSBIOSVersion) (Released: $($systemSummary.BIOS.ReleaseDate))"
+    $sysText += ("{0,-14}: {1}" -f "BIOS", $biosInfo) + "`r`n"
+}
+if ($systemSummary.BaseBoard) {
+    $mbInfo = "$($systemSummary.BaseBoard.Manufacturer) - $($systemSummary.BaseBoard.Product) (S/N: $($systemSummary.BaseBoard.SerialNumber))"
+    $sysText += ("{0,-14}: {1}" -f "Motherboard", $mbInfo) + "`r`n"
+}
+$gpuText = if ($systemSummary.VideoController.Count) { ($systemSummary.VideoController | ForEach-Object { "$($_.Name) - $($_.MemoryGB) GB (Driver: $($_.DriverVersion))" }) -join " ; " } else { "N/A" }
+$sysText += ("{0,-14}: {1}" -f "GPU", $gpuText) + "`r`n"
+if ($systemSummary.NetworkAdapters.Count) {
+    $adapterDetails = ($systemSummary.NetworkAdapters | ForEach-Object {
+        "$($_.Description) - MAC: $($_.MACAddress) - Gateway: $($_.DefaultIPGateway)"
+    }) -join " ; "
+    $sysText += ("{0,-14}: {1}" -f "Adapters", $adapterDetails) + "`r`n"
+}
+
+# Build Storage Volumes block for console output.
+$volumeText = "`r`n" + "==== Storage Volumes ====" + "`r`n"
+if ($systemSummary.Volumes.Count) {
+    $volumeText += $systemSummary.Volumes | Sort-Object DriveLetter | Format-Table DriveLetter, VolumeName, SizeGB, UsedGB, FreeGB, PercentUsed, PercentFree -AutoSize | Out-String
+} else {
+    $volumeText += "No storage volume information available.`r`n"
+}
+
+# Build Storage Devices block for console output.
+$storageText = "`r`n" + "==== Storage Devices ====" + "`r`n"
+if ($systemSummary.Drives.Count) {
+    $driveHeader = ("{0,-40}   {1,-9}   {2,-25}   {3,10}   {4,-9}   {5,-12}" -f "Model", "Interface", "MediaType", "SizeGB", "Removable", "DriveLetters")
+    $storageText += $driveHeader + "`r`n"
+    $driveDash = ("{0,-40}   {1,-9}   {2,-25}   {3,10}   {4,-9}   {5,-12}" -f ("-"*40), ("-"*9), ("-"*25), ("-"*10), ("-"*9), ("-"*12))
+    $storageText += $driveDash + "`r`n"
+    foreach ($drive in $systemSummary.Drives) {
+        $driveLine = ("{0,-40}   {1,-9}   {2,-25}   {3,10}   {4,-9}   {5,-12}" -f $drive.Model, $drive.Interface, $drive.MediaType, $drive.SizeGB, $drive.Removable, $drive.DriveLetters)
+        $storageText += $driveLine + "`r`n"
+    }
+} else {
+    $storageText += "No storage device information available.`r`n"
+}
+
+$completeSysSummary = $sysText + $volumeText.Trim() + "`r`n" + $storageText.Trim() + "`r`n`r`nInterrogation Duration: " + $intDuration.ToString()
+Write-Host $completeSysSummary -ForegroundColor Green
+Add-Content -Path $LogFile -Value $completeSysSummary
+
+#----------------------
+# BENCHMARK PROCESSING
+#----------------------
+$benchStartTime = Get-Date
+Push-Location $MameBaseDir
+Write-Log ("Benchmarking started at: " + $benchStartTime.ToString($TimeFormat))
+$resultList = @()
+try {
+    Write-Log "Engaging system sleep prevention for benchmark run..." "INFO"
+    Prevent-Sleep
+
+    foreach ($game in $Games) {
+        $result = Run-BenchmarkForGame -Game $game
+        if ($result) {
+            $resultList += $result
+        }
+    }
+}
+finally {
+    Allow-Sleep
+    Write-Log "System sleep prevention released after benchmark run." "INFO"
+}
+$benchEndTime = Get-Date
+$benchDuration = New-TimeSpan -Start $benchStartTime -End $benchEndTime
+Write-Log ("Benchmarking ended at: " + $benchEndTime.ToString($TimeFormat) + ". Benchmark Duration: " + $benchDuration.ToString())
+Pop-Location
+
+$totalEndTime = Get-Date
+$totalDuration = New-TimeSpan -Start $startTime -End $totalEndTime
+
+#region Report Generation
+# Define table formats for benchmark results.
+$headerFormatStr = "{0,-16}   {1,10}   {2,10}"
+$dataFormatStr   = "{0,-16}   {1,10:N2}   {2,10}"
+$blankFormatStr  = "{0,-16}   {1,10}   {2,10}"
+
+# --- Build the core benchmark results ---
+$benchmarkLines = New-Object System.Collections.Generic.List[String]
+$benchmarkLines.Add("==== MAME Benchmark Report for $($systemSummary.ComputerName) ====")
+$benchmarkLines.Add("Date: " + (Get-Date -Format $TimeFormat))
+$benchmarkLines.Add("")
+$benchmarkLines.Add( ($headerFormatStr -f "Game", "Speed", "Seconds") )
+$benchmarkLines.Add("------------------------------------------------")
+foreach ($res in $resultList) {
+    if ([string]::IsNullOrEmpty($res.Speed) -or -not ($res.Speed -as [double])) {
+        $benchmarkLines.Add( ($blankFormatStr -f $res.Game, "ERROR", "ERROR") )
+    }
+    else {
+        $benchmarkLines.Add( ($dataFormatStr -f $res.Game, $res.Speed, $res.Seconds) )
+    }
+}
+$benchmarkLines.Add("------------------------------------------------")
+$benchmarkLines.Add("")
+$benchmarkLines.Add("Benchmark Duration: " + $benchDuration.ToString())
+$benchmarkLines.Add("Total Execution Time: " + $totalDuration.ToString())
+
+# --- Create and save the Simplified Local Report ---
+$simplifiedReport = $benchmarkLines -join "`r`n"
+$simplifiedReport | Set-Content -Path $ReportFile
+Add-Content -Path $LogFile -Value $simplifiedReport
+Write-Host "`nSIMPLIFIED REPORT (saved to $($ReportFile)):" -ForegroundColor Green
+Write-Host $simplifiedReport
+
+# --- Create and save the Full Remote Report ---
+if ($EnableRemoteCopy) {
+    # Combine the benchmark results with the full hardware summary for the remote report
+    $fullReport = $benchmarkLines -join "`r`n"
+    $fullReport += "`r`n`r`n" + $completeSysSummary
+    try {
+        Write-Log "Attempting to save full report to remote path: ${ReportFileRemote}"
+        $fullReport | Set-Content -Path $ReportFileRemote
+        Write-Log ("Full comprehensive report saved successfully.")
+    }
+    catch {
+        Write-Log ("Error saving remote report to ${ReportFileRemote}: $($_)") "ERROR"
+    }
+}
+else {
+    Write-Log "Remote copy is disabled by the '$EnableRemoteCopy' variable. Skipping."
+}
+#endregion
+
+#endregion
+
+#region Final Pause and Cleanup
+# Clean up the bench image file if it exists.
+if (Test-Path $BenchImagePath) {
+    try {
+        Remove-Item $BenchImagePath -Force
+        Write-Log "Successfully cleaned up bench image: $BenchImagePath"
+    }
+    catch {
+        Write-Log "Failed to remove bench image ($BenchImagePath): $($_)" "ERROR"
+    }
+}
+
+Write-Log ("Script ending at: " + (Get-Date).ToString($TimeFormat))
+if ($Host.Name -and ($Host.Name -like "*ConsoleHost*")) {
+    Write-Host "`nHit any key to continue..."
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
+#endregion
+</textarea>
 </body>
 </html>
