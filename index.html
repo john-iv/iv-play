@@ -9,23 +9,23 @@
         gtag('config', 'G-79ZPD1ETK2');
     </script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "IV/Play",
-  "applicationCategory": "GameApplication",
-  "operatingSystem": "Windows 11",
-  "description": "A high-performance, graphical frontend for the MAME (Multiple Arcade Machine Emulator) platform.",
-  "author": {
-    "@type": "Person",
-    "name": "John IV"
-  },
-  "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.zip",
-  "softwareVersion": "2.1.0",
-  "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, John IV"
-}
-</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "IV/Play",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Windows 11",
+      "description": "A high-performance, graphical frontend for the MAME (Multiple Arcade Machine Emulator) platform.",
+      "author": {
+        "@type": "Person",
+        "name": "John IV"
+      },
+      "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.zip",
+      "softwareVersion": "2.1.0",
+      "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, John IV"
+    }
+    </script>
 
     <meta charset="UTF-8">
     <meta name="description" content="Official IV/Play 2.x homepage: MAME front-end with icons, snaps, and benchmark archives for preservation and research.">
@@ -56,16 +56,23 @@
             border: 0;
         }
 
+        /* Styling for the list of download/navigation links */
+        ul.download-links {
+            list-style-type: none; /* Remove bullet points */
+            padding-left: 40px; /* Indent the list from the left edge */
+            margin: 0.8em 0; /* Match paragraph spacing */
+        }
+        
+        ul.download-links li {
+            margin: 0.8em 0; /* Add vertical space between list items (links) */
+        }
+
         .highlight {
             color: #ff9966; /* orange for assets update line */
         }
 
         p {
-            margin: 0.8em 0;
-        }
-
-        .indent {
-            margin-left: 40px;
+            margin: 0.8em 0; /* TWEAKED: Increased vertical space for better readability */
         }
         
         .container {
@@ -84,40 +91,49 @@
             <strong>IV/Play is a high‑performance, keyboard‑driven frontend for MAME™. Designed for today’s multi‑core, GPU‑powered PCs, its DirectX engine delivers smooth scrolling, instant artwork, and zero‑lag navigation. Browse, filter, and launch thousands of titles with fluid responsiveness on modern Windows systems.</strong>
         </p>
 
-        <p class="indent">
-            <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.zip"
-               onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'IV-Play_Distributable' });"><strong>IV/Play 2.1.1 (10/01/2025)</strong></a> •
-            <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf"><strong>User Guide (PDF)</strong></a>
-        </p>
-        <p class="indent">
-            <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z"
-               onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'MAME_Snapshots' });">
-                <strong>MAME Snapshots</strong>
-            </a>
-        </p>
-        <p class="indent">
-            <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z"
-               onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'MAME_Icons' });">
-                <strong>MAME Icons</strong>
-            </a>
-        </p>
-        <p class="indent">
-            <a href="bench.html"><strong>MAME Benchmarks</strong></a>
-        </p>
-        <p class="indent">
-            <a href="https://github.com/john-iv/iv-play/discussions"><strong>Discussion Forum</strong></a>
-        </p>
-        <p class="highlight"><strong>Art assets updated to MAME 0.281 as of 8:40 PM 09/26/2025</strong></p>
-        <img src="2025.png" alt="Latest Benchmark Run" width="1015">
+        <ul class="download-links">
+            <li>
+                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.zip"
+                   onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'IV-Play_Distributable' });">
+                    <strong>IV/Play 2.1.1 (10/01/2025)</strong>
+                </a> •
+                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf">
+                    <strong>User Guide (PDF)</strong>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z"
+                   onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'MAME_Snapshots' });">
+                    <strong>MAME Snapshots</strong>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z"
+                   onclick="gtag('event', 'click', { 'event_category': 'Download', 'event_label': 'MAME_Icons' });">
+                    <strong>MAME Icons</strong>
+                </a>
+            </li>
+            <li>
+                <a href="bench.html"><strong>MAME Benchmarks</strong></a>
+            </li>
+            <li>
+                <a href="https://github.com/john-iv/iv-play/discussions"><strong>Discussion Forum</strong></a>
+            </li>
+        </ul>
 
-<p>
-  <strong>
-    © john iv • Est. 08/11/1998 • 
-    <a href="https://github.com/john-iv/iv-play/blob/master/README.md">
-      Project Overview & Details • <a href="https://www.youtube.com/watch?v=w28BhzY_aWA">Video DEMO on YouTube
-    </a>
-  </strong>
-</p>
+        <p class="highlight"><strong>Art assets updated to MAME 0.281 as of 8:40 PM 09/26/2025</strong></p>
+        
+        <a href="bench.html">
+            <img src="2025.png" alt="Latest Benchmark Run" width="1015">
+        </a>
+
+        <p>
+          <strong>
+            © john iv • Est. 08/11/1998 • 
+            <a href="https://github.com/john-iv/iv-play/blob/master/README.md">Project Overview & Details</a> • 
+            <a href="https://www.youtube.com/watch?v=w28BhzY_aWA">Video DEMO on YouTube</a>
+          </strong>
+        </p>
     </div>
 </body>
 </html>
