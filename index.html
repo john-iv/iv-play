@@ -51,15 +51,40 @@
             line-height: 1.3;
             margin-top: 0.67em;
             margin-bottom: 0.67em;
+            color: #FFFFFF; /* bright white */
+            text-shadow: 0 0 6px #FFFFFF, 0 0 12px #66CCFF, 0 0 18px #1A1AFF;
         }
 
+        h2 {
+            font-size: 1.5em;
+            margin-top: 0.75em;
+            margin-bottom: 0.75em;
+            color: #3F51FF;
+            text-shadow: 0 0 6px #3F51FF, 0 0 12px #1A1AFF;
+        }
+
+        /* Global links (downloads, resources, etc.) */
         a {
-            color: #FFFF00;
+            color: #FFFF00; /* default yellow */
             text-decoration: none;
         }
 
-        a:visited {
-            color: #CCCC00;
+        a:hover,
+        a:active {
+            color: #66CCFF; /* cyan hover color */
+            text-shadow: 0 0 6px #66CCFF, 0 0 12px #1A1AFF;
+        }
+
+        /* Special case: keep H2 links blue like headings */
+        h2 a {
+            color: #3F51FF;
+            text-shadow: 0 0 6px #3F51FF, 0 0 12px #1A1AFF;
+        }
+
+        h2 a:hover,
+        h2 a:active {
+            color: #66CCFF;
+            text-shadow: 0 0 8px #66CCFF, 0 0 14px #1A1AFF;
         }
 
         img {
@@ -72,7 +97,7 @@
             padding-left: 40px;
             margin: 0.8em 0;
         }
-        
+
         ul.download-links li {
             margin: 0.8em 0;
         }
@@ -111,34 +136,16 @@
 
         <h2>About IV/Play</h2>
         <p>
-            A high‑performance, keyboard driven front-end for MAME.  Designed for today’s multi‑core, GPU‑powered PCs, its DirectX engine delivers smooth scrolling, instant artwork, and zero‑lag navigation. Browse, filter, and launch thousands of titles with fluid responsiveness on modern Windows systems.
+            A high‑performance, keyboard driven front-end for MAME. Designed for today’s multi‑core, GPU‑powered PCs, its DirectX engine delivers smooth scrolling, instant artwork, and zero‑lag navigation. Browse, filter, and launch thousands of titles with fluid responsiveness on modern Windows systems.
         </p>
 
         <h2>Downloads</h2>
         <ul class="download-links">
-            <li>
-                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.zip">
-                    IV/Play 2.1.1 (10/01/2025)
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf">
-                    User Guide (PDF)
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z">
-                    MAME Snapshots (.7z)
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z">
-                    MAME Icons (.7z)
-                </a>
-            </li>
-            <li class="highlight">
-                Art assets updated to MAME 0.281 as of 8:40 PM 09/26/2025
-            </li>
+            <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.zip">IV/Play 2.1.1 (10/01/2025)</a></li>
+            <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf">User Guide (PDF)</a></li>
+            <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z">MAME Snapshots (.7z)</a></li>
+            <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z">MAME Icons (.7z)</a></li>
+            <li class="highlight">Art assets updated to MAME 0.281 as of 8:40 PM 09/26/2025</li>
         </ul>
 
         <h2><a href="bench.html">MAME Benchmarks</a></h2>
@@ -151,9 +158,7 @@
             <li><a href="https://www.youtube.com/watch?v=w28BhzY_aWA">Video DEMO on YouTube</a></li>
         </ul>
 
-        <p>
-            Est. 08/11/1998 © john iv
-        </p>
+        <p>Est. 08/11/1998 © john iv</p>
     </div>
 </body>
 </html>
