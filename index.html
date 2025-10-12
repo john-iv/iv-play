@@ -32,7 +32,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>IV/Play – MAME™ Front-End, Icons, Snapshots & Benchmarks</title>
     <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
     <style>
         body {
@@ -49,6 +48,35 @@
         text-shadow: 0 0 6px #FFFFFF, 0 0 12px #66CCFF, 0 0 18px #1A1AFF;
         font-size: 1em; /* keep the same size as normal paragraph text */
     }
+
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 320px;              /* wider box */
+  background: #333;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  top: 50%;                  /* vertically align with link */
+  left: 105%;                /* push it to the right of the link */
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.9em;
+  line-height: 1.4;
+  white-space: normal;       /* allow wrapping */
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
 
         h1 {
             font-size: 1.9em;
@@ -148,15 +176,23 @@ Browse, filter, and launch thousands of titles with fluid responsiveness on mode
 
 <h2>Downloads</h2>
 <ul class="download-links">
-  <li>
-    <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.zip"
-       onclick="gtag('event', 'download', {
-         'event_category': 'Downloads',
-         'event_label': 'IV-Play 2.1.1 ZIP'
-       });">
-       IV/Play 2.1.1 (10/01/2025)
-    </a>
-  </li>
+<li>
+  <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.zip"
+     onclick="gtag('event', 'download', {
+       'event_category': 'Downloads',
+       'event_label': 'IV-Play 2.2.0 ZIP'
+     });"
+     class="tooltip">
+     IV/Play 2.2.0 (10/12/2025)
+     <span class="tooltiptext">
+       <strong>Version 2.2.0 (10/12/2025)</strong><br>
+       • Toggleable Game List Scrollbar<br>
+       • Version Info on Titlebar<br>
+       • Tilde DAT Peek Key Customizable<br>
+       • See User Guide for Full ChangeLog
+     </span>
+  </a>
+</li>
 
   <li>
     <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf"
