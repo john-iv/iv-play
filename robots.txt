@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://john-iv.github.io/iv-play/sitemap.xml
