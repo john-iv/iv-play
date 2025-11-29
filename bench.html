@@ -145,47 +145,7 @@
 
 
 <p><strong><a href="https://web.archive.org/web/20240626081105/http://www.mameui.info/Bench.htm"> Pre-2017 Historical Benchmarks </a></strong></p>
-<p><strong>Here's a simple cut-down batch file version to do the suite.</strong></p>
 
-<textarea readonly id="script-box">
-@echo off
-setlocal EnableDelayedExpansion
-
-:: CONFIGURATION
-set "MAME_DIR=C:\yourdirectoryhere\mame"
-set "OUT_FILE=%~dp0MAME_Bench_Report.txt"
-set "GAMES=blitz crusnusa cubeqst cyvern dkong drivedge gauntleg gnbarich gradius4 gtfore06 harddriv kidniki kof98 mario mk4 pacman pinkswts pong propcycl radikalb roadblst robotron rvschool scud sf2 sfa2 sfiii slrasslt spacfury starblad starsldr sushibar tekken tekken3 vf2 vfkids"
-
-:: PREP
-cd /d "%MAME_DIR%"
-if exist "%OUT_FILE%" del "%OUT_FILE%"
-
-echo Starting Benchmark (This will take time)...
-echo ================================================== >> "%OUT_FILE%"
-
-:: LOOP
-for %%G in (%GAMES%) do (
-    :: Pad string to 12 chars for alignment
-    set "GAME_NAME=%%G            "
-    set "GAME_NAME=!GAME_NAME:~0,12!"
-
-    :: Run MAME, capture only the "Average speed" line
-    set "RESULT="
-    for /f "delims=" %%L in ('mame.exe %%G -bench 90 -snapname bench 2^>^&1 ^| findstr /C:"Average speed"') do (
-        set "RESULT=%%L"
-    )
-
-    :: Output to console and file
-    echo !GAME_NAME! !RESULT!
-    echo !GAME_NAME! !RESULT! >> "%OUT_FILE%"
-)
-
-:: CLEANUP
-if exist "snap\bench.png" del "snap\bench.png"
-echo.
-echo Done. View results with: type "%OUT_FILE%"
-pause
-</textarea>
     <p class="highlight"><strong>Keywords</strong>: IV/Play, MAME, MAME32, MAME32QA, MAMEUI, MAMEUI64, MAMEUI.info, Benchmarking, Benchmarks, John IV</p>
 </body>
 </html>
