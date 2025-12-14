@@ -45,12 +45,24 @@
             padding: 0;
         }
 
-.container {
-    max-width: 1015px;
-    margin: 0;           /* no centering */
-    padding-left: 10px;  /* inner breathing room */
-    padding-right: 0;
-}
+        /* Title outside container but aligned visually */
+        h1.page-title {
+            padding-left: 10px;
+            margin-top: 0.67em;
+            margin-bottom: 0.67em;
+            font-size: 1.9em;
+            line-height: 1.3;
+            color: #FFFFFF;
+            text-shadow: 0 0 6px #FFFFFF, 0 0 12px #66CCFF, 0 0 18px #1A1AFF;
+        }
+
+        /* Main content block */
+        .container {
+            max-width: 1015px;
+            margin: 0;
+            padding-left: 10px;
+            padding-right: 0;
+        }
 
         .est-line {
             color: #FFFFFF;
@@ -84,15 +96,6 @@
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
-        }
-
-        h1 {
-            font-size: 1.9em;
-            line-height: 1.3;
-            margin-top: 0.67em;
-            margin-bottom: 0.67em;
-            color: #FFFFFF;
-            text-shadow: 0 0 6px #FFFFFF, 0 0 12px #66CCFF, 0 0 18px #1A1AFF;
         }
 
         h2 {
@@ -157,9 +160,11 @@
 </head>
 
 <body>
-    <div class="container">
 
-        <h1>IV/Play Homepage : MAME™ Front-End, Icons, Snapshots & Benchmarks</h1>
+    <!-- Title OUTSIDE container, aligned with padding -->
+    <h1 class="page-title">IV/Play Homepage : MAME™ Front-End, Icons, Snapshots & Benchmarks</h1>
+
+    <div class="container">
 
         <p>
             <img src="1.png" alt="IV/Play MAME front-end screenshot showing game list and artwork" width="1015">
