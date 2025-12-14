@@ -26,12 +26,13 @@
       "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, beautiful, snapshots, John IV"
     }
     </script>
-<meta charset="UTF-8">
-  <meta name="robots" content="index, follow">
+
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
     <meta name="description" content="Download IV/Play – a fast, keyboard-driven MAME™ front-end with icons, snapshots, and benchmark archives for research, preservation, and play.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://john-iv.github.io/iv-play/">
-<title>IV/Play – MAME™ Front-End, Icons, Snapshots & Benchmarks</title>
+    <link rel="canonical" href="https://john-iv.github.io/iv-play/">
+    <title>IV/Play – MAME™ Front-End, Icons, Snapshots & Benchmarks</title>
     <link rel="icon" href="favicon.ico" sizes="any">
 
     <style>
@@ -39,52 +40,58 @@
             color: #FFFF00;
             background: #000 url('bkground.png') fixed;
             font-family: "Courier New", Courier, monospace;
-            font-weight: bold; /* whole site bold */
+            font-weight: bold;
             margin: 0;
             padding: 0;
         }
 
-    .est-line {
-        color: #FFFFFF; /* bright white */
-        text-shadow: 0 0 6px #FFFFFF, 0 0 12px #66CCFF, 0 0 18px #1A1AFF;
-        font-size: 1em; /* keep the same size as normal paragraph text */
-    }
-
-.tooltip {
-  position: relative;
-  cursor: pointer;
-}
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 320px;              /* wider box */
-  background: #333;
-  color: #fff;
-  text-align: left;
-  padding: 10px;
-  border-radius: 4px;
-  position: absolute;
-  z-index: 1;
-  top: 50%;                  /* vertically align with link */
-  left: 105%;                /* push it to the right of the link */
-  transform: translateY(-50%);
-  opacity: 0;
-  transition: opacity 0.2s;
-  font-size: 0.9em;
-  line-height: 1.4;
-  white-space: normal;       /* allow wrapping */
-}
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+.container {
+    max-width: 1015px;
+    margin: 0;           /* no centering */
+    padding-left: 10px;  /* inner breathing room */
+    padding-right: 0;
 }
 
+        .est-line {
+            color: #FFFFFF;
+            text-shadow: 0 0 6px #FFFFFF, 0 0 12px #66CCFF, 0 0 18px #1A1AFF;
+            font-size: 1em;
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 320px;
+            background: #333;
+            color: #fff;
+            text-align: left;
+            padding: 10px;
+            border-radius: 4px;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 105%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 0.9em;
+            line-height: 1.4;
+            white-space: normal;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
 
         h1 {
             font-size: 1.9em;
             line-height: 1.3;
             margin-top: 0.67em;
             margin-bottom: 0.67em;
-            color: #FFFFFF; /* bright white */
+            color: #FFFFFF;
             text-shadow: 0 0 6px #FFFFFF, 0 0 12px #66CCFF, 0 0 18px #1A1AFF;
         }
 
@@ -96,24 +103,20 @@
             text-shadow: 0 0 6px #3F51FF, 0 0 12px #1A1AFF;
         }
 
-        /* Global links (downloads, resources, etc.) */
         a {
-            color: #FFFF00; /* default yellow */
+            color: #FFFF00;
             text-decoration: none;
         }
-
         a:hover,
         a:active {
-            color: #66CCFF; /* cyan hover color */
+            color: #66CCFF;
             text-shadow: 0 0 6px #66CCFF, 0 0 12px #1A1AFF;
         }
 
-        /* Special case: keep H2 links blue like headings */
         h2 a {
             color: #3F51FF;
             text-shadow: 0 0 6px #3F51FF, 0 0 12px #1A1AFF;
         }
-
         h2 a:hover,
         h2 a:active {
             color: #66CCFF;
@@ -130,7 +133,6 @@
             padding-left: 40px;
             margin: 0.8em 0;
         }
-
         ul.download-links li {
             margin: 0.8em 0;
         }
@@ -143,16 +145,11 @@
             margin: 0.8em 0;
         }
 
-        .container {
-            max-width: 1015px;
-        }
-
         .resources {
             list-style-type: none;
             padding-left: 40px;
             margin: 0.8em 0 2em 0;
         }
-
         .resources li {
             margin: 0.6em 0;
         }
@@ -160,8 +157,9 @@
 </head>
 
 <body>
-    <h1>IV/Play Homepage : MAME™ Front-End, Icons, Snapshots & Benchmarks</h1>
     <div class="container">
+
+        <h1>IV/Play Homepage : MAME™ Front-End, Icons, Snapshots & Benchmarks</h1>
 
         <p>
             <img src="1.png" alt="IV/Play MAME front-end screenshot showing game list and artwork" width="1015">
@@ -169,78 +167,78 @@
 
         <h2>About IV/Play</h2>
         <p>
-A high‑performance, keyboard driven front-end for 
-<a href="https://mamedev.org" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">MAME</a>. 
-Designed for today’s multi‑core, GPU‑powered PCs, its DirectX engine delivers smooth scrolling, instant artwork, and zero‑lag navigation. 
-Browse, filter, and launch thousands of titles with fluid responsiveness on modern Windows systems.
+            A high‑performance, keyboard driven front-end for 
+            <a href="https://mamedev.org" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">MAME</a>. 
+            Designed for today’s multi‑core, GPU‑powered PCs, its DirectX engine delivers smooth scrolling, instant artwork, and zero‑lag navigation. 
+            Browse, filter, and launch thousands of titles with fluid responsiveness on modern Windows systems.
         </p>
 
-<h2>Downloads</h2>
-<ul class="download-links">
-<li>
-  <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z"
-     onclick="gtag('event', 'download', {
-       'event_category': 'Downloads',
-       'event_label': 'IV-Play 2.4.9 7z'
-     });"
-     class="tooltip">
-     IV/Play 2.4.9 (.7z) (12/11/2025)
-     <span class="tooltiptext">
-       <strong>Version 2.4.9 (12/11/2025)</strong><br>
-       • Softlist Favorites<br>
-       • Softlist Filtering<br>
-       • Customizable Keys<br>
-       • The Arcade Game List<br>
-       • Zip and 7z Art Support<br>
-       • Multi Game Launches and Tiling<br>
-       • Single Game Benchmarking<br>
-       • History for Command Line Overrides<br>
-       • Tweaks and bugfixes for 2.4.9<br>
-       • See User Guide for Full ChangeLog
-     </span>
-  </a>
-</li>
+        <h2>Downloads</h2>
+        <ul class="download-links">
+            <li>
+                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z"
+                   onclick="gtag('event', 'download', {
+                     'event_category': 'Downloads',
+                     'event_label': 'IV-Play 2.4.9 7z'
+                   });"
+                   class="tooltip">
+                   IV/Play 2.4.9 (.7z) (12/11/2025)
+                   <span class="tooltiptext">
+                       <strong>Version 2.4.9 (12/11/2025)</strong><br>
+                       • Softlist Favorites<br>
+                       • Softlist Filtering<br>
+                       • Customizable Keys<br>
+                       • The Arcade Game List<br>
+                       • Zip and 7z Art Support<br>
+                       • Multi Game Launches and Tiling<br>
+                       • Single Game Benchmarking<br>
+                       • History for Command Line Overrides<br>
+                       • Tweaks and bugfixes for 2.4.9<br>
+                       • See User Guide for Full ChangeLog
+                   </span>
+                </a>
+            </li>
 
-<li>
-  User Guide (PDF) 
-  <a href="IV-Play.User.Guide.pdf" target="_blank"
-     style="color:#ff9966;"
-     onclick="gtag('event', 'download', {
-       'event_category': 'Downloads',
-       'event_label': 'User Guide View Online'
-     });">View Online</a> |
-  <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf" download
-     style="color:#ff9966;"
-     onclick="gtag('event', 'download', {
-       'event_category': 'Downloads',
-       'event_label': 'User Guide Download'
-     });">Download</a>
-</li>
+            <li>
+              User Guide (PDF) 
+              <a href="IV-Play.User.Guide.pdf" target="_blank"
+                 style="color:#ff9966;"
+                 onclick="gtag('event', 'download', {
+                   'event_category': 'Downloads',
+                   'event_label': 'User Guide View Online'
+                 });">View Online</a> |
+              <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf" download
+                 style="color:#ff9966;"
+                 onclick="gtag('event', 'download', {
+                   'event_category': 'Downloads',
+                   'event_label': 'User Guide Download'
+                 });">Download</a>
+            </li>
 
-  <li>
-    <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z"
-       onclick="gtag('event', 'download', {
-         'event_category': 'Downloads',
-         'event_label': 'MAME Snapshots 7z'
-       });">
-       MAME Snapshots (.7z)
-    </a>
-  </li>
+            <li>
+                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z"
+                   onclick="gtag('event', 'download', {
+                     'event_category': 'Downloads',
+                     'event_label': 'MAME Snapshots 7z'
+                   });">
+                   MAME Snapshots (.7z)
+                </a>
+            </li>
 
-  <li>
-    <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z"
-       onclick="gtag('event', 'download', {
-         'event_category': 'Downloads',
-         'event_label': 'MAME Icons 7z'
-       });">
-       MAME Icons (.7z)
-    </a>
-  </li>
+            <li>
+                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z"
+                   onclick="gtag('event', 'download', {
+                     'event_category': 'Downloads',
+                     'event_label': 'MAME Icons 7z'
+                   });">
+                   MAME Icons (.7z)
+                </a>
+            </li>
 
-  <li class="highlight">
-    Art assets updated to MAME 0.283 as of 04:18 PM 11/28/2025
-  </li>
-</ul>
+            <li class="highlight">
+                Art assets updated to MAME 0.283 as of 04:18 PM 11/28/2025
+            </li>
+        </ul>
 
         <h2><a href="bench.html">MAME Benchmarks</a></h2>
 
@@ -252,7 +250,8 @@ Browse, filter, and launch thousands of titles with fluid responsiveness on mode
             <li><a href="https://www.youtube.com/watch?v=w28BhzY_aWA">Video Demo</a></li>
         </ul>
 
-<p class="est-line">Est. 08/11/1998 © john iv</p>
+        <p class="est-line">Est. 08/11/1998 © john iv</p>
+
     </div>
 </body>
 </html>
