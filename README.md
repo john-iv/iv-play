@@ -1,6 +1,7 @@
 # IV/Play - A High-Performance MAME™ Frontend
 
-<img width="1504" height="639" alt="1" src="https://github.com/user-attachments/assets/3a03117c-5eff-4298-890b-fff48f6dd7d4" />
+<img width="1504" height="639" alt="1" src="https://github.com/user-attachments/assets/e35e7365-6dd6-4e75-ae01-a7d9c1e10fa9" />
+
 
 
 ## Overview
@@ -111,3 +112,4 @@ IV/Play is a portable application and does not require a formal installer.
 * Creator & Designer (2006-Present): John L. Hardy IV
 
 * Initial Development (2011-2016): Matan Bareket
+
