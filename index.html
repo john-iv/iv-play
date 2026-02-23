@@ -45,7 +45,6 @@
             padding: 0;
         }
 
-        /* Title outside container but aligned visually */
         h1.page-title {
             padding-left: 10px;
             margin-top: 0.67em;
@@ -56,7 +55,6 @@
             text-shadow: 0 0 6px #FFFFFF, 0 0 12px #66CCFF, 0 0 18px #1A1AFF;
         }
 
-        /* Main content block */
         .container {
             max-width: 1015px;
             margin: 0;
@@ -156,19 +154,59 @@
         .resources li {
             margin: 0.6em 0;
         }
+
+        /* Glow-on-hover for clickable preview image */
+        .click-glow {
+            transition: filter 0.25s ease, transform 0.25s ease;
+        }
+        .click-glow:hover {
+            filter: drop-shadow(0 0 10px #66CCFF)
+                    drop-shadow(0 0 20px #1A1AFF)
+                    brightness(1.15);
+            transform: scale(1.01);
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- Title OUTSIDE container, aligned with padding -->
     <h1 class="page-title">IV/Play Homepage : MAME™ Front-End, Icons, Snapshots & Benchmarks</h1>
 
     <div class="container">
 
-        <p>
-            <img src="1.png" alt="IV/Play MAME front-end screenshot showing game list and artwork" width="1015">
-        </p>
+        <!-- UPDATED: Clickable glowing image that swaps to local demo.mp4 -->
+        <div id="video-container" style="width:1015px; position:relative;">
+            <img id="preview-img"
+                 src="1.png"
+                 alt="IV/Play MAME front-end screenshot showing game list and artwork"
+                 class="click-glow"
+                 style="width:100%; display:block; cursor:pointer;"
+                 onclick="loadVideo()">
+        </div>
+
+<script>
+function loadVideo() {
+    const container = document.getElementById('video-container');
+
+    container.innerHTML = `
+        <video id="demoVideo" width="1015" height="571" controls autoplay>
+            <source src="https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>`;
+
+    const vid = document.getElementById('demoVideo');
+
+    vid.addEventListener('ended', () => {
+        container.innerHTML = `
+            <img id="preview-img"
+                 src="1.png"
+                 alt="IV/Play MAME front-end screenshot showing game list and artwork"
+                 class="click-glow"
+                 style="width:100%; display:block; cursor:pointer;"
+                 onclick="loadVideo()">`;
+    });
+}
+</script>
 
         <h2>About IV/Play</h2>
         <p>
