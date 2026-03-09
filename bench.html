@@ -8,52 +8,54 @@
         gtag('js', new Date());
         gtag('config', 'G-79ZPD1ETK2');
     </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "John IV's MAME Benchmarks: 2017 to Present",
-  "description": "Comprehensive benchmarking results for MAME from 2017 to today, with detailed performance comparisons, historical insights, and links to prior years.",
-  "keywords": [
-    "MAME",
-    "IV/Play",
-    "Benchmarks",
-    "Benchmarking",
-    "MAME32",
-    "MAMEUI",
-    "MAMEUI.INFO",
-    "Icons",
-    "Snaps",
-    "Snapshots",
-    "MAME32QA",
-    "John IV"
-  ],
-  "author": {
-    "@type": "Person",
-    "name": "John IV"
-  },
-  "mainEntity": {
-    "@type": "SoftwareApplication",
-    "name": "IV/Play",
-    "applicationCategory": "GameApplication",
-    "operatingSystem": "Windows 11",
-    "url": "https://github.com/john-iv/iv-play",
-    "softwareVersion": "2.2.0"
-  }
-}
-</script>
-<meta charset="UTF-8">
-  <meta name="robots" content="index, follow">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "John IV's MAME Benchmarks: 2017 to Present",
+      "description": "Comprehensive benchmarking results for MAME from 2017 to today, with detailed performance comparisons, historical insights, and links to prior years.",
+      "keywords": [
+        "MAME",
+        "IV/Play",
+        "Benchmarks",
+        "Benchmarking",
+        "MAME32",
+        "MAMEUI",
+        "MAMEUI.INFO",
+        "Icons",
+        "Snaps",
+        "Snapshots",
+        "MAME32QA",
+        "John IV"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "John IV"
+      },
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "IV/Play",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Windows 11",
+        "url": "https://github.com/john-iv/iv-play",
+        "softwareVersion": "2.4.16"
+      }
+    }
+    </script>
     <meta charset="UTF-8">
-    <meta name="description" content="Explore John IV’s MAME benchmarking results from 2017 to today, featuring detailed historical comparisons, charts, and links to prior years for research and preservation.">
-
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Explore John IV's MAME benchmarking results from 2017 to today, featuring detailed historical comparisons, charts, and links to prior years for research and preservation.">
     <meta http-equiv="content-language" content="en">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://john-iv.github.io/iv-play/bench.html">
+    <link rel="canonical" href="https://john-iv.github.io/iv-play/bench.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="John IV's MAME Benchmarks: 2017 to Present">
+    <meta property="og:description" content="Historical MAME benchmarking results from 2017 to today — i7-12700K, i7-6700K, geometric means, and performance trends across 25+ years of arcade emulation.">
+    <meta property="og:image" content="https://john-iv.github.io/iv-play/2026.png">
+    <meta property="og:url" content="https://john-iv.github.io/iv-play/bench.html">
     <title>John IV's MAME Benchmarks: 2017 to Present</title>
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-
 
     <style>
         body {
@@ -77,6 +79,7 @@
             height: auto;
             margin: 1em 0;
         }
+
         h1 {
             font-size: 1.9em;
             line-height: 1.3;
@@ -93,6 +96,7 @@
             color: #3F51FF;
             text-shadow: 0 0 6px #3F51FF, 0 0 12px #1A1AFF;
         }
+
         p {
             margin: 0.5em 0;
         }
@@ -100,16 +104,17 @@
         .highlight {
             color: #ff9966;
         }
-    #script-box {
-        width: 95%;
-        height: 600px; /* Adjust height as needed */
-        background-color: #1E1E1E; /* A slightly off-black looks good */
-        color: #FFFF00; /* Your existing text color */
-        font-family: "Courier New", Courier, monospace; /* Your existing font */
-        border: 1px solid #FFFF00; /* A border to define the area */
-        padding: 10px;
-        resize: vertical; /* Allows user to resize it vertically */
-    }
+
+        #script-box {
+            width: 95%;
+            height: 600px;
+            background-color: #1E1E1E;
+            color: #FFFF00;
+            font-family: "Courier New", Courier, monospace;
+            border: 1px solid #FFFF00;
+            padding: 10px;
+            resize: vertical;
+        }
     </style>
 </head>
 
@@ -117,23 +122,22 @@
     <p><a href="index.html">&lt;&lt; Back to Home Page</a></p>
     <h1>John IV's MAME Benchmarks</h1>
 
-<p><strong>I've been benchmarking MAME since I got involved with the project in 1997 while on the MAME and MAMEUI teams.</strong></p>
+    <p><strong>I've been benchmarking MAME since I got involved with the project in 1997 while on the MAME and MAMEUI teams.</strong></p>
 
-<p><strong>My current i7‑12700K @5.2GHz replaces my 2016 i7‑6700K OC'ed to 4.5GHz. The 12700K provides a six‑generation jump and a considerable performance uplift.</strong></p>
+    <p><strong>My current i7&#8209;12700K @5.2GHz replaces my 2016 i7&#8209;6700K OC'ed to 4.5GHz. The 12700K provides a six&#8209;generation jump and a considerable performance uplift.</strong></p>
 
-<p><strong>Each game is run for an emulated 90 seconds (<code>mame gamename -bench 90</code>) which normally gets to gameplay in its demos. Some need to be set up beforehand and/or use CHDs; see the legend. Games have been chosen as historical performance pain points for MAME (analogue sound, DRCs, netlists, etc.) as it's matured, and others are just favorites. The runs mainly function to show PC power progress over time, though they often expose performance dips and increases in released code. You'll typically want a bench result of over 200% to ensure full‑speed through actual gameplay.</strong></p>
+    <p><strong>Each game is run for an emulated 90 seconds (<code>mame gamename -bench 90</code>) which normally gets to gameplay in its demos. Some need to be set up beforehand and/or use CHDs; see the legend. Games have been chosen as historical performance pain points for MAME (analogue sound, DRCs, netlists, etc.) as it's matured, and others are just favorites. The runs mainly function to show PC power progress over time, though they often expose performance dips and increases in released code. You'll typically want a bench result of over 200% to ensure full&#8209;speed through actual gameplay.</strong></p>
 
-<p><strong>Numbered tests are run with the official builds from <a href="https://www.mamedev.org/" target="_blank">MAMEDEV.org</a>. The nightly runs are my own builds using a simple <code>make -j21 STRIP_SYMBOLS=1</code>. The results are percentages of “full speed” in the emulation.  The year's Delta Δ column results are the current release's speed vs. the prior release.</strong></p>
+    <p><strong>Numbered tests are run with the official builds from <a href="https://www.mamedev.org/" target="_blank">MAMEDEV.org</a>. The nightly runs are my own builds using a simple <code>make -j21 STRIP_SYMBOLS=1</code>. The results are percentages of "full speed" in the emulation.  The year's Delta &Delta; column results are the current release's speed vs. the prior release.</strong></p>
 
-<p><strong>My front-end IV/Play <a href="index.html">(see homepage)</a> now has the benchmark built in; hit F9 while in the game list or F1 and use the button to kick off the benchmark suite.</strong></p>
+    <p><strong>My front-end IV/Play <a href="index.html">(see homepage)</a> now has the benchmark built in; hit F9 while in the game list or F1 and use the button to kick off the benchmark suite.</strong></p>
 
-<p class="highlight"><strong>A note on the various averaging methods. Previously I had just done arithmetic means; those are retained for historical comparisons. A more valid comparison nowadays is the geometric mean. This method prevents a single game with a massive percentage gain from skewing the results (pacman, robotron), giving a more accurate and realistic measure of the typical performance improvement across all games on the PCs under test.</strong></p>
-
+    <p class="highlight"><strong>A note on the various averaging methods. Previously I had just done arithmetic means; those are retained for historical comparisons. A more valid comparison nowadays is the geometric mean. This method prevents a single game with a massive percentage gain from skewing the results (pacman, robotron), giving a more accurate and realistic measure of the typical performance improvement across all games on the PCs under test.</strong></p>
 
     <!-- Benchmark images -->
-    <p><a href="2026.png"><img src="2026.png" alt="MAME Benchmarks 2026"></a></p>    
-<h2>Historical MAME Benchmark Results (2017 to Prior Year)</h2>
-    <p><a href="2025.png"><img src="2025.png" alt="MAME Benchmarks 2025"></a></p>    
+    <p><a href="2026.png"><img src="2026.png" alt="MAME Benchmarks 2026"></a></p>
+    <h2>Historical MAME Benchmark Results (2017 to Prior Year)</h2>
+    <p><a href="2025.png"><img src="2025.png" alt="MAME Benchmarks 2025"></a></p>
     <p><a href="2024.png"><img src="2024.png" alt="MAME Benchmarks 2024"></a></p>
     <p><a href="2023.png"><img src="2023.png" alt="MAME Benchmarks 2023"></a></p>
     <p><a href="2022.png"><img src="2022.png" alt="MAME Benchmarks 2022"></a></p>
@@ -143,9 +147,7 @@
     <p><a href="2018.png"><img src="2018.png" alt="MAME Benchmarks 2018"></a></p>
     <p><a href="2017.png"><img src="2017.png" alt="MAME Benchmarks 2017"></a></p>
 
-
-
-<p><strong><a href="https://web.archive.org/web/20240626081105/http://www.mameui.info/Bench.htm"> Pre-2017 Historical Benchmarks </a></strong></p>
+    <p><strong><a href="https://web.archive.org/web/20240626081105/http://www.mameui.info/Bench.htm"> Pre-2017 Historical Benchmarks </a></strong></p>
 
     <p class="highlight"><strong>Keywords</strong>: IV/Play, MAME, MAME32, MAME32QA, MAMEUI, MAMEUI64, MAMEUI.info, Benchmarking, Benchmarks, John IV</p>
 </body>

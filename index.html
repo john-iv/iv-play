@@ -10,21 +10,36 @@
     </script>
 
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "IV/Play",
-      "applicationCategory": "GameApplication",
-      "operatingSystem": "Windows 11",
-      "description": "A high-performance, graphical front-end for the MAME (Multiple Arcade Machine Emulator) platform.",
-      "author": {
-        "@type": "Person",
-        "name": "John IV"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "IV/Play",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Windows 11",
+        "description": "A high-performance, graphical front-end for the MAME (Multiple Arcade Machine Emulator) platform.",
+        "author": {
+          "@type": "Person",
+          "name": "John IV"
+        },
+        "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z",
+        "softwareVersion": "2.4.16",
+        "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, beautiful, snapshots, John IV"
       },
-      "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z",
-      "softwareVersion": "2.4.12",
-      "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, beautiful, snapshots, John IV"
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "IV/Play MAME Front-End Demo",
+        "description": "Demonstration of IV/Play, a high-performance keyboard-driven front-end for MAME, showing game browsing, artwork display, and navigation features.",
+        "thumbnailUrl": "https://john-iv.github.io/iv-play/1.png",
+        "contentUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4",
+        "uploadDate": "2026-02-25",
+        "author": {
+          "@type": "Person",
+          "name": "John IV"
+        }
+      }
+    ]
     </script>
 
     <meta charset="UTF-8">
@@ -32,7 +47,12 @@
     <meta name="description" content="Download IV/Play – a fast, keyboard-driven MAME™ front-end with icons, snapshots, and benchmark archives for research, preservation, and play.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="https://john-iv.github.io/iv-play/">
-    <title>IV/Play – MAME™ Front-End, Icons, Snapshots & Benchmarks</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="IV/Play : MAME™ Front-End, Icons, Snapshots & Benchmarks">
+    <meta property="og:description" content="High-performance, keyboard-driven MAME front-end with icons, snapshots, and benchmarks spanning 1997 to present. Download IV/Play 2.4.16.">
+    <meta property="og:image" content="https://john-iv.github.io/iv-play/1.png">
+    <meta property="og:url" content="https://john-iv.github.io/iv-play/">
+    <title>IV/Play : MAME™ Front-End, Icons, Snapshots & Benchmarks</title>
     <link rel="icon" href="favicon.ico" sizes="any">
 
     <style>
@@ -174,7 +194,7 @@
 
     <div class="container">
 
-        <!-- UPDATED: Clickable glowing image that swaps to local demo.mp4 -->
+        <!-- Clickable glowing image that swaps to demo.mp4 on click -->
         <div id="video-container" style="width:1015px; position:relative;">
             <img id="preview-img"
                  src="1.png"
@@ -184,35 +204,35 @@
                  onclick="loadVideo()">
         </div>
 
-<script>
-function loadVideo() {
-    const container = document.getElementById('video-container');
+        <script>
+        function loadVideo() {
+            const container = document.getElementById('video-container');
 
-    container.innerHTML = `
-        <video id="demoVideo" width="1015" height="571" controls autoplay>
-            <source src="https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>`;
+            container.innerHTML = `
+                <video id="demoVideo" width="1015" height="571" controls autoplay>
+                    <source src="https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>`;
 
-    const vid = document.getElementById('demoVideo');
+            const vid = document.getElementById('demoVideo');
 
-    vid.addEventListener('ended', () => {
-        container.innerHTML = `
-            <img id="preview-img"
-                 src="1.png"
-                 alt="IV/Play MAME front-end screenshot showing game list and artwork"
-                 class="click-glow"
-                 style="width:100%; display:block; cursor:pointer;"
-                 onclick="loadVideo()">`;
-    });
-}
-</script>
+            vid.addEventListener('ended', () => {
+                container.innerHTML = `
+                    <img id="preview-img"
+                         src="1.png"
+                         alt="IV/Play MAME front-end screenshot showing game list and artwork"
+                         class="click-glow"
+                         style="width:100%; display:block; cursor:pointer;"
+                         onclick="loadVideo()">`;
+            });
+        }
+        </script>
 
         <h2>About IV/Play</h2>
         <p>
-            A high‑performance, keyboard driven front-end for 
-            <a href="https://mamedev.org" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">MAME</a>. 
-            Designed for today’s multi‑core, GPU‑powered PCs, its DirectX engine delivers smooth scrolling, instant artwork, and zero‑lag navigation. 
+            A high&#8209;performance, keyboard driven front-end for
+            <a href="https://mamedev.org" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">MAME</a>.
+            Designed for today's multi&#8209;core, GPU&#8209;powered PCs, its DirectX engine delivers smooth scrolling, instant artwork, and zero&#8209;lag navigation.
             Browse, filter, and launch thousands of titles with fluid responsiveness on modern Windows systems.
         </p>
 
@@ -228,19 +248,19 @@ function loadVideo() {
                    IV/Play 2.4.16 (.7z) (2/25/2026)
                    <span class="tooltiptext">
                        <strong>Version 2.4.16 (2/25/2026)</strong><br>
-                       • Filter sorting fixes<br>
-                       • Properties / Status Section Updates<br>
-                       • Toggle for Softlist Machines<br>
-                       • Softlist Media Type Search<br>
-                       • Filter autocomplete 'ghost text'<br>
-                       • Tweaks and bugfixes for 2.4.16<br>
-                       • See User Guide for Full ChangeLog
+                       &bull; Filter sorting fixes<br>
+                       &bull; Properties / Status Section Updates<br>
+                       &bull; Toggle for Softlist Machines<br>
+                       &bull; Softlist Media Type Search<br>
+                       &bull; Filter autocomplete 'ghost text'<br>
+                       &bull; Tweaks and bugfixes for 2.4.16<br>
+                       &bull; See User Guide for Full ChangeLog
                    </span>
                 </a>
             </li>
 
             <li>
-              User Guide (PDF) 
+              User Guide (PDF)
               <a href="IV-Play.User.Guide.pdf" target="_blank"
                  style="color:#ff9966;"
                  onclick="gtag('event', 'download', {
@@ -290,7 +310,7 @@ function loadVideo() {
             <li><a href="https://www.youtube.com/channel/UCyXeXSM_U5P09u8-EppuOoA">Video Tutorials (9 New Videos Added 2/21/2026)</a></li>
         </ul>
 
-        <p class="est-line">Est. 8/11/1998 © john iv</p>
+        <p class="est-line">Est. 8/11/1998 &copy; john iv</p>
 
     </div>
 </body>
