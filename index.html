@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-79ZPD1ETK2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -66,6 +67,7 @@
             padding: 0;
         }
 
+        /* NEW FIXED FRAME */
         #frame {
             width: 1200px;
             height: 1100px;
@@ -143,9 +145,45 @@
             text-shadow: 0 0 6px #66CCFF, 0 0 12px #1A1AFF;
         }
 
+        h2 a {
+            color: #3F51FF;
+            text-shadow: 0 0 6px #3F51FF, 0 0 12px #1A1AFF;
+        }
+        h2 a:hover,
+        h2 a:active {
+            color: #66CCFF;
+            text-shadow: 0 0 8px #66CCFF, 0 0 14px #1A1AFF;
+        }
+
         img {
             border: 0;
             display: block;
+        }
+
+        ul.download-links {
+            list-style-type: none;
+            padding-left: 40px;
+            margin: 0.8em 0;
+        }
+        ul.download-links li {
+            margin: 0.8em 0;
+        }
+
+        .highlight {
+            color: #ff9966;
+        }
+
+        p {
+            margin: 0.8em 0;
+        }
+
+        .resources {
+            list-style-type: none;
+            padding-left: 40px;
+            margin: 0.8em 0 2em 0;
+        }
+        .resources li {
+            margin: 0.6em 0;
         }
 
         .click-glow {
@@ -168,7 +206,7 @@
 
     <div class="container">
 
-        <!-- CLICK-TO-PLAY WITH RETURN BUTTON -->
+        <!-- ONLY THIS BLOCK IS MODIFIED -->
         <div id="video-container" style="width:1015px; position:relative;">
             <img id="preview-img"
                  src="1.png"
@@ -217,6 +255,7 @@
                      onclick="loadPlaylist()">`;
         }
         </script>
+        <!-- END OF MODIFIED BLOCK -->
 
         <h2>About IV/Play</h2>
         <p>
