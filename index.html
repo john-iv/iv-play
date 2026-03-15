@@ -33,7 +33,7 @@
         "@type": "VideoObject",
         "name": "IV/Play MAME Front-End Demo",
         "description": "Demonstration of IV/Play, a high-performance keyboard-driven front-end for MAME, showing game browsing, artwork display, and navigation features.",
-        "thumbnailUrl": "https://john-iv.github.io/iv-play/1.png",
+        "thumbnailUrl": "https://john-iv.github.io/iv-play/a.png",
         "contentUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4",
         "uploadDate": "2026-02-25",
         "author": {
@@ -52,7 +52,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="IV/Play : MAME™ Front-End, Icons, Snapshots & Benchmarks">
     <meta property="og:description" content="High-performance, keyboard-driven MAME front-end with icons, snapshots, and benchmarks spanning 1997 to present. Download IV/Play 2.4.16.">
-    <meta property="og:image" content="https://john-iv.github.io/iv-play/1.png">
+    <meta property="og:image" content="https://john-iv.github.io/iv-play/a.png">
     <meta property="og:url" content="https://john-iv.github.io/iv-play/">
     <title>IV/Play : MAME™ Front-End, Icons, Snapshots & Benchmarks</title>
     <link rel="icon" href="favicon.ico" sizes="any">
@@ -70,7 +70,7 @@
         #frame {
             width: 1200px;
             height: 1100px;
-            background: #000 url('bkground.png') no-repeat top left;
+background: #000 no-repeat top left;
             position: relative;
             overflow: hidden;
         }
@@ -201,6 +201,16 @@
 
 <div id="frame">
 
+<script>
+(function() {
+    const n = Math.floor(Math.random() * 20) + 1;
+    const frame = document.getElementById('frame');
+    const img = new Image();
+    img.src = `${n}.png`;
+    img.onload = () => frame.style.backgroundImage = `url('${n}.png')`;
+})();
+</script>
+
     <h1 class="page-title">IV/Play Homepage : MAME™ Front-End, Icons, Snapshots & Benchmarks</h1>
 
     <div class="container">
@@ -208,7 +218,7 @@
         <!-- FIXED VIDEO BLOCK (NO RETURN BUTTON, NO LAYOUT SHIFT) -->
         <div id="video-container" style="width:1015px; position:relative;">
             <img id="preview-img"
-                 src="1.png"
+                 src="a.png"
                  alt="IV/Play MAME front-end screenshot showing game list and artwork"
                  class="click-glow"
                  style="width:100%; display:block; cursor:pointer;"
