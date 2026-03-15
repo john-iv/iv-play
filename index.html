@@ -66,7 +66,6 @@
             padding: 0;
         }
 
-        /* NEW FIXED FRAME */
         #frame {
             width: 1200px;
             height: 1100px;
@@ -144,45 +143,9 @@
             text-shadow: 0 0 6px #66CCFF, 0 0 12px #1A1AFF;
         }
 
-        h2 a {
-            color: #3F51FF;
-            text-shadow: 0 0 6px #3F51FF, 0 0 12px #1A1AFF;
-        }
-        h2 a:hover,
-        h2 a:active {
-            color: #66CCFF;
-            text-shadow: 0 0 8px #66CCFF, 0 0 14px #1A1AFF;
-        }
-
         img {
             border: 0;
             display: block;
-        }
-
-        ul.download-links {
-            list-style-type: none;
-            padding-left: 40px;
-            margin: 0.8em 0;
-        }
-        ul.download-links li {
-            margin: 0.8em 0;
-        }
-
-        .highlight {
-            color: #ff9966;
-        }
-
-        p {
-            margin: 0.8em 0;
-        }
-
-        .resources {
-            list-style-type: none;
-            padding-left: 40px;
-            margin: 0.8em 0 2em 0;
-        }
-        .resources li {
-            margin: 0.6em 0;
         }
 
         .click-glow {
@@ -205,7 +168,7 @@
 
     <div class="container">
 
-        <!-- CLICK-TO-PLAY YOUTUBE PLAYLIST WITH DYNAMIC SIZE -->
+        <!-- CLICK-TO-PLAY WITH RETURN BUTTON -->
         <div id="video-container" style="width:1015px; position:relative;">
             <img id="preview-img"
                  src="1.png"
@@ -224,6 +187,12 @@
             const h = preview.clientHeight;
 
             container.innerHTML = `
+                <div style="margin-bottom:6px;">
+                    <button onclick="restorePreview()" 
+                            style="background:#111; color:#fff; border:1px solid #66CCFF; padding:4px 10px; cursor:pointer;">
+                        ⬅ Return to Preview
+                    </button>
+                </div>
                 <iframe
                     width="${w}"
                     height="${h}"
@@ -235,6 +204,17 @@
                     allowfullscreen
                     style="width:${w}px !important; height:${h}px !important;">
                 </iframe>`;
+        }
+
+        function restorePreview() {
+            const container = document.getElementById('video-container');
+            container.innerHTML = `
+                <img id="preview-img"
+                     src="1.png"
+                     alt="IV/Play MAME front-end screenshot showing game list and artwork"
+                     class="click-glow"
+                     style="width:100%; display:block; cursor:pointer;"
+                     onclick="loadPlaylist()">`;
         }
         </script>
 
