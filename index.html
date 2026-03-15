@@ -67,7 +67,6 @@
             padding: 0;
         }
 
-        /* NEW FIXED FRAME */
         #frame {
             width: 1200px;
             height: 1100px;
@@ -206,7 +205,7 @@
 
     <div class="container">
 
-        <!-- FIXED VIDEO BLOCK (ONLY CHANGE) -->
+        <!-- FIXED VIDEO BLOCK (NO RETURN BUTTON, NO LAYOUT SHIFT) -->
         <div id="video-container" style="width:1015px; position:relative;">
             <img id="preview-img"
                  src="1.png"
@@ -225,17 +224,6 @@
             const h = preview.clientHeight;
 
             container.innerHTML = `
-                <div style="
-                    position:absolute;
-                    top:6px;
-                    left:6px;
-                    z-index:10;
-                ">
-                    <button onclick="restorePreview()" 
-                            style="background:#111; color:#fff; border:1px solid #66CCFF; padding:4px 10px; cursor:pointer;">
-                        ⬅ Return to Preview
-                    </button>
-                </div>
                 <iframe
                     width="${w}"
                     height="${h}"
@@ -247,17 +235,6 @@
                     allowfullscreen
                     style="width:${w}px !important; height:${h}px !important;">
                 </iframe>`;
-        }
-
-        function restorePreview() {
-            const container = document.getElementById('video-container');
-            container.innerHTML = `
-                <img id="preview-img"
-                     src="1.png"
-                     alt="IV/Play MAME front-end screenshot showing game list and artwork"
-                     class="click-glow"
-                     style="width:100%; display:block; cursor:pointer;"
-                     onclick="loadPlaylist()">`;
         }
         </script>
         <!-- END FIXED VIDEO BLOCK -->
