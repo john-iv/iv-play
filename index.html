@@ -205,7 +205,7 @@
 
     <div class="container">
 
-        <!-- CLICK-TO-PLAY YOUTUBE PLAYLIST -->
+        <!-- CLICK-TO-PLAY YOUTUBE PLAYLIST WITH DYNAMIC SIZE -->
         <div id="video-container" style="width:1015px; position:relative;">
             <img id="preview-img"
                  src="1.png"
@@ -218,17 +218,22 @@
         <script>
         function loadPlaylist() {
             const container = document.getElementById('video-container');
+            const preview = document.getElementById('preview-img');
+
+            const w = preview.clientWidth;
+            const h = preview.clientHeight;
 
             container.innerHTML = `
                 <iframe
-                    width="1015"
-                    height="571"
+                    width="${w}"
+                    height="${h}"
                     src="https://www.youtube.com/embed/videoseries?list=PLnNsN2lu4_jT__2YB_JrczsONjyqw2Vmx&autoplay=1"
                     title="IV/Play Video Tutorials"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen>
+                    allowfullscreen
+                    style="width:${w}px !important; height:${h}px !important;">
                 </iframe>`;
         }
         </script>
