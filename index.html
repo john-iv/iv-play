@@ -58,11 +58,20 @@
     <style>
         body {
             color: #FFFF00;
-            background: #000 url('bkground.png') fixed;
+            background: #000;
             font-family: "Courier New", Courier, monospace;
             font-weight: bold;
             margin: 0;
             padding: 0;
+        }
+
+        /* NEW FIXED FRAME */
+        #frame {
+            width: 1200px;
+            height: 1100px;
+            background: #000 url('bkground.png') no-repeat top left;
+            position: relative;
+            overflow: hidden;
         }
 
         h1.page-title {
@@ -175,7 +184,6 @@
             margin: 0.6em 0;
         }
 
-        /* Glow-on-hover for clickable preview image */
         .click-glow {
             transition: filter 0.25s ease, transform 0.25s ease;
         }
@@ -190,11 +198,12 @@
 
 <body>
 
+<div id="frame">
+
     <h1 class="page-title">IV/Play Homepage : MAME™ Front-End, Icons, Snapshots & Benchmarks</h1>
 
     <div class="container">
 
-        <!-- Clickable glowing image that swaps to demo.mp4 on click -->
         <div id="video-container" style="width:1015px; position:relative;">
             <img id="preview-img"
                  src="1.png"
@@ -248,13 +257,13 @@
                    IV/Play 2.4.16 (.7z) (2/25/2026)
                    <span class="tooltiptext">
                        <strong>Version 2.4.16 (2/25/2026)</strong><br>
-                       &bull; Filter sorting fixes<br>
-                       &bull; Properties / Status Section Updates<br>
-                       &bull; Toggle for Softlist Machines<br>
-                       &bull; Softlist Media Type Search<br>
-                       &bull; Filter autocomplete 'ghost text'<br>
-                       &bull; Tweaks and bugfixes for 2.4.16<br>
-                       &bull; See User Guide for Full ChangeLog
+                       • Filter sorting fixes<br>
+                       • Properties / Status Section Updates<br>
+                       • Toggle for Softlist Machines<br>
+                       • Softlist Media Type Search<br>
+                       • Filter autocomplete 'ghost text'<br>
+                       • Tweaks and bugfixes for 2.4.16<br>
+                       • See User Guide for Full ChangeLog
                    </span>
                 </a>
             </li>
@@ -310,8 +319,10 @@
             <li><a href="https://www.youtube.com/channel/UCyXeXSM_U5P09u8-EppuOoA">Video Tutorials (9 New Videos Added 2/21/2026)</a></li>
         </ul>
 
-        <p class="est-line">Est. 8/11/1998 &copy; john iv</p>
+        <p class="est-line">Est. 8/11/1998 © john iv</p>
 
     </div>
+</div>
+
 </body>
 </html>
