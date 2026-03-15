@@ -206,7 +206,7 @@
 
     <div class="container">
 
-        <!-- ONLY THIS BLOCK IS MODIFIED -->
+        <!-- FIXED VIDEO BLOCK (ONLY CHANGE) -->
         <div id="video-container" style="width:1015px; position:relative;">
             <img id="preview-img"
                  src="1.png"
@@ -225,7 +225,12 @@
             const h = preview.clientHeight;
 
             container.innerHTML = `
-                <div style="margin-bottom:6px;">
+                <div style="
+                    position:absolute;
+                    top:6px;
+                    left:6px;
+                    z-index:10;
+                ">
                     <button onclick="restorePreview()" 
                             style="background:#111; color:#fff; border:1px solid #66CCFF; padding:4px 10px; cursor:pointer;">
                         ⬅ Return to Preview
@@ -255,7 +260,7 @@
                      onclick="loadPlaylist()">`;
         }
         </script>
-        <!-- END OF MODIFIED BLOCK -->
+        <!-- END FIXED VIDEO BLOCK -->
 
         <h2>About IV/Play</h2>
         <p>
