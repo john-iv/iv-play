@@ -70,7 +70,7 @@
         #frame {
             width: 1200px;
             height: 1100px;
-	    background: #000 url('3.png') no-repeat top left;
+            background: #000 no-repeat top left;
             position: relative;
             overflow: visible;
         }
@@ -327,11 +327,27 @@
 </div>
 <script>
 (function() {
-    const n = Math.floor(Math.random() * 20) + 1;
-    const frame = document.getElementById('frame');
-    const img = new Image();
-    img.src = `${n}.png`;
-    img.onload = () => frame.style.backgroundImage = `url('${n}.png')`;
+    const frame = document.getElementById("frame");
+    const maxImages = 20;
+    const tried = new Set();
+
+    function loadRandomBackground() {
+        if (tried.size >= maxImages) {
+            frame.style.backgroundImage = "url('3.png')";
+            return;
+        }
+        let n;
+        do { n = Math.floor(Math.random() * maxImages) + 1; }
+        while (tried.has(n));
+        tried.add(n);
+
+        const img = new Image();
+        img.onload  = () => { frame.style.backgroundImage = `url('${n}.png')`; };
+        img.onerror = () => { loadRandomBackground(); };
+        img.src = `${n}.png`;
+    }
+
+    loadRandomBackground();
 })();
 </script>
 </body>
