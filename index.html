@@ -328,26 +328,42 @@
 <script>
 (function() {
     const frame = document.getElementById("frame");
-    const maxImages = 20;
-    const tried = new Set();
 
-    function loadRandomBackground() {
-        if (tried.size >= maxImages) {
-            frame.style.backgroundImage = "url('3.png')";
-            return;
-        }
-        let n;
-        do { n = Math.floor(Math.random() * maxImages) + 1; }
-        while (tried.has(n));
-        tried.add(n);
-
+    // Probe sequentially from 1.png upward until one is missing,
+    // then build and shuffle a deck from the confirmed count.
+    function probeCount(n, onComplete) {
         const img = new Image();
-        img.onload  = () => { frame.style.backgroundImage = `url('${n}.png')`; };
-        img.onerror = () => { loadRandomBackground(); };
+        img.onload  = () => probeCount(n + 1, onComplete);
+        img.onerror = () => onComplete(n - 1);
         img.src = `${n}.png`;
     }
 
-    loadRandomBackground();
+    function shuffle(arr) {
+        return arr.sort(() => Math.random() - 0.5);
+    }
+
+    function getNext(total) {
+        let deck = JSON.parse(localStorage.getItem('bgDeck') || '[]');
+        // Discard saved deck if it references images beyond the current count
+        if (deck.length === 0 || Math.max(...deck) > total) {
+            deck = shuffle(Array.from({length: total}, (_, i) => i + 1));
+        }
+        const n = deck.pop();
+        localStorage.setItem('bgDeck', JSON.stringify(deck));
+        return n;
+    }
+
+    function loadBackground(n, total) {
+        const img = new Image();
+        img.onload  = () => { frame.style.backgroundImage = `url('${n}.png')`; };
+        img.onerror = () => { loadBackground(getNext(total), total); };
+        img.src = `${n}.png`;
+    }
+
+    probeCount(1, function(total) {
+        if (total < 1) return; // No images found at all
+        loadBackground(getNext(total), total);
+    });
 })();
 </script>
 </body>
