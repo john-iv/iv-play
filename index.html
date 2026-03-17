@@ -329,22 +329,17 @@
 (function() {
     const frame = document.getElementById("frame");
 
-    // Probe sequentially from 1.png upward until one is missing,
-    // then build and shuffle a deck from the confirmed count.
-    function probeCount(n, onComplete) {
-        const img = new Image();
-        img.onload  = () => probeCount(n + 1, onComplete);
-        img.onerror = () => onComplete(n - 1);
-        img.src = `${n}.png`;
-    }
-
+    // Fisher-Yates: unbiased shuffle, unlike sort(() => Math.random() - 0.5)
     function shuffle(arr) {
-        return arr.sort(() => Math.random() - 0.5);
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
     }
 
     function getNext(total) {
         let deck = JSON.parse(localStorage.getItem('bgDeck') || '[]');
-        // Discard saved deck if it references images beyond the current count
         if (deck.length === 0 || Math.max(...deck) > total) {
             deck = shuffle(Array.from({length: total}, (_, i) => i + 1));
         }
@@ -360,10 +355,36 @@
         img.src = `${n}.png`;
     }
 
-    probeCount(1, function(total) {
-        if (total < 1) return; // No images found at all
-        loadBackground(getNext(total), total);
-    });
+    // Probe sequentially from 1.png upward; cache the count so subsequent
+    // loads only check for newly added images rather than re-probing from 1.
+    function probeFrom(n, onComplete) {
+        const img = new Image();
+        img.onload  = () => probeFrom(n + 1, onComplete);
+        img.onerror = () => {
+            const total = n - 1;
+            if (total > 0) localStorage.setItem('bgCount', total);
+            onComplete(total);
+        };
+        img.src = `${n}.png`;
+    }
+
+    const cached = parseInt(localStorage.getItem('bgCount') || '0', 10);
+    if (cached > 0) {
+        // Quick-check: does the next image beyond the cached count exist?
+        // If yes, probe forward from there to catch newly added images.
+        // If no, use the cached count immediately — zero extra requests.
+        const check = new Image();
+        check.onload  = () => probeFrom(cached + 2, function(total) {
+            loadBackground(getNext(total), total);
+        });
+        check.onerror = () => loadBackground(getNext(cached), cached);
+        check.src = `${cached + 1}.png`;
+    } else {
+        probeFrom(1, function(total) {
+            if (total < 1) return;
+            loadBackground(getNext(total), total);
+        });
+    }
 })();
 </script>
 </body>
