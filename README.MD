@@ -126,5 +126,4 @@ IV/Play is a portable application and does not require a formal installer.
 ## Credits
 
 * Creator & Designer (2006-Present): John L. Hardy IV
-
-* Initial Development (2011-2016): Matan Bareket
+* Legacy v1 Codebase (2011–2016): Matan Bareket
