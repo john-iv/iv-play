@@ -22,7 +22,7 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
 * **Optimized Warm Start**: The application renders a fully populated, interactive UI in under one second by querying a flattened summary table via raw ADO.NET and applying filters in memory. Heavier assets like the icon atlas load on a background thread after the UI is already interactive.
 * **SQLite Backend**: The data layer uses a robust SQLite database. Schema creation and cold-start writes use Entity Framework Core; all warm-start reads bypass EF Core entirely in favor of raw ADO.NET for maximum throughput.
 * **Multi-Layered Caching**: To minimize disk I/O and maximize speed, IV/Play uses several caching strategies:
-    * **Icon Atlas Cache**: All game icons are combined into a single binary atlas loaded into GPU memory at startup.
+    * **Icon Atlas Cache**: All game icons are combined into a single raw binary atlas loaded into GPU memory at startup, eliminating the overhead of individual file reads.
     * **DAT File Cache**: `history.xml`, `mameinfo.dat`, and `catlist.ini` are parsed once and stored in optimized binary caches; subsequent launches load them in milliseconds.
     * **In-Memory Art Cache**: An LRU (Least Recently Used) cache keeps frequently viewed artwork like snapshots and flyers in RAM.
     * **Archive Support**: Supports reading artwork and icons directly from `.zip` and `.7z` archives (non-solid archives only) to reduce file system clutter.
@@ -32,10 +32,11 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
 * **High DPI Support**: The application is fully DPI-aware and scales its UI elements correctly on high-resolution monitors like 1440p and 4K without compatibility hacks. Multi-monitor setups with different DPI values are handled correctly when dragging between screens.
 * **Dynamic Color Themes**: Beyond static themes, IV/Play includes dynamic engines (Brightness Ladder, Saturation Gradient, Dual Contrast, Analogous Palette, Miami Pastels) that automatically calculate UI text, border, and scrollbar colors based on the dominant color and brightness of your background image.
 * **Multiple Views**: Cycle through multiple view modes — classic list, large icon list, grid, and flat view — using **`Alt+P`** or **`Tab`**. Cycle through various icon sizing presets with **`Alt+I`**.
-* **Flat View**: A new non-indented view mode decouples clones from their parents and enables global sorting by description, machine name, manufacturer, or year via **`Alt+S`**.
-* **Machine Status Icon Borders**: Icon borders optionally reflect each machine's MAME driver status — green for working, orange for imperfect, red for not working — providing at-a-glance emulation health information. Extends to softlist media items.
+* **Flat View**: A non-indented view mode that decouples clones from their parents and enables global sorting by description, machine name, manufacturer, or year via **`Alt+S`**.
+* **Machine Status Icon Borders**: Icon borders optionally reflect each machine's MAME driver status — green for working, orange for imperfect, red for not working. The imperfect border defaults to a background-derived theme color to complement the dynamic theme system; this can be overridden with a fixed RGB in F1. Extends to softlist media items.
+* **Properties View**: **`Alt+Enter`** opens a detailed properties panel for the selected game, surfacing driver status, graphics and sound emulation quality, genre, MAME first-appearance version, machine type, cocktail mode, bad/no-dump flags, CPU, sound hardware, and softlist information. All fields are selectable and copyable.
 * **Aspect Ratio Sizing**: Hold **`Ctrl`** while resizing the window to maintain the classic 2.35:1 "TohoScope" aspect ratio.
-* **Customizable Artwork**: The art area supports unlimited user-defined art types, configurable borders, transparency, nearest-neighbor scaling, and a simulated scanline effect.
+* **Customizable Artwork**: The art area supports unlimited user-defined art types, configurable borders, transparency, and nearest-neighbor scaling. A simulated scanline effect can be applied to snapshots; it is suppressed automatically on vector games and non-MAME-generated art types such as flyers, marquees, and PCBs.
 * **Clone Counts**: Optionally display the number of clones on parent entries and the parent name on clone entries, surfacing historical bootleg patterns at a glance.
 
 ### Filtering & Game Lists
@@ -46,16 +47,16 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
     * **`mameversion:`** (alias `mv:`) — filters by first-appearance MAME version from Mameinfo.dat
     * **`machinetype:`** (aliases `mtype:`, `mt:`) — matches machine type descriptors from History.xml (e.g., `pinball`, `fruit machine`, `home console`)
 * **Unified Software Lists**: Search across MAME's entire software library (140,000+ items across consoles and computers) alongside arcade machines. Queries like `name:zaxxon` return the arcade version and all console ports.
-* **Advanced Text Filter**: Supports natural language queries (`capcom late 90s no clones`), hybrid queries (`Year >= "1995" noclones`), field-specific searches (`manufacturer:Sega workingstatus:imperfect`), and hardware filters (`2 screens`, `lightgun`, `vertical`).
+* **Advanced Text Filter**: Supports natural language queries (`capcom late 90s no clones`), hybrid queries (`Year >= "1995" noclones`), field-specific searches (`manufacturer:Sega workingstatus:imperfect`), hardware filters (`2 screens`, `lightgun`, `vertical`), and 3-way status operators: **`workingstatus:`** (`ws:`) for machine driver quality (working/imperfect/notworking) and **`supportstatus:`** (`ss:`) for softlist item support level (yes/partial/no).
 * **Curated Game Lists**: A built-in **Arcade Only** list excludes mechanical, gambling, and redemption games for a purist experience. The **Available** list audits your MAME rompath and shows only machines whose ROM archives are confirmed present on disk. Cycle all lists with **`Alt+Insert`** / **`Alt+Delete`**.
 * **Save Filter as Custom List**: Press **`Alt+L`** from any filter result set to automatically save it as a named entry in `IV-Play.Custom.ini`.
 * **Custom Game Lists**: Create your own game lists in the `IV-Play.Custom.ini` file and select them from the configuration screen.
-* **Favorites**: Add/remove games to a `favorites.ini` file with **`Ctrl+D`**. Supports both machines and specific software list items (e.g., `a2600/combat`).
+* **Favorites**: Add/remove games to a `favorites.ini` file with **`Ctrl+D`**. Supports both machines and specific software list items (e.g., `a2600/combat`). At launch, favorites are audited against the current MAME database — unrecognized entries are flagged with an asterisk and reported in an overlay, helping catch machine renames between MAME versions.
 
 ### Diagnostics & Tools
 
 * **Settings Snapshot**: A snapshot of the entire configuration is captured at launch and available in the **`F2`** log overlay. Changes made during the session are flagged with a Δ marker on the next **`F2`** view for rapid diagnostic identification.
-* **Multi-Instance Tiling**: Hold **`Shift`** + **`1-9`** while launching a game to spawn multiple windowed instances of MAME simultaneously, automatically tiled on your screen (useful for linked cabinet games).
+* **INP Recording**: Every game launch automatically records a session `.inp` file. Press **`Ctrl+Enter`** on any game to play back its last recorded session. Recording can be toggled in F1.
 * **Diagnostic Overlays**:
     * **`F2`**: View the application log file — including the startup performance report and Settings Snapshot — in a real-time overlay.
     * **`F3`**: View the `IV-Play.cfg` file in an overlay.
@@ -64,7 +65,6 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
 * **Benchmarking**:
     * **`F9`**: Runs "BigBench," a suite of 36 games to stress-test system performance.
     * **`Ctrl+B`**: Benchmarks the currently selected game for 90 emulated seconds.
-* **Asset Audit (`F6`)**: Scans your configured art directories against the database to identify missing snapshots or icons and report "False Parents" (broken parents with working clones).
 * **Command Line Autocomplete**: The F1 command line override field captures MAME's `-showusage` output and uses it to drive inline suggestions.
 
 ## Requirements
