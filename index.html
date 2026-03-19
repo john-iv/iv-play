@@ -3,6 +3,28 @@
 <head>
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
+    <!-- ═══════════════════════════════════════════════════════════════════
+         RELEASE CONFIG — update these values only. Everything else is auto.
+         ═══════════════════════════════════════════════════════════════════ -->
+    <script>
+    var IVPLAY = {
+        version:    "2.4.16",
+        date:       "2/25/2026",
+        artMameVer: "0.286",
+        artDate:    "1:26 PM 2/25/2026",
+        notes: [
+            "Filter sorting fixes",
+            "Properties / Status Section Updates",
+            "Toggle for Softlist Machines",
+            "Softlist Media Type Search",
+            "Filter autocomplete \u2018ghost text\u2019",
+            "Tweaks and bugfixes",
+            "See User Guide for Full ChangeLog"
+        ]
+    };
+    </script>
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-79ZPD1ETK2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -11,37 +33,38 @@
         gtag('config', 'G-79ZPD1ETK2');
     </script>
 
-    <script type="application/ld+json">
-    [
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "IV/Play",
-        "applicationCategory": "GameApplication",
-        "operatingSystem": "Windows 11",
-        "description": "A high-performance, graphical front-end for the MAME (Multiple Arcade Machine Emulator) platform.",
-        "author": {
-          "@type": "Person",
-          "name": "John IV"
-        },
-        "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z",
-        "softwareVersion": "2.4.16",
-        "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, beautiful, snapshots, John IV"
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
-        "name": "IV/Play MAME Front-End Demo",
-        "description": "Demonstration of IV/Play, a high-performance keyboard-driven front-end for MAME, showing game browsing, artwork display, and navigation features.",
-        "thumbnailUrl": "https://john-iv.github.io/iv-play/a.png",
-        "contentUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4",
-        "uploadDate": "2026-02-25",
-        "author": {
-          "@type": "Person",
-          "name": "John IV"
-        }
-      }
-    ]
+    <!-- JSON-LD structured data — built from IVPLAY config, no manual edits needed -->
+    <script>
+    (function() {
+        var schema = [
+          {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "IV/Play",
+            "applicationCategory": "GameApplication",
+            "operatingSystem": "Windows 11",
+            "description": "A high-performance, graphical front-end for the MAME (Multiple Arcade Machine Emulator) platform.",
+            "author": { "@type": "Person", "name": "John IV" },
+            "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z",
+            "softwareVersion": IVPLAY.version,
+            "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, beautiful, snapshots, John IV"
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": "IV/Play MAME Front-End Demo",
+            "description": "Demonstration of IV/Play, a high-performance keyboard-driven front-end for MAME, showing game browsing, artwork display, and navigation features.",
+            "thumbnailUrl": "https://john-iv.github.io/iv-play/a.png",
+            "contentUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4",
+            "uploadDate": "2026-02-25",
+            "author": { "@type": "Person", "name": "John IV" }
+          }
+        ];
+        var el = document.createElement('script');
+        el.type = 'application/ld+json';
+        el.text = JSON.stringify(schema);
+        document.head.appendChild(el);
+    })();
     </script>
 
     <meta charset="UTF-8">
@@ -50,12 +73,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="https://john-iv.github.io/iv-play/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="IV/Play : MAME™ Front-End, Icons, Snapshots & Benchmarks">
-    <meta property="og:description" content="High-performance, keyboard-driven MAME front-end with icons, snapshots, and benchmarks spanning 1997 to present. Download IV/Play 2.4.16.">
+    <meta property="og:title" content="IV/Play : MAME™ Front-End, Icons, Snapshots &amp; Benchmarks">
+    <meta id="og-description" property="og:description" content="">
     <meta property="og:image" content="https://john-iv.github.io/iv-play/a.png">
     <meta property="og:url" content="https://john-iv.github.io/iv-play/">
-    <title>IV/Play : MAME™ Front-End, Icons, Snapshots & Benchmarks</title>
+    <title>IV/Play : MAME™ Front-End, Icons, Snapshots &amp; Benchmarks</title>
     <link rel="icon" href="favicon.ico" sizes="any">
+
+    <!-- Patch og:description from config -->
+    <script>
+    document.getElementById('og-description').setAttribute('content',
+        'High-performance, keyboard-driven MAME front-end with icons, snapshots, and benchmarks ' +
+        'spanning 1997 to present. Download IV/Play ' + IVPLAY.version + '.');
+    </script>
 
     <!-- marked.js — client-side Markdown renderer for README section -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -203,27 +233,20 @@
             max-width: 820px;
             margin-top: 2.5em;
             padding: 0.8em 2em 1.5em 2em;
-
-            /* Dark border matching GitHub dark-mode README card aesthetic */
             border: 1px solid #30363d;
             border-radius: 6px;
-
-            /* Optional separator line above — commented out intentionally */
-            /* border-top: 1px solid #3F51FF; */
-
             font-family: 'Segoe UI', Arial, sans-serif;
             font-weight: normal;
             line-height: 1.6;
-
-            /* Main body text color for readability */
             color: #DDDDDD;
         }
 
         #readme-content p {
             color: #DDDDDD;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: normal;
         }
 
-        /* "Reference" document title inside the card — subordinate to the hero */
         #readme-content h1 {
             font-family: 'Segoe UI', Arial, sans-serif;
             font-size: 1.7em;
@@ -237,7 +260,6 @@
         #readme-content h2 {
             font-family: 'Segoe UI', Arial, sans-serif;
             font-weight: bold;
-            /* color + text-shadow inherited from global h2 rule */
         }
 
         #readme-content h3 {
@@ -260,11 +282,6 @@
             text-shadow: 0 0 4px #66CCFF, 0 0 8px #1A1AFF;
         }
 
-        #readme-content p {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            font-weight: normal;
-        }
-
         #readme-content ul,
         #readme-content ol {
             padding-left: 2em;
@@ -280,13 +297,11 @@
             color: #DDDDDD;
         }
 
-        /* Nested lists (filter operator sub-bullets etc.) */
         #readme-content li > ul {
             margin-top: 0.2em;
             margin-bottom: 0.2em;
         }
 
-        /* Inline code — orange to match existing .highlight color */
         #readme-content code {
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
@@ -297,7 +312,6 @@
             font-size: 0.88em;
         }
 
-        /* Bold text yellow to maintain site identity */
         #readme-content strong {
             color: #FFFF00;
             font-weight: bold;
@@ -337,8 +351,8 @@
             border-top: 1px solid #3F51FF;
             margin: 1.5em 0;
         }
-        /* Credits list — white glow to match Reference title and Est. line.
-           Must come after all other #readme-content li rules to win the cascade. */
+
+        /* Credits list — white glow. Must come after all other #readme-content li rules. */
         #readme-content > ul:last-of-type > li,
         #readme-content > ul:last-of-type > li p {
             color: #FFFFFF !important;
@@ -355,7 +369,7 @@
 
 <div id="frame">
 
-    <h1 class="page-title">IV/Play Homepage : MAME™ Front-End, Icons, Snapshots & Benchmarks</h1>
+    <h1 class="page-title">IV/Play Homepage : MAME™ Front-End, Icons, Snapshots &amp; Benchmarks</h1>
 
     <div class="container">
 
@@ -372,23 +386,16 @@
         <script>
         function loadPlaylist() {
             const container = document.getElementById('video-container');
-            const preview = document.getElementById('preview-img');
-
+            const preview   = document.getElementById('preview-img');
             const w = preview.clientWidth;
             const h = preview.clientHeight;
-
-            container.innerHTML = `
-                <iframe
-                    width="${w}"
-                    height="${h}"
-                    src="https://www.youtube.com/embed/videoseries?list=PLnNsN2lu4_jT__2YB_JrczsONjyqw2Vmx&autoplay=1"
-                    title="IV/Play Video Tutorials"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    style="width:${w}px !important; height:${h}px !important;">
-                </iframe>`;
+            container.innerHTML =
+                '<iframe width="' + w + '" height="' + h + '" ' +
+                'src="https://www.youtube.com/embed/videoseries?list=PLnNsN2lu4_jT__2YB_JrczsONjyqw2Vmx&autoplay=1" ' +
+                'title="IV/Play Video Tutorials" frameborder="0" ' +
+                'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+                'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ' +
+                'style="width:' + w + 'px !important; height:' + h + 'px !important;"></iframe>';
         }
         </script>
         <!-- END FIXED VIDEO BLOCK -->
@@ -402,72 +409,8 @@
         </p>
 
         <h2>Downloads</h2>
-        <ul class="download-links">
-            <li>
-                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z"
-                   onclick="gtag('event', 'download', {
-                     'event_category': 'Downloads',
-                     'event_label': 'IV-Play 2.4.16 7z'
-                   });"
-                   class="tooltip">
-                   IV/Play 2.4.16 (.7z) (2/25/2026)
-                   <span class="tooltiptext">
-                       <strong>Version 2.4.16 (2/25/2026)</strong><br>
-                       • Filter sorting fixes<br>
-                       • Properties / Status Section Updates<br>
-                       • Toggle for Softlist Machines<br>
-                       • Softlist Media Type Search<br>
-                       • Filter autocomplete 'ghost text'<br>
-                       • Tweaks and bugfixes for 2.4.16<br>
-                       • See User Guide for Full ChangeLog
-                   </span>
-                </a>
-            </li>
-
-            <li>
-              User Guide (PDF)
-              <a href="IV-Play.User.Guide.pdf" target="_blank"
-                 style="color:#ff9966;"
-                 onclick="gtag('event', 'download', {
-                   'event_category': 'Downloads',
-                   'event_label': 'User Guide View Online'
-                 });">View Online</a> |
-              <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf" download
-                 style="color:#ff9966;"
-                 onclick="gtag('event', 'download', {
-                   'event_category': 'Downloads',
-                   'event_label': 'User Guide Download'
-                 });">Download</a>
-            </li>
-
-            <li>
-                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z"
-                   onclick="gtag('event', 'download', {
-                     'event_category': 'Downloads',
-                     'event_label': 'MAME Snapshots 7z'
-                   });">
-                   MAME Snapshots (.7z)
-                </a>
-            </li>
-
-            <li>
-                <a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z"
-                   onclick="gtag('event', 'download', {
-                     'event_category': 'Downloads',
-                     'event_label': 'MAME Icons 7z'
-                   });">
-                   MAME Icons (.7z)
-                </a>
-            </li>
-
-            <li>
-                <a href="https://github.com/john-iv/iv-play/releases">Release Page (GitHub)</a>
-            </li>
-
-            <li class="highlight">
-                Art assets updated to MAME 0.286 as of 1:26 PM 2/25/2026
-            </li>
-        </ul>
+        <!-- Populated entirely from IVPLAY config object above -->
+        <ul class="download-links" id="download-list"></ul>
 
         <h2><a href="bench.html">MAME Benchmarks</a></h2>
 
@@ -478,25 +421,71 @@
             <li><a href="https://www.youtube.com/channel/UCyXeXSM_U5P09u8-EppuOoA">Video Tutorials (9 New Videos Added 2/21/2026)</a></li>
         </ul>
 
-        <p class="est-line">Est. 8/11/1998 © john iv</p>
+        <p class="est-line">Est. 8/11/1998 &copy; john iv</p>
 
-        <!-- README rendered inline — single source of truth from the repo -->
+        <!-- README rendered inline — version injected from IVPLAY config, README.md never needs a version edit -->
         <div id="readme-content"></div>
 
     </div>
 </div>
 
+<!-- Build the download list from IVPLAY config -->
 <script>
-// Fetch and render README.md from the repo.
-// Strips the H1 title, the screenshot img tag, and the bare homepage URL
-// since the page already provides that context at the top.
+(function() {
+    var v   = IVPLAY.version;
+    var d   = IVPLAY.date;
+    var tip = IVPLAY.notes
+                .map(function(n) { return '&bull; ' + n; })
+                .join('<br>');
+
+    document.getElementById('download-list').innerHTML =
+        '<li>' +
+          '<a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z"' +
+          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
+          '\'event_label\':\'IV-Play ' + v + ' 7z\'});" class="tooltip">' +
+          'IV/Play <span id="ivplay-version">' + v + '</span> (.7z) (' + d + ')' +
+          '<span class="tooltiptext"><strong>Version ' + v + ' (' + d + ')</strong>' +
+          '<br>' + tip + '</span>' +
+          '</a>' +
+        '</li>' +
+        '<li>' +
+          'User Guide (PDF) ' +
+          '<a href="IV-Play.User.Guide.pdf" target="_blank" style="color:#ff9966;"' +
+          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
+          '\'event_label\':\'User Guide View Online\'});">View Online</a>' +
+          ' | ' +
+          '<a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf"' +
+          ' download style="color:#ff9966;"' +
+          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
+          '\'event_label\':\'User Guide Download\'});">Download</a>' +
+        '</li>' +
+        '<li>' +
+          '<a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z"' +
+          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
+          '\'event_label\':\'MAME Snapshots 7z\'});">MAME Snapshots (.7z)</a>' +
+        '</li>' +
+        '<li>' +
+          '<a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z"' +
+          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
+          '\'event_label\':\'MAME Icons 7z\'});">MAME Icons (.7z)</a>' +
+        '</li>' +
+        '<li><a href="https://github.com/john-iv/iv-play/releases">Release Page (GitHub)</a></li>' +
+        '<li class="highlight">Art assets updated to MAME ' +
+          IVPLAY.artMameVer + ' as of ' + IVPLAY.artDate +
+        '</li>';
+})();
+</script>
+
+<!-- Fetch and render README.md. {{VERSION}} replaced from IVPLAY config. -->
+<script>
 fetch('https://raw.githubusercontent.com/john-iv/iv-play/main/README.md')
     .then(function(r) { return r.text(); })
     .then(function(md) {
-        md = md.replace(/^#\s+[^\n]+\n/m, '');                          // remove original H1 title
-        md = md.replace(/<img[^>]+\/>\s*\n?/g, '');                      // remove screenshot img
-        md = md.replace(/^https?:\/\/[^\s\n]+\s*$/m, '');                // remove bare URL line
-        md = md.replace(/^(##\s+Overview)/m, '# Reference\n\n$1');       // inject Reference H1
+        md = md.replace(/\{\{VERSION\}\}/g, IVPLAY.version);            // inject version
+        md = md.replace(/^#\s+[^\n]+\n/m, '');                         // remove H1 title
+        md = md.replace(/<img[^>]+\/>\s*\n?/g, '');                    // remove screenshot img
+        md = md.replace(/^https?:\/\/[^\s\n]+\s*$/m, '');              // remove bare URL line
+        md = md.replace(/^(##\s+Overview)/m, '# Reference\n\n$1');     // inject Reference H1
         document.getElementById('readme-content').innerHTML = marked.parse(md);
     })
     .catch(function() {
@@ -509,7 +498,6 @@ fetch('https://raw.githubusercontent.com/john-iv/iv-play/main/README.md')
 (function() {
     const frame = document.getElementById("frame");
 
-    // Fisher-Yates: unbiased shuffle, unlike sort(() => Math.random() - 0.5)
     function shuffle(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -535,8 +523,6 @@ fetch('https://raw.githubusercontent.com/john-iv/iv-play/main/README.md')
         img.src = `${n}.png`;
     }
 
-    // Probe sequentially from 1.png upward; cache the count so subsequent
-    // loads only check for newly added images rather than re-probing from 1.
     function probeFrom(n, onComplete) {
         const img = new Image();
         img.onload  = () => probeFrom(n + 1, onComplete);
@@ -550,9 +536,6 @@ fetch('https://raw.githubusercontent.com/john-iv/iv-play/main/README.md')
 
     const cached = parseInt(localStorage.getItem('bgCount') || '0', 10);
     if (cached > 0) {
-        // Quick-check: does the next image beyond the cached count exist?
-        // If yes, probe forward from there to catch newly added images.
-        // If no, use the cached count immediately — zero extra requests.
         const check = new Image();
         check.onload  = () => probeFrom(cached + 2, function(total) {
             loadBackground(getNext(total), total);

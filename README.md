@@ -1,26 +1,30 @@
 # IV/Play - A High-Performance MAME™ Frontend
 
-<img width="1504" height="639" alt="image" src="https://john-iv.github.io/iv-play/a.png" />
-
-
+<img width="1504" height="639" alt="IV/Play main UI showing the game list, dynamic color theme, and artwork panel on a 4K display" src="https://john-iv.github.io/iv-play/a.png" />
 
 ## Overview
 
 https://john-iv.github.io/iv-play/
 
-IV/Play (pronounced 'Four Play') is a desktop/keyboard-oriented GUI front-end for MAME™ designed for high-end Windows 11 systems. It was conceived in 2006 and originally commissioned in 2011 by John IV, a member of the original MAMEUI team.
+IV/Play (pronounced 'Four Play') is a desktop/keyboard-oriented GUI front-end for MAME™ designed for high-end Windows 11 systems. Conceived in 2006 and commissioned in 2011 by John IV of the original MAMEUI team, it provides a classic MAMEUI-style experience decoupled from the MAME core — built on a DirectX 11 / Direct2D render pipeline and shipping as a Native AOT executable for consistent, near-instant performance.
 
-The project's goal is to provide a classic, MAMEUI-like experience decoupled from the MAME core, focusing on near-instant launch times, immediate GameList population, and zero-latency art asset display. In 2025, the codebase was modernized from its .NET 4.5 origins to a pure WinForms application on **.NET 10**, rebuilt to achieve its performance goals.
+**Latest release: {{VERSION}}** — [Homepage & Download](https://john-iv.github.io/iv-play/)
+
+## Quick Start
+
+1. Place `IV-Play.exe` and `e_sqlite3.dll` in your MAME directory alongside `mame.exe`.
+2. Launch `IV-Play.exe` — it auto-detects `mame.exe` and builds its database and caches on first run.
+3. Subsequent launches render a fully populated, interactive UI in under one second.
 
 ## Features
 
-IV/Play is architected for speed and a smooth user experience, trading initial asset processing time for a highly responsive and fluid interface during use.
+IV/Play is architected for speed and a smooth user experience, trading a one-time initial asset processing cost for a highly responsive and fluid interface during use.
 
-### Performance \& Architecture
+### Performance & Architecture
 
 **GPU Render Pipeline**: The entire UI is rendered using a DirectX 11 / Direct2D pipeline, offloading all drawing to the GPU. This completely eliminates the "scrolling judder" and freezes that affect GDI-based applications.
 
-**Native AOT Build**: IV/Play ships as a fully self-contained Native AOT executable. No .NET 10 runtime installation is required - the binary includes everything it needs. Startup behavior is consistent across machines with no JIT warm-up variance.
+**Native AOT Build**: IV/Play ships as a fully self-contained Native AOT executable. No .NET 10 runtime installation is required — the binary includes everything it needs. Startup behavior is consistent across machines with no JIT warm-up variance.
 
 **Optimized Warm Start**: The application renders a fully populated, interactive UI in under one second by querying a flattened summary table via raw ADO.NET and applying filters in memory. Heavier assets like the icon atlas load on a background thread after the UI is already interactive.
 
@@ -33,17 +37,17 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
   * **In-Memory Art Cache**: An LRU (Least Recently Used) cache keeps frequently viewed artwork like snapshots and flyers in RAM.
   * **Archive Support**: Supports reading artwork and icons directly from `.zip` and `.7z` archives (non-solid archives only) to reduce file system clutter.
 
-### UI \& Display
+### UI & Display
 
 **High DPI Support**: The application is fully DPI-aware and scales its UI elements correctly on high-resolution monitors like 1440p and 4K without compatibility hacks. Multi-monitor setups with different DPI values are handled correctly when dragging between screens.
 
 **Dynamic Color Themes**: Beyond static themes, IV/Play includes dynamic engines (Brightness Ladder, Saturation Gradient, Dual Contrast, Analogous Palette, Miami Pastels) that automatically calculate UI text, border, and scrollbar colors based on the dominant color and brightness of your background image.
 
-**Multiple Views**: Cycle through multiple view modes - classic list, large icon list, grid, and flat view - using **`Alt+P`** or **`Tab`**. Cycle through various icon sizing presets with **`Alt+I`**.
+**Multiple Views**: Cycle through multiple view modes — classic list, large icon list, grid, and flat view — using **`Alt+P`** or **`Tab`**. Cycle through various icon sizing presets with **`Alt+I`**.
 
 **Flat View**: A non-indented view mode that decouples clones from their parents and enables global sorting by description, machine name, manufacturer, or year via **`Alt+S`**.
 
-**Machine Status Icon Borders**: Icon borders optionally reflect each machine's MAME driver status - green for working, orange for imperfect, red for not working. The imperfect border defaults to a background-derived theme color to complement the dynamic theme system; this can be overridden with a fixed RGB in F1. Extends to softlist media items.
+**Machine Status Icon Borders**: Icon borders optionally reflect each machine's MAME driver status — green for working, orange for imperfect, red for not working. The imperfect border defaults to a background-derived theme color to complement the dynamic theme system; this can be overridden with a fixed RGB in F1. Extends to softlist media items.
 
 **Properties View**: **`Alt+Enter`** opens a detailed properties panel for the selected game, surfacing driver status, graphics and sound emulation quality, genre, MAME first-appearance version, machine type, cocktail mode, bad/no-dump flags, CPU, sound hardware, and softlist information. All fields are selectable and copyable.
 
@@ -53,14 +57,14 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
 
 **Clone Counts**: Optionally display the number of clones on parent entries and the parent name on clone entries, surfacing historical bootleg patterns at a glance.
 
-### Filtering \& Game Lists
+### Filtering & Game Lists
 
 **DAT-Integrated Filter**: The filter engine (**`Ctrl+F`**) indexes `history.xml`, `mameinfo.dat`, and `catlist.ini` at launch. New operators expose this data directly:
 
-  * **`history:`** (alias `hist:`) - searches the descriptive text from History.xml
-  * **`genre:`** (alias `gg:`) - queries CatList.ini categories and subgenres
-  * **`mameversion:`** (alias `mv:`) - filters by first-appearance MAME version from Mameinfo.dat
-  * **`machinetype:`** (aliases `mtype:`, `mt:`) - matches machine type descriptors from History.xml (e.g., `pinball`, `fruit machine`, `home console`)
+  * **`history:`** (alias `hist:`) — searches the descriptive text from History.xml
+  * **`genre:`** (alias `gg:`) — queries CatList.ini categories and subgenres
+  * **`mameversion:`** (alias `mv:`) — filters by first-appearance MAME version from Mameinfo.dat
+  * **`machinetype:`** (aliases `mtype:`, `mt:`) — matches machine type descriptors from History.xml (e.g., `pinball`, `fruit machine`, `home console`)
 
 **Unified Software Lists**: Search across MAME's entire software library (140,000+ items across consoles and computers) alongside arcade machines. Queries like `name:zaxxon` return the arcade version and all console ports.
 
@@ -72,9 +76,9 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
 
 **Custom Game Lists**: Create your own game lists in the `IV-Play.Custom.ini` file and select them from the configuration screen.
 
-**Favorites**: Add/remove games to a `favorites.ini` file with **`Ctrl+D`**. Supports both machines and specific software list items (e.g., `a2600/combat`). At launch, favorites are audited against the current MAME database - unrecognized entries are flagged with an asterisk and reported in an overlay, helping catch machine renames between MAME versions.
+**Favorites**: Add/remove games to a `favorites.ini` file with **`Ctrl+D`**. Supports both machines and specific software list items (e.g., `a2600/combat`). At launch, favorites are audited against the current MAME database — unrecognized entries are flagged with an asterisk and reported in an overlay, helping catch machine renames between MAME versions.
 
-### Diagnostics \& Tools
+### Diagnostics & Tools
 
 **Settings Snapshot**: A snapshot of the entire configuration is captured at launch and available in the **`F2`** log overlay. Changes made during the session are flagged with a Δ marker on the next **`F2`** view for rapid diagnostic identification.
 
@@ -82,7 +86,7 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
 
 **Diagnostic Overlays**:
 
-  * **`F2`**: View the application log file - including the startup performance report and Settings Snapshot - in a real-time overlay.
+  * **`F2`**: View the application log file — including the startup performance report and Settings Snapshot — in a real-time overlay.
   * **`F3`**: View the `IV-Play.cfg` file in an overlay.
   * **`F7`**: Display a performance dashboard with FPS, CPU/GPU memory usage, and garbage collection stats.
   * **`~`** (Tilde): Open a "DAT Peek" overlay to view `history.xml` or `mameinfo.dat` content for the selected game, with search term highlighting.
@@ -98,7 +102,7 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
 
 **OS**: Windows 11 (Preferred)
 
-**Runtime**: None - IV/Play ships as a Native AOT self-contained executable. No .NET installation is required.
+**Runtime**: None — IV/Play ships as a Native AOT self-contained executable. No .NET installation is required.
 
 **Hardware**: A modern system with a multi-core CPU, an SSD/NVMe for fast asset loading, and a DirectX 11 compatible GPU is strongly recommended to meet the application's performance goals.
 
@@ -154,5 +158,5 @@ IV/Play is a portable application and does not require a formal installer.
 
 ## Credits
 
-* Creator \& Designer (2006-Present): John L. Hardy IV
+* Creator & Designer (2006-Present): John L. Hardy IV
 * Legacy v1 Codebase (2011–2016): Matan Bareket
