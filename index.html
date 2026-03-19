@@ -485,6 +485,7 @@ fetch('https://raw.githubusercontent.com/john-iv/iv-play/main/README.md')
         md = md.replace(/^#\s+[^\n]+\n/m, '');                         // remove H1 title
         md = md.replace(/<img[^>]+\/>\s*\n?/g, '');                    // remove screenshot img
         md = md.replace(/^https?:\/\/[^\s\n]+\s*$/m, '');              // remove bare URL line
+        md = md.replace(/^\*\*Latest release:.*$/m, '');                // remove Latest release line (homepage has downloads)
         md = md.replace(/^(##\s+Overview)/m, '# Reference\n\n$1');     // inject Reference H1
         document.getElementById('readme-content').innerHTML = marked.parse(md);
     })

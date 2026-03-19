@@ -4,8 +4,6 @@
 
 ## Overview
 
-https://john-iv.github.io/iv-play/
-
 IV/Play (pronounced 'Four Play') is a desktop/keyboard-oriented GUI front-end for MAME™ designed for high-end Windows 11 systems. Conceived in 2006 and commissioned in 2011 by John IV of the original MAMEUI team, it provides a classic MAMEUI-style experience decoupled from the MAME core — built on a DirectX 11 / Direct2D render pipeline and shipping as a Native AOT executable for consistent, near-instant performance.
 
 **Latest release: {{VERSION}}** — [Homepage & Download](https://john-iv.github.io/iv-play/)
