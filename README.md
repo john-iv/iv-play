@@ -65,7 +65,7 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
   * **`F2`**: View the application log file - including the startup performance report and Settings Snapshot - in a real-time overlay.
   * **`F3`**: View the `IV-Play.cfg` file in an overlay.
   * **`F7`**: Display a performance dashboard with FPS, CPU/GPU memory usage, and garbage collection stats.
-  * **`\\\\\\\~`** (Tilde): Open a "DAT Peek" overlay to view `history.xml` or `mameinfo.dat` content for the selected game, with search term highlighting.
+  * **`~`** (Tilde): Open a "DAT Peek" overlay to view `history.xml` or `mameinfo.dat` content for the selected game, with search term highlighting.
 * **Benchmarking**:
 
   * **`F9`**: Runs "BigBench," a suite of 36 games to stress-test system performance.
@@ -83,7 +83,7 @@ IV/Play is architected for speed and a smooth user experience, trading initial a
 IV/Play is a portable application and does not require a formal installer.
 
 1. Place the IV/Play executable and its files into your main MAME directory alongside `mame.exe`.
-2. Ensure the `e\\\\\\\_sqlite3.dll` file is in the same directory as `IV-Play.exe`.
+2. Ensure the `e_sqlite3.dll` file is in the same directory as `IV-Play.exe`.
 3. On first launch, IV/Play will automatically detect `mame.exe`. If it can't find it, a dialog will appear prompting you to locate it.
 4. The application will then build its database and caches in a sub-folder named `IV-Play`. Your `IV-Play.cfg`, `favorites.ini`, and `IV-Play.Custom.ini` files will be kept at the same level as the executable to survive cache clears and resets.
 
@@ -91,7 +91,7 @@ IV/Play is a portable application and does not require a formal installer.
 
 |Key|Function|
 |-|-|
-|**`\\\\\\\~`** (Tilde)|Toggles the DAT "peek" overlay. Use Left/Right arrows to resize and Tab to cycle.|
+|**`~`** (Tilde)|Toggles the DAT "peek" overlay. Use Left/Right arrows to resize and Tab to cycle.|
 |**`Alt`**+**`1-0`**|Switches directly to the corresponding art type.|
 |**`Alt`**+**`D`**|Cycles through favorite display modes (Off, Favorites + Games, Favorites Only).|
 |**`Alt`**+**`Enter`**|Displays the properties dialog for the selected game.|
@@ -132,4 +132,3 @@ IV/Play is a portable application and does not require a formal installer.
 
 * Creator \& Designer (2006-Present): John L. Hardy IV
 * Legacy v1 Codebase (2011–2016): Matan Bareket
-
