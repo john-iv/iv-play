@@ -16,8 +16,8 @@
    'url' rarely changes — it's where the app sends users to download.
    ════════════════════════════════════════════════════════════════════════ */
 var IVPLAY = {
-    version:    "2.8.8",
-    date:       "10:01 PM 6/15/2026",
+    version:    "2.8.10",
+    date:       "11:10 PM 7/14/2026",
     url:        "https://github.com/john-iv/iv-play/releases",
     artMameVer: "0.288",
     artDate:    "9:23 PM 5/28/2026",
@@ -29,7 +29,8 @@ var IVPLAY = {
         "Live Available ROM Monitoring",
         "Favorite.ini External Monitoring",
         "Persistent DAT View via Tilde",
-        "Tweaks and bugfixes 2.8.8",
+	"Check for Update button on F1",
+        "Tweaks and bugfixes 2.8.10",
         "See User Guide for Full ChangeLog"
     ]
 };
