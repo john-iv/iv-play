@@ -49,11 +49,13 @@ IV/Play is architected for speed and a smooth user experience, trading a one-tim
 
 **Properties View**: **`Alt+Enter`** opens a detailed properties panel for the selected game, surfacing driver status, graphics and sound emulation quality, genre, MAME first-appearance version, machine type, cocktail mode, bad/no-dump flags, CPU, sound hardware, and softlist information. All fields are selectable and copyable.
 
-**Aspect Ratio Sizing**: Hold **`Ctrl`** while resizing the window to maintain the classic 2.35:1 "TohoScope" aspect ratio.
+**Aspect Ratio Sizing**: Hold **`Ctrl`** while resizing the window to maintain the classic 2.35:1 "TohoScope" aspect ratio. A toggle selects whether the ratio applies to the outer window (Exterior, legacy) or the inner background area (Interior, corrected cinematic geometry).
 
 **Customizable Artwork**: The art area supports unlimited user-defined art types, configurable borders, transparency, and nearest-neighbor scaling. A simulated scanline effect can be applied to snapshots; it is suppressed automatically on vector games and non-MAME-generated art types such as flyers, marquees, and PCBs.
 
 **Clone Counts**: Optionally display the number of clones on parent entries and the parent name on clone entries, surfacing historical bootleg patterns at a glance.
+
+**HiScore Overlay**: An optional `Hiscore.ini` next to the executable surfaces a per-game high score, drawn into the artwork's bottom border strip with configurable position. The file lives alongside your other portable settings and survives cache clears and resets.
 
 ### Filtering & Game Lists
 
@@ -87,7 +89,7 @@ IV/Play is architected for speed and a smooth user experience, trading a one-tim
   * **`F2`**: View the application log file — including the startup performance report and Settings Snapshot — in a real-time overlay.
   * **`F3`**: View the `IV-Play.cfg` file in an overlay.
   * **`F7`**: Display a performance dashboard with FPS, CPU/GPU memory usage, and garbage collection stats.
-  * **`~`** (Tilde): Open a "DAT Peek" overlay to view `history.xml` or `mameinfo.dat` content for the selected game, with search term highlighting.
+  * **`~`** (Tilde): Open a "DAT Peek" overlay to view `history.xml` or `mameinfo.dat` content for the selected game, with search term highlighting. When a MAME source tree is configured, the overlay can also display the selected machine's driver `.cpp` file directly.
 
 **Benchmarking**:
 
@@ -95,6 +97,8 @@ IV/Play is architected for speed and a smooth user experience, trading a one-tim
   * **`Ctrl+B`**: Benchmarks the currently selected game for 90 emulated seconds.
 
 **Command Line Autocomplete**: The F1 command line override field captures MAME's `-showusage` output and uses it to drive inline suggestions.
+
+**Check for Update**: A button on the **`F1`** configuration screen checks the latest published release against the running build and reports whether you are up to date.
 
 ## Requirements
 
