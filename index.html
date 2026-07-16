@@ -481,8 +481,19 @@ fetch('https://raw.githubusercontent.com/john-iv/iv-play/main/README.md')
 </script>
 
 <script>
-(function() {
-    const frame = document.getElementById("frame");
+(function () {
+    /* ═══════════════════════════════════════════════════════════════════
+       DECK-SHUFFLE IMAGE ROTATOR — one mechanism, two consumers.
+
+       Both the numeric page backgrounds (1.png, 2.png, …) and the lettered
+       hero shot (a.png, b.png, …) run through the same factory. Each consumer
+       keeps its OWN shuffled "deck" and its OWN probed count in localStorage,
+       so every image in a set shows once before any repeat, and newly added
+       images are discovered automatically on the next visit.
+
+       Naming is the only thing that differs between the two sets, so it is
+       injected as name(i):  background → String(i),  hero → letter(i).
+       ═══════════════════════════════════════════════════════════════════ */
 
     function shuffle(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -492,47 +503,102 @@ fetch('https://raw.githubusercontent.com/john-iv/iv-play/main/README.md')
         return arr;
     }
 
-    function getNext(total) {
-        let deck = JSON.parse(localStorage.getItem('bgDeck') || '[]');
-        if (deck.length === 0 || Math.max(...deck) > total) {
-            deck = shuffle(Array.from({length: total}, (_, i) => i + 1));
+    // cfg = { deckKey, countKey, label, name(i), apply(file), maxProbe? }
+    function createRotator(cfg) {
+        const deckKey  = cfg.deckKey;
+        const countKey = cfg.countKey;
+        const label    = cfg.label;
+        const maxProbe = cfg.maxProbe || 0;          // 0 = unbounded
+        const fileFor  = (i) => cfg.name(i) + '.png';
+
+        // Pop the next index from the shuffled deck; reshuffle a fresh deck
+        // of 1..total when the deck is empty or the set shrank since last time.
+        function getNext(total) {
+            let deck = JSON.parse(localStorage.getItem(deckKey) || '[]');
+            if (deck.length === 0 || Math.max(...deck) > total) {
+                deck = shuffle(Array.from({ length: total }, (_, i) => i + 1));
+            }
+            const n = deck.pop();
+            localStorage.setItem(deckKey, JSON.stringify(deck));
+            return n;
         }
-        const n = deck.pop();
-        localStorage.setItem('bgDeck', JSON.stringify(deck));
-        return n;
+
+        // Preload the chosen image, then apply it (flash-free swap; same dims).
+        // On a load failure, draw another card rather than showing nothing.
+        function load(n, total) {
+            const img = new Image();
+            img.onload  = () => {
+                cfg.apply(fileFor(n));
+                console.log('[rotator:' + label + '] ' + fileFor(n) + ' (deck of ' + total + ')');
+            };
+            img.onerror = () => load(getNext(total), total);
+            img.src = fileFor(n);
+        }
+
+        // Walk the set (a.png, b.png, … or 1.png, 2.png, …) until the first
+        // 404 to learn how many exist; cache that count for next time.
+        function probeFrom(n, onComplete) {
+            if (maxProbe && n > maxProbe) {
+                const total = n - 1;
+                if (total > 0) localStorage.setItem(countKey, total);
+                return onComplete(total);
+            }
+            const img = new Image();
+            img.onload  = () => probeFrom(n + 1, onComplete);
+            img.onerror = () => {
+                const total = n - 1;
+                if (total > 0) localStorage.setItem(countKey, total);
+                onComplete(total);
+            };
+            img.src = fileFor(n);
+        }
+
+        function start() {
+            const cached = parseInt(localStorage.getItem(countKey) || '0', 10);
+            if (cached > 0) {
+                // At the single-letter ceiling there is no room to grow — use cache.
+                if (maxProbe && cached >= maxProbe) {
+                    return load(getNext(cached), cached);
+                }
+                // Cheap check: did a new image appear past the cached count?
+                const check = new Image();
+                check.onload  = () => probeFrom(cached + 2, (total) => load(getNext(total), total));
+                check.onerror = () => load(getNext(cached), cached);
+                check.src = fileFor(cached + 1);
+            } else {
+                probeFrom(1, (total) => { if (total >= 1) load(getNext(total), total); });
+            }
+        }
+
+        return { start };
     }
 
-    function loadBackground(n, total) {
-        const img = new Image();
-        img.onload  = () => { frame.style.backgroundImage = `url('${n}.png')`; };
-        img.onerror = () => { loadBackground(getNext(total), total); };
-        img.src = `${n}.png`;
+    // ── Consumer 1: numeric page backgrounds (1.png, 2.png, …) ──────────
+    const frame = document.getElementById('frame');
+    if (frame) {
+        createRotator({
+            deckKey:  'bgDeck',
+            countKey: 'bgCount',
+            label:    'bg',
+            name:     (i) => String(i),
+            apply:    (file) => { frame.style.backgroundImage = "url('" + file + "')"; }
+        }).start();
     }
 
-    function probeFrom(n, onComplete) {
-        const img = new Image();
-        img.onload  = () => probeFrom(n + 1, onComplete);
-        img.onerror = () => {
-            const total = n - 1;
-            if (total > 0) localStorage.setItem('bgCount', total);
-            onComplete(total);
-        };
-        img.src = `${n}.png`;
-    }
-
-    const cached = parseInt(localStorage.getItem('bgCount') || '0', 10);
-    if (cached > 0) {
-        const check = new Image();
-        check.onload  = () => probeFrom(cached + 2, function(total) {
-            loadBackground(getNext(total), total);
-        });
-        check.onerror = () => loadBackground(getNext(cached), cached);
-        check.src = `${cached + 1}.png`;
-    } else {
-        probeFrom(1, function(total) {
-            if (total < 1) return;
-            loadBackground(getNext(total), total);
-        });
+    // ── Consumer 2: lettered hero shot (a.png, b.png, …) ────────────────
+    // a.png stays the shipped src + canonical OG/JSON-LD preview; this only
+    // swaps the on-screen pixels once per load, so it degrades to a.png if
+    // scripts are off or an image is missing. maxProbe = 26 (single letters).
+    const hero = document.getElementById('preview-img');
+    if (hero) {
+        createRotator({
+            deckKey:  'heroDeck',
+            countKey: 'heroCount',
+            label:    'hero',
+            maxProbe: 26,
+            name:     (i) => String.fromCharCode(96 + i),   // 1→a, 2→b, … 26→z
+            apply:    (file) => { hero.src = file; }
+        }).start();
     }
 })();
 </script>
