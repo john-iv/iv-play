@@ -29,7 +29,7 @@
 var IVPLAY = {
     version:    "2.8.10",
     buildId:    "d96d55e7-d3dd-40df-aab7-35b881b733dc",
-    date:       "11:10 PM 7/14/2026",
+    date:       "8:58 PM 7/15/2026",
     url:        "https://github.com/john-iv/iv-play/releases",
     artMameVer: "0.288",
     artDate:    "9:23 PM 5/28/2026",
