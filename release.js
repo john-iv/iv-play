@@ -3,7 +3,7 @@
 var IVPLAY = {
     version:    "2.8.10",
     buildId:    "5db83e44-1d5c-4b87-9e43-bf732b927c4cs",
-    date:       "11:12 AM 7/23/2026",
+    date:       "4:49 PM 7/29/2026",
     url:        "https://github.com/john-iv/iv-play/releases",
     artMameVer: "0.289",
     artDate:    "5:54 PM 7/30/2026",
