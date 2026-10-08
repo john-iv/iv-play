@@ -50,7 +50,7 @@
     <link rel="canonical" href="https://john-iv.github.io/iv-play/bench.html">
     <meta property="og:type" content="website">
     <meta property="og:title" content="John IV's MAME Benchmarks: 2017 to Present">
-    <meta property="og:description" content="Historical MAME benchmarking results from 2017 to today — i7-12700K, i7-6700K, geometric means, and performance trends across 25+ years of arcade emulation.">
+    <meta property="og:description" content="Historical MAME benchmarking results from 2017 to today — i7-14700K, i7-12700K, geometric means, and performance trends across 25+ years of arcade emulation.">
     <meta property="og:image" content="https://john-iv.github.io/iv-play/2026.png">
     <meta property="og:url" content="https://john-iv.github.io/iv-play/bench.html">
     <title>John IV's MAME Benchmarks: 2017 to Present</title>
@@ -116,26 +116,241 @@
             resize: vertical;
         }
     </style>
+    <!-- BENCH-STYLE:BEGIN -->
+<style>
+.bench-wrap{max-width:100%;overflow-x:auto;margin:1em 0}
+table.bench{border-collapse:collapse;table-layout:fixed;font-family:Arial,Helvetica,sans-serif;font-size:10pt;color:#000;background:#fff}
+table.bench th,table.bench td{padding:0 2px;overflow:hidden;white-space:pre;font-weight:normal;text-align:left;vertical-align:bottom;line-height:1.15}
+table.bench td.sp,table.bench th.sp{overflow:visible}
+table.bench .spr,table.bench .spc{position:relative;overflow:visible}
+table.bench .spr>span{position:absolute;right:2px;bottom:1px}
+table.bench .spc>span{position:absolute;left:50%;bottom:1px;transform:translateX(-50%)}
+table.bench caption.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+table.bench .s0{background:#BFBFBF;border-left:1px solid #000000;border-top:1px solid #000000}
+table.bench .s1{background:#BFBFBF;font-weight:bold;font-size:16pt;white-space:pre-wrap;border-top:1px solid #000000}
+table.bench .s2{background:#BFBFBF;font-weight:bold;border-top:1px solid #000000}
+table.bench .s3{background:#BFBFBF;text-align:right;border-top:1px solid #000000}
+table.bench .s4{background:#BFBFBF;border-top:1px solid #000000}
+table.bench .s5{background:#BFBFBF;font-weight:bold;text-align:center;border-top:1px solid #000000;border-right:1px solid #000000}
+table.bench .s6{background:#FFFFFF;border-left:1px solid #000000}
+table.bench .s7{background:#FFFFFF}
+table.bench .s8{background:#FFFFFF;text-align:center}
+table.bench .s9{background:#BFBFBF;border-left:1px solid #000000}
+table.bench .s10{background:#BFBFBF;font-weight:bold;border-bottom:1px solid #000000}
+table.bench .s11{background:#BFBFBF;text-align:right}
+table.bench .s12{background:#BFBFBF;border-bottom:1px solid #000000}
+table.bench .s13{background:#BFBFBF;font-weight:bold;text-align:center;border-right:1px solid #000000}
+table.bench .s14{background:#FFFFFF;border-bottom:1px solid #000000}
+table.bench .s15{background:#DAEEF3;font-weight:bold;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s16{background:#BFBFBF;text-align:right;border-left:1px solid #000000;border-right:1px solid #000000}
+table.bench .s17{background:#BFBFBF;font-weight:bold;text-align:center;border-left:1px solid #000000;border-right:1px solid #000000}
+table.bench .s18{background:#FFFFFF;border-left:1px solid #000000;border-right:1px solid #000000}
+table.bench .s19{background:#FFFFFF;text-align:center;border-left:1px solid #000000}
+table.bench .s20{background:#FFFFCC;font-weight:bold;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s21{background:#BFBFBF;color:#0000FF;text-decoration:underline}
+table.bench .s22{background:#BFBFBF;font-weight:bold;text-align:right;border-right:1px solid #000000}
+table.bench .s23{background:#BFBFBF;color:#0000FF;text-decoration:underline;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s24{background:#BFBFBF;font-weight:bold;text-align:right;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s25{background:#BFBFBF;text-align:right;border-left:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s26{background:#BFBFBF;border-top:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s27{background:#FFFFFF;text-align:center;border-left:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s28{background:#BFBFBF;border-left:1px solid #000000;border-right:1px solid #000000}
+table.bench .s29{background:#D8E4BC;font-weight:bold;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s30{background:#EBF1DE;font-weight:bold;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s31{background:#D9D9D9;font-weight:bold;text-align:center;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s32{background:#D9D9D9;font-weight:bold;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s33{background:#DA9694;font-weight:bold;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s34{background:#DA9694;font-weight:bold;text-align:center;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s35{background:#D9D9D9;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s36{background:#E1E696;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s37{background:#F7ED9B;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s38{background:#FFEF9C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s39{background:#CBDF91;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s40{background:#C0DC8F;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s41{background:#63BE7B;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s42{background:#C6EFCE;color:#006100;text-align:right;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s43{background:#BFBFBF;text-align:center;border-left:1px solid #000000;border-right:1px solid #000000}
+table.bench .s44{background:#FDE9D9;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s45{background:#FDE9D9;text-align:center;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s46{background:#E5E797;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s47{background:#E6E897;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s48{background:#BFDB8F;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s49{background:#A7D48A;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s50{background:#FCEE9C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s51{background:#DAE495;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s52{background:#CDE092;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s53{background:#C6EFCE;color:#006100;text-align:center;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s54{background:#E8E897;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s55{background:#EDEA99;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s56{background:#AFD68C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s57{background:#A0D188;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s58{background:#D9D9D9;text-align:right;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s59{background:#BDDB8E;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s60{background:#D1E193;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s61{background:#C9DE91;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s62{background:#C5DD90;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s63{background:#F3EC9A;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s64{background:#F8ED9B;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s65{background:#E3E796;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s66{background:#EFEA99;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s67{background:#B5D88D;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s68{background:#A8D48A;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s69{background:#FDEF9C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s70{background:#9ED188;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s71{background:#B1D78C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s72{background:#EBE998;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s73{background:#E0E696;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s74{background:#A0D288;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s75{background:#9CD088;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s76{background:#DBE495;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s77{background:#B7D98D;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s78{background:#A5D389;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s79{background:#E4E797;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s80{background:#C7DE90;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s81{background:#FEEF9C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s82{background:#F9ED9B;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s83{background:#98CF87;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s84{background:#95CE86;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s85{background:#F3EB9A;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s86{background:#D4E293;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s87{background:#CCDF92;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s88{background:#A9D48A;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s89{background:#7AC680;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s90{background:#DEE595;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s91{background:#EAE998;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s92{background:#B6D88D;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s93{background:#B9D98D;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s94{background:#BBDA8E;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s95{background:#83C882;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s96{background:#EDEA98;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s97{background:#DFE596;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s98{background:#FAEE9B;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s99{background:#F5EC9A;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s100{background:#D6E294;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s101{background:#CEE092;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s102{background:#B9DA8E;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s103{background:#80C782;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s104{background:#ACD58B;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s105{background:#D5E293;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s106{background:#AED68B;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s107{background:#AAD58A;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s108{background:#A4D389;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s109{background:#C8DE91;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s110{background:#D2E193;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s111{background:#96CE86;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s112{background:#68C07C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s113{background:#BEDB8F;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s114{background:#D9E394;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s115{background:#CADF91;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s116{background:#D3E293;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s117{background:#B0D78C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s118{background:#DAE494;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s119{background:#84C982;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s120{background:#86C983;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s121{background:#87CA83;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s122{background:#77C480;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s123{background:#E7E897;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s124{background:#B8D98D;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s125{background:#FBEE9B;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s126{background:#F6EC9A;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s127{background:#B4D88C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s128{background:#C6DD90;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s129{background:#DDE595;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s130{background:#D0E193;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s131{background:#B3D78C;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s132{background:#71C37E;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s133{background:#78C580;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s134{background:#BFBFBF;text-align:center;border-right:1px solid #000000}
+table.bench .s135{background:#B7DEE8;font-weight:bold;border-left:1px solid #000000;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s136{background:#BFBFBF;font-weight:bold;border-left:1px solid #000000}
+table.bench .s137{background:#BFBFBF}
+table.bench .s138{background:#FFFFFF;border-top:1px solid #000000}
+table.bench .s139{background:#FFFFFF;text-align:center;border-top:1px solid #000000}
+table.bench .s140{background:#BFBFBF;border-left:1px solid #000000;border-bottom:1px solid #000000}
+table.bench .s141{background:#BFBFBF;text-align:right;border-bottom:1px solid #000000}
+table.bench .s142{background:#BFBFBF;text-align:right;border-right:1px solid #000000;border-bottom:1px solid #000000}
+</style>
+<!-- BENCH-STYLE:END -->
 </head>
 
 <body>
-    <p><a href="index.html">&lt;&lt; Back to Home Page</a></p>
+    <p><a href="https://john-iv.github.io/iv-play/">&lt;&lt; Back to Home Page</a></p>
     <h1>John IV's MAME Benchmarks</h1>
 
     <p><strong>I've been benchmarking MAME since I got involved with the project in 1997 while on the MAME and MAMEUI teams.</strong></p>
 
-    <p><strong>My current i7&#8209;12700K @5.2GHz replaces my 2016 i7&#8209;6700K OC'ed to 4.5GHz. The 12700K provides a six&#8209;generation jump and a considerable performance uplift.</strong></p>
+    <p><strong>My current i7&#8209;14700K @5.8GHz replaces my 2021 i7&#8209;12700K. The 14700K provides a two&#8209;generation jump and was a simple drop-in while we wait for Nova Lake; it's providing about a 13% uptick.</strong></p>
 
     <p><strong>Each game is run for an emulated 90 seconds (<code>mame gamename -bench 90</code>) which normally gets to gameplay in its demos. Some need to be set up beforehand and/or use CHDs; see the legend. Games have been chosen as historical performance pain points for MAME (analogue sound, DRCs, netlists, etc.) as it's matured, and others are just favorites. The runs mainly function to show PC power progress over time, though they often expose performance dips and increases in released code. You'll typically want a bench result of over 200% to ensure full&#8209;speed through actual gameplay.</strong></p>
 
-    <p><strong>Numbered tests are run with the official builds from <a href="https://www.mamedev.org/" target="_blank">MAMEDEV.org</a>. The nightly runs are my own builds using a simple <code>make -j21 STRIP_SYMBOLS=1</code>. The results are percentages of "full speed" in the emulation.  The year's Delta &Delta; column results are the current release's speed vs. the prior release.</strong></p>
+    <p><strong>Numbered tests are run with the official builds from <a href="https://www.mamedev.org/" target="_blank">MAMEDEV.org</a>. The results are percentages of "full speed" in the emulation.  The Delta &Delta; column results are the nightly build's speed vs. the prior release.</strong></p>
 
-    <p><strong>My front-end IV/Play <a href="index.html">(see homepage)</a> now has the benchmark built in; hit F9 while in the game list or F1 and use the button to kick off the benchmark suite.</strong></p>
+    <p><strong>My front-end IV/Play <a href="https://john-iv.github.io/iv-play/">(see homepage)</a> now has the benchmark built in; hit F9 while in the game list or F1 and use the button to kick off the benchmark suite.</strong></p>
 
     <p class="highlight"><strong>A note on the various averaging methods. Previously I had just done arithmetic means; those are retained for historical comparisons. A more valid comparison nowadays is the geometric mean. This method prevents a single game with a massive percentage gain from skewing the results (pacman, robotron), giving a more accurate and realistic measure of the typical performance improvement across all games on the PCs under test.</strong></p>
 
     <!-- Benchmark images -->
-    <p><a href="2026.png"><img src="2026.png" alt="MAME Benchmarks 2026"></a></p>
+    <!-- BENCH-TABLE:BEGIN 2026 (generated from Bench.xlsx by Build-BenchPage.ps1) -->
+<div class="bench-wrap">
+<table class="bench" style="width:1136.5pt">
+<caption class="vh">MAME™ Benchmarks 2026</caption>
+<colgroup><col style="width:9.5pt"><col style="width:47pt"><col style="width:72.5pt"><col style="width:54.5pt"><col style="width:54.5pt"><col style="width:54.5pt"><col style="width:54.5pt"><col style="width:54.5pt"><col style="width:50.5pt"><col style="width:28pt"><col style="width:538pt"><col style="width:15pt"><col style="width:21pt"><col style="width:49pt"><col style="width:33.5pt"></colgroup>
+<thead>
+<tr style="height:13pt"><td class="s0"></td><th class="s1" scope="col" colspan="2" rowspan="4">MAME™ Benchmarks</th><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s3"></td><td class="s4"></td><td class="s5"></td><td class="s6"></td><td class="s7"></td><td class="s8"></td></tr>
+<tr style="height:13pt"><td class="s9"></td><td class="s10"></td><td class="s10"></td><td class="s10"></td><td class="s10"></td><td class="s10"></td><td class="s10"></td><td class="s11"></td><td class="s12"></td><td class="s13"></td><td class="s6"></td><td class="s14"></td><td class="s8"></td></tr>
+<tr style="height:13pt"><td class="s9"></td><th class="s15" scope="col">0.285</th><th class="s15" scope="col">0.286</th><th class="s15" scope="col">0.287</th><th class="s15" scope="col">0.288</th><th class="s15" scope="col">0.289</th><th class="s15 sp" scope="col">Nightly</th><td class="s16"></td><th class="s15 sp" scope="col">i7-14700K 3.4Ghz / 64GB DDR5 5200 / AMD 5600XT / Samsung 980 PRO 6TB NVMe RAID-0 / Win11 x64</th><td class="s17"></td><td class="s18"></td><th class="s15 sp" scope="col">0.287</th><td class="s19"></td></tr>
+<tr style="height:13pt"><td class="s9"></td><th class="s15" scope="col">i7-12700K</th><th class="s15" scope="col">i7-12700K</th><th class="s15" scope="col">i7-12700K</th><th class="s15" scope="col">i7-12700K</th><th class="s15" scope="col">i7-12700K</th><th class="s15 sp" scope="col">i7-14700K</th><td class="s16"></td><td class="s20"></td><td class="s17"></td><td class="s18"></td><th class="s15 sp" scope="col">U7 270K</th><td class="s19"></td></tr>
+<tr style="height:13pt"><td class="s9"></td><td class="s21"></td><td class="s22"></td><th class="s15" scope="col">5.2Ghz</th><th class="s15" scope="col">5.2Ghz</th><th class="s15" scope="col">5.2Ghz</th><th class="s15" scope="col">5.2Ghz</th><th class="s15" scope="col">5.2Ghz</th><th class="s15 sp" scope="col">5.8Ghz</th><td class="s16"></td><td class="s23"></td><td class="s17"></td><td class="s18"></td><th class="s15 sp" scope="col">Taz-NZ</th><td class="s19"></td></tr>
+<tr style="height:13pt"><td class="s9"></td><td class="s10"></td><td class="s24"></td><th class="s15" scope="col">Win11</th><th class="s15" scope="col">Win11</th><th class="s15" scope="col">Win11</th><th class="s15" scope="col">Win11</th><th class="s15" scope="col">Win11</th><th class="s15 sp" scope="col">Win11</th><td class="s25"></td><td class="s26"></td><td class="s13"></td><td class="s18"></td><th class="s15 sp" scope="col">Win11</th><td class="s27"></td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s29" scope="col">Game</th><th class="s29" scope="col">Driver</th><th class="s30" scope="col">1/29/2026</th><th class="s30" scope="col">2/25/2026</th><th class="s30" scope="col">3/30/2026</th><th class="s30" scope="col">5/28/2026</th><th class="s30" scope="col">7/30/2026</th><th class="s30" scope="col">10/7/2026</th><th class="s31" scope="col">Δ</th><td class="s32"></td><td class="s17"></td><td class="s18"></td><th class="s33" scope="col">5/15/2026</th><th class="s34" scope="col">Δ</th></tr>
+</thead>
+<tbody>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">blitz</th><td class="s35">seattle</td><td class="s36">447</td><td class="s37">423</td><td class="s38">414</td><td class="s39">471</td><td class="s40">483</td><td class="s41">582</td><td class="s42">21%</td><td class="s35">NFL Blitz (ver 1.21, Dec 5 1987)</td><td class="s43">†</td><td class="s18"></td><td class="s44">456</td><td class="s45">-22%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">crusnusa</th><td class="s35">midvunit</td><td class="s46">477</td><td class="s47">476</td><td class="s38">452</td><td class="s48">513</td><td class="s49">535</td><td class="s41">599</td><td class="s42">12%</td><td class="s35">Cruis&#39;n USA (v4.5)</td><td class="s43">*</td><td class="s18"></td><td class="s44">580</td><td class="s45">-3%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">cubeqst</th><td class="s35">cubeqst</td><td class="s39">560</td><td class="s38">524</td><td class="s50">527</td><td class="s51">550</td><td class="s52">559</td><td class="s41">630</td><td class="s42">13%</td><td class="s35">Cube Quest (01/04/84)</td><td class="s43">†</td><td class="s18"></td><td class="s44">777</td><td class="s53">23%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">cyvern</th><td class="s35">supernova</td><td class="s38">1831</td><td class="s54">1916</td><td class="s55">1898</td><td class="s56">2116</td><td class="s57">2172</td><td class="s41">2386</td><td class="s58">10%</td><td class="s35 sp">Cyvern - The Dragon Weapons (US)</td><td class="s43"></td><td class="s18"></td><td class="s44"></td><td class="s45"></td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">dkong</th><td class="s35">dkong</td><td class="s38">4062</td><td class="s59">4570</td><td class="s60">4415</td><td class="s61">4478</td><td class="s62">4514</td><td class="s41">5257</td><td class="s42">16%</td><td class="s35 sp">Donkey Kong (US set 1)</td><td class="s43"></td><td class="s18"></td><td class="s44">5710</td><td class="s45">9%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">drivedge</th><td class="s35">itech32</td><td class="s38">589</td><td class="s51">608</td><td class="s63">595</td><td class="s64">593</td><td class="s55">599</td><td class="s41">670</td><td class="s42">12%</td><td class="s35 sp">Driver&#39;s Edge (v1.6)</td><td class="s43"></td><td class="s18"></td><td class="s44">777</td><td class="s53">16%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">gauntleg</th><td class="s35">vegas</td><td class="s65">743</td><td class="s66">733</td><td class="s38">721</td><td class="s67">778</td><td class="s68">788</td><td class="s41">841</td><td class="s58">7%</td><td class="s35">Gauntlet Legends (version 1.6)</td><td class="s43">†</td><td class="s18"></td><td class="s44">879</td><td class="s45">5%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">gnbarich</th><td class="s35">psikyosh</td><td class="s69">3107</td><td class="s70">3358</td><td class="s71">3309</td><td class="s72">3156</td><td class="s38">3102</td><td class="s41">3511</td><td class="s42">13%</td><td class="s35 sp">Gunbarich</td><td class="s43"></td><td class="s18"></td><td class="s44">4737</td><td class="s53">35%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">gradius4</th><td class="s35">hornet</td><td class="s46">581</td><td class="s73">585</td><td class="s38">558</td><td class="s74">639</td><td class="s75">642</td><td class="s41">690</td><td class="s58">8%</td><td class="s35">Gradius IV: Fukkatsu (ver JAC)</td><td class="s43">*</td><td class="s18"></td><td class="s44">610</td><td class="s45">-12%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">gtfore06</th><td class="s35">iteagle</td><td class="s69">431</td><td class="s76">447</td><td class="s38">430</td><td class="s77">463</td><td class="s78">471</td><td class="s41">500</td><td class="s58">6%</td><td class="s35">Golden Tee Fore! 2006 Complete (v6.00.01)</td><td class="s43">†</td><td class="s18"></td><td class="s44">580</td><td class="s53">16%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">harddriv</th><td class="s35">harddriv</td><td class="s38">954</td><td class="s79">987</td><td class="s64">963</td><td class="s80">1021</td><td class="s52">1014</td><td class="s41">1138</td><td class="s42">12%</td><td class="s35 sp">Hard Drivin&#39; (cockpit, rev 7)</td><td class="s43"></td><td class="s18"></td><td class="s44">1383</td><td class="s53">21%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">kidniki</th><td class="s35">kidniki</td><td class="s81">708</td><td class="s82">716</td><td class="s38">706</td><td class="s83">870</td><td class="s84">875</td><td class="s41">953</td><td class="s58">9%</td><td class="s35 sp">Kid Niki - Radical Ninja (World)</td><td class="s43"></td><td class="s18"></td><td class="s44">888</td><td class="s45">-7%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">kof98</th><td class="s35">neogeo</td><td class="s85">1853</td><td class="s86">1898</td><td class="s38">1834</td><td class="s36">1878</td><td class="s87">1910</td><td class="s41">2063</td><td class="s58">8%</td><td class="s35 sp">King of Fighters &#39;98 - The Slugfest / King of Fighters &#39;98 - Dream Match Never Ends, The (NGM-2420)</td><td class="s43"></td><td class="s18"></td><td class="s44">2589</td><td class="s53">26%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">mario</th><td class="s35">mario</td><td class="s88">1767</td><td class="s89">1856</td><td class="s38">1601</td><td class="s90">1666</td><td class="s48">1725</td><td class="s41">1900</td><td class="s58">10%</td><td class="s35 sp">Mario Bros. (US, Revision G)</td><td class="s43"></td><td class="s18"></td><td class="s44">1998</td><td class="s45">5%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">mk4</th><td class="s35">zeus</td><td class="s91">450</td><td class="s50">439</td><td class="s38">436</td><td class="s87">468</td><td class="s92">482</td><td class="s41">532</td><td class="s58">10%</td><td class="s35 sp">Mortal Kombat 4 (version 3.0)</td><td class="s43"></td><td class="s18"></td><td class="s44">578</td><td class="s45">9%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">pacman</th><td class="s35">pacman</td><td class="s38">19833</td><td class="s93">22216</td><td class="s46">20711</td><td class="s48">21996</td><td class="s94">22131</td><td class="s41">25071</td><td class="s42">13%</td><td class="s35 sp">Pac-Man (Midway)</td><td class="s43"></td><td class="s18"></td><td class="s44">32121</td><td class="s53">28%</td></tr>
+<tr style="height:12.5pt"><td class="s28"></td><th class="s35" scope="row">pinkswts</th><td class="s35">cv1k</td><td class="s95">2323</td><td class="s41">2622</td><td class="s55">1315</td><td class="s96">1324</td><td class="s55">1320</td><td class="s38">1145</td><td class="s58">-13%</td><td class="s35 sp">Pink Sweets: Ibara Sorekara (2006/04/06 MASTER VER....)</td><td class="s43"></td><td class="s18"></td><td class="s44">1381</td><td class="s53">21%</td></tr>
+<tr style="height:12.5pt"><td class="s28"></td><th class="s35" scope="row">pong</th><td class="s35">pong</td><td class="s82">680</td><td class="s97">694</td><td class="s79">691</td><td class="s50">679</td><td class="s38">677</td><td class="s41">760</td><td class="s42">12%</td><td class="s35 sp">Pong (Rev E) [TTL]</td><td class="s43"></td><td class="s18"></td><td class="s44">841</td><td class="s45">11%</td></tr>
+<tr style="height:12.5pt"><td class="s28"></td><th class="s35" scope="row">propcycl</th><td class="s35">namcos22</td><td class="s50">369</td><td class="s72">386</td><td class="s38">366</td><td class="s94">430</td><td class="s77">434</td><td class="s41">513</td><td class="s42">18%</td><td class="s35 sp">Prop Cycle (Rev. PR2 Ver.A)</td><td class="s43"></td><td class="s18"></td><td class="s44">445</td><td class="s45">-13%</td></tr>
+<tr style="height:12.5pt"><td class="s28"></td><th class="s35" scope="row">radikalb</th><td class="s35">gaelco3d</td><td class="s98">398</td><td class="s99">400</td><td class="s38">395</td><td class="s100">415</td><td class="s101">419</td><td class="s41">470</td><td class="s42">12%</td><td class="s35 sp">Radikal Bikers (Version 2.02)</td><td class="s43"></td><td class="s18"></td><td class="s44">539</td><td class="s45">15%</td></tr>
+<tr style="height:12.5pt"><td class="s28"></td><th class="s35" scope="row">roadblst</th><td class="s35">roadblst</td><td class="s102">1671</td><td class="s103">1752</td><td class="s104">1690</td><td class="s38">1572</td><td class="s105">1633</td><td class="s41">1792</td><td class="s58">10%</td><td class="s35 sp">Road Blasters (upright, rev 4)</td><td class="s43"></td><td class="s18"></td><td class="s44">2293</td><td class="s53">28%</td></tr>
+<tr style="height:12.5pt"><td class="s28"></td><th class="s35" scope="row">robotron</th><td class="s35">williams</td><td class="s38">7880</td><td class="s106">9164</td><td class="s48">8905</td><td class="s107">9228</td><td class="s108">9327</td><td class="s41">10340</td><td class="s58">11%</td><td class="s35">Robotron: 2084 (Solid Blue label)</td><td class="s43">*</td><td class="s18"></td><td class="s44">12684</td><td class="s53">23%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">rvschool</th><td class="s35">zn</td><td class="s72">576</td><td class="s109">596</td><td class="s110">590</td><td class="s36">582</td><td class="s38">564</td><td class="s41">654</td><td class="s42">16%</td><td class="s35 sp">Rival Schools: United By Fate (Euro 971117)</td><td class="s43"></td><td class="s18"></td><td class="s44">867</td><td class="s53">33%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">scud</th><td class="s35">model3</td><td class="s111">121</td><td class="s52">116</td><td class="s38">111</td><td class="s41">125</td><td class="s48">117</td><td class="s112">125</td><td class="s58">7%</td><td class="s35">Scud Race Twin/DX (Export)</td><td class="s43">*</td><td class="s18"></td><td class="s44">245</td><td class="s53">96%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">sf2</th><td class="s35">cps1</td><td class="s38">3325</td><td class="s113">3615</td><td class="s114">3497</td><td class="s114">3498</td><td class="s39">3558</td><td class="s41">4017</td><td class="s42">13%</td><td class="s35 sp">Street Fighter II: The World Warrior (World 910522)</td><td class="s43"></td><td class="s18"></td><td class="s44">4563</td><td class="s45">14%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">sfa2</th><td class="s35">cps2</td><td class="s38">2593</td><td class="s115">2870</td><td class="s51">2789</td><td class="s116">2825</td><td class="s117">3007</td><td class="s41">3408</td><td class="s42">13%</td><td class="s35 sp">Street Fighter Alpha 2 (Euro 960229)</td><td class="s43"></td><td class="s18"></td><td class="s44">3715</td><td class="s45">9%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">sfiii</th><td class="s35">cps3</td><td class="s38">1996</td><td class="s77">2174</td><td class="s110">2108</td><td class="s118">2089</td><td class="s52">2120</td><td class="s41">2380</td><td class="s42">12%</td><td class="s35">Street Fighter III: New Generation (Euro 970204)</td><td class="s43">†*</td><td class="s18"></td><td class="s44">2782</td><td class="s53">17%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">slrasslt</th><td class="s35">gticlub</td><td class="s119">699</td><td class="s110">643</td><td class="s38">611</td><td class="s92">664</td><td class="s68">673</td><td class="s41">722</td><td class="s58">7%</td><td class="s35">Solar Assault (ver UAA)</td><td class="s43">*</td><td class="s18"></td><td class="s44">604</td><td class="s45">-16%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">spacfury</th><td class="s35">segag80v</td><td class="s38">274</td><td class="s99">287</td><td class="s69">277</td><td class="s120">427</td><td class="s121">426</td><td class="s41">471</td><td class="s58">10%</td><td class="s35 sp">Space Fury (revision C)</td><td class="s43"></td><td class="s18"></td><td class="s44">320</td><td class="s45">-32%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">starblad</th><td class="s35">namcos21</td><td class="s122">283</td><td class="s41">290</td><td class="s120">277</td><td class="s38">232</td><td class="s69">233</td><td class="s104">263</td><td class="s42">13%</td><td class="s35 sp">Starblade (ST2, World)</td><td class="s43"></td><td class="s18"></td><td class="s44">385</td><td class="s53">46%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">starsldr</th><td class="s35">aleck64</td><td class="s123">182</td><td class="s79">183</td><td class="s38">176</td><td class="s124">193</td><td class="s92">194</td><td class="s41">214</td><td class="s58">10%</td><td class="s35 sp">Star Soldier: Vanishing Earth</td><td class="s43"></td><td class="s18"></td><td class="s44">235</td><td class="s45">10%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">sushibar</th><td class="s35">naomi</td><td class="s125">130</td><td class="s126">132</td><td class="s38">129</td><td class="s127">152</td><td class="s106">153</td><td class="s41">176</td><td class="s42">15%</td><td class="s35 sp">Sushi Bar</td><td class="s43"></td><td class="s18"></td><td class="s44">167</td><td class="s45">-5%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">tekken</th><td class="s35">namcos11</td><td class="s72">854</td><td class="s60">876</td><td class="s87">881</td><td class="s90">865</td><td class="s38">835</td><td class="s41">975</td><td class="s42">17%</td><td class="s35 sp">Tekken (World, TE2/VER.C)</td><td class="s43"></td><td class="s18"></td><td class="s44">1306</td><td class="s53">34%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">tekken3</th><td class="s35">namcos12</td><td class="s72">431</td><td class="s128">446</td><td class="s129">436</td><td class="s129">436</td><td class="s38">423</td><td class="s41">485</td><td class="s42">15%</td><td class="s35">Tekken 3 (World, TET2/VER.E1)</td><td class="s43">*</td><td class="s18"></td><td class="s44">760</td><td class="s53">57%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">vf2</th><td class="s35">model2</td><td class="s38">233</td><td class="s130">253</td><td class="s72">241</td><td class="s71">266</td><td class="s131">266</td><td class="s41">300</td><td class="s42">13%</td><td class="s35 sp">Virtua Fighter 2 (Version 2.1)</td><td class="s43"></td><td class="s18"></td><td class="s44">303</td><td class="s45">1%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s35" scope="row">vfkids</th><td class="s35">stv</td><td class="s38">216</td><td class="s104">224</td><td class="s69">217</td><td class="s41">231</td><td class="s132">230</td><td class="s133">229</td><td class="s58">0%</td><td class="s35 sp">Virtua Fighter Kids (JUET 960319 V0.000)</td><td class="s43"></td><td class="s18"></td><td class="s44">285</td><td class="s53">25%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s29" scope="row" colspan="2">Arithmetic Mean</th><td class="s15">1767</td><td class="s15">1930</td><td class="s15">1813</td><td class="s15">1886</td><td class="s15">1906</td><td class="s15">2132</td><td class="s42">12%</td><td class="s0"></td><td class="s134"></td><td class="s18"></td><td class="s135">2554</td><td class="s53">20%</td></tr>
+<tr style="height:14.5pt"><td class="s28"></td><th class="s29" scope="row" colspan="2">Geometric Mean</th><td class="s33">810</td><td class="s33">838</td><td class="s33">798</td><td class="s33">846</td><td class="s33">852</td><td class="s33">943</td><td class="s58">11%</td><td class="s9 sp">MAME &lt;game&gt; -bench 90 • Releases from Mamedev.org</td><td class="s134"></td><td class="s18"></td><td class="s33">1034</td><td class="s45">10%</td></tr>
+<tr style="height:13pt"><td class="s28"></td><th class="s29" scope="row" colspan="2">Harmonic Mean</th><td class="s33">490</td><td class="s33">497</td><td class="s33">479</td><td class="s33">522</td><td class="s33">520</td><td class="s33">574</td><td class="s58">10%</td><td class="s136 sp"><span style="font-weight:bold">*</span><span style="font-weight:normal"> Games require initial one time setup prior to run • † CHD games • Numbers = Percentage of full speed</span></td><td class="s134"></td><td class="s18"></td><td class="s33">636</td><td class="s45">11%</td></tr>
+<tr style="height:13pt"><td class="s9"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s2"></td><td class="s3"></td><td class="s137"></td><td class="s134"></td><td class="s6"></td><td class="s138"></td><td class="s139"></td></tr>
+<tr style="height:13pt"><td class="s140"></td><th class="s10 sp" scope="row"><span style="font-weight:bold">Arithmetic</span><span style="font-weight:normal"> = broad average (skewed by outliers); </span><span style="font-weight:bold">Geometric</span><span style="font-weight:normal"> = typical central performance; </span><span style="font-weight:bold">Harmonic</span><span style="font-weight:normal"> = worst-case performance (weighted by slowest games).</span></th><td class="s10"></td><td class="s12"></td><td class="s12"></td><td class="s12"></td><td class="s12"></td><td class="s12"></td><td class="s12"></td><td class="s141"></td><td class="s12"></td><td class="s142 spr"><span>&#169; john iv</span></td><td class="s6"></td><td class="s7"></td><td class="s8"></td></tr>
+</tbody>
+</table>
+</div>
+<p class="bench-note"><strong>Nightly results: MAME 0.289 nightly build mame0289-1380-g748a8ac26f9 (built 10/7/2026), benchmarked 10/7/2026.</strong></p>
+<!-- BENCH-TABLE:END -->
     <h2>Historical MAME Benchmark Results (2017 to Prior Year)</h2>
     <p><a href="2025.png"><img src="2025.png" alt="MAME Benchmarks 2025"></a></p>
     <p><a href="2024.png"><img src="2024.png" alt="MAME Benchmarks 2024"></a></p>

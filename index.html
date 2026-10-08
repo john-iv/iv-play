@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-         RELEASE CONFIG — update these values only. Everything else is auto.
-         ═══════════════════════════════════════════════════════════════════ -->
-    <!-- Single source of truth for every per-release value. Edit release.js, never this file. -->
-    <script src="release.js"></script>
-    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-79ZPD1ETK2"></script>
     <script>
@@ -18,62 +14,56 @@
         gtag('config', 'G-79ZPD1ETK2');
     </script>
 
-    <!-- JSON-LD structured data — built from IVPLAY config, no manual edits needed -->
-    <script>
-    (function() {
-        var schema = [
-          {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "IV/Play",
-            "applicationCategory": "GameApplication",
-            "operatingSystem": "Windows 11",
-            "description": "A high-performance, graphical front-end for the MAME (Multiple Arcade Machine Emulator) platform.",
-            "author": { "@type": "Person", "name": "John IV" },
-            "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z",
-            "softwareVersion": IVPLAY.version,
-            "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, beautiful, snapshots, John IV"
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "VideoObject",
-            "name": "IV/Play MAME Front-End Demo",
-            "description": "Demonstration of IV/Play, a high-performance keyboard-driven front-end for MAME, showing game browsing, artwork display, and navigation features.",
-            "thumbnailUrl": "https://john-iv.github.io/iv-play/a.png",
-            "contentUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4",
-            "uploadDate": "2026-02-25",
-            "author": { "@type": "Person", "name": "John IV" }
-          }
-        ];
-        var el = document.createElement('script');
-        el.type = 'application/ld+json';
-        el.text = JSON.stringify(schema);
-        document.head.appendChild(el);
-    })();
-    </script>
+    <!-- HOME-SCHEMA:BEGIN -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "IV/Play",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Windows 11",
+    "description": "A high-performance, graphical front-end for the MAME (Multiple Arcade Machine Emulator) platform.",
+    "author": {
+      "@type": "Person",
+      "name": "John IV"
+    },
+    "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z",
+    "softwareVersion": "2.8.12",
+    "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, beautiful, snapshots, John IV"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "IV/Play MAME Front-End Demo",
+    "description": "Demonstration of IV/Play, a high-performance keyboard-driven front-end for MAME, showing game browsing, artwork display, and navigation features.",
+    "thumbnailUrl": "https://john-iv.github.io/iv-play/a.png",
+    "contentUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/demo.mp4",
+    "uploadDate": "2026-02-25",
+    "author": {
+      "@type": "Person",
+      "name": "John IV"
+    }
+  }
+]
+</script>
+<!-- HOME-SCHEMA:END -->
 
-    <meta charset="UTF-8">
     <meta name="robots" content="index, follow">
     <meta name="description" content="Download IV/Play – a fast, keyboard-driven MAME™ front-end with icons, snapshots, and benchmark archives for research, preservation, and play.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="https://john-iv.github.io/iv-play/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="IV/Play : MAME™ Front-End, Icons, Snapshots &amp; Benchmarks">
-    <meta id="og-description" property="og:description" content="">
+    <meta id="og-description" property="og:description" content="High-performance, keyboard-driven MAME front-end with icons, snapshots, and benchmarks spanning 1997 to present. Download IV/Play 2.8.12.">
     <meta property="og:image" content="https://john-iv.github.io/iv-play/a.png">
     <meta property="og:url" content="https://john-iv.github.io/iv-play/">
     <title>IV/Play : MAME™ Front-End, Icons, Snapshots &amp; Benchmarks</title>
     <link rel="icon" href="favicon.ico" sizes="any">
 
-    <!-- Patch og:description from config -->
-    <script>
-    document.getElementById('og-description').setAttribute('content',
-        'High-performance, keyboard-driven MAME front-end with icons, snapshots, and benchmarks ' +
-        'spanning 1997 to present. Download IV/Play ' + IVPLAY.version + '.');
-    </script>
+    
 
-    <!-- marked.js — client-side Markdown renderer for README section -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
 
     <style>
         body {
@@ -86,8 +76,10 @@
         }
 
         #frame {
-            width: 1200px;
-            height: 1100px;
+            /* Fills narrower screens; unchanged at 1200px wide and up. */
+            max-width: 1200px;
+            width: 100%;
+            min-height: 1100px;
             background: #000 no-repeat top left;
             position: relative;
             overflow: visible;
@@ -347,6 +339,40 @@
         }
 
         /* ── end README section ──────────────────────────────────────────── */
+
+        /* ── Narrow screens (phones) ─────────────────────────────────────────
+           Only applies below 760px, so the desktop layout above is unchanged. */
+        @media (max-width: 760px) {
+            h1.page-title {
+                font-size: 1.35em;
+                padding-right: 10px;
+            }
+            .container {
+                padding-right: 10px;
+            }
+            ul.download-links,
+            .resources {
+                padding-left: 16px;
+            }
+            /* Release notes open below the link instead of off the right edge. */
+            .tooltip .tooltiptext {
+                top: 100%;
+                left: 0;
+                transform: none;
+                width: auto;
+                max-width: calc(100vw - 40px);
+                margin-top: 4px;
+            }
+            #readme-content {
+                padding: 0.6em 1em 1.2em 1em;
+                overflow-wrap: anywhere;
+            }
+            /* A wide table scrolls inside its own box rather than widening the page. */
+            #readme-content table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
     </style>
 </head>
 
@@ -359,7 +385,7 @@
     <div class="container">
 
         <!-- FIXED VIDEO BLOCK (NO RETURN BUTTON, NO LAYOUT SHIFT) -->
-        <div id="video-container" style="width:1015px; position:relative;">
+        <div id="video-container" style="max-width:1015px; width:100%; position:relative;">
             <img id="preview-img"
                  src="a.png"
                  alt="IV/Play MAME front-end screenshot showing game list and artwork"
@@ -394,8 +420,16 @@
         </p>
 
         <h2>Downloads</h2>
-        <!-- Populated entirely from IVPLAY config object above -->
-        <ul class="download-links" id="download-list"></ul>
+        <!-- HOME-DOWNLOADS:BEGIN -->
+<ul class="download-links" id="download-list">
+    <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z" onclick="gtag(&#39;event&#39;,&#39;download&#39;,{&#39;event_category&#39;:&#39;Downloads&#39;,&#39;event_label&#39;:&quot;IV-Play 2.8.12 7z&quot;});" class="tooltip">IV/Play <span id="ivplay-version">2.8.12</span> (.7z) (8:16 PM 10/3/2026)<span class="tooltiptext"><strong>Version 2.8.12 (8:16 PM 10/3/2026)</strong><br>&bull; DPI &amp; Layout Modernization<br>&bull; Internal HiScore.ini<br>&bull; MAME Source .cpp Peek<br>&bull; TohoScope Int/Ext Toggle<br>&bull; Live Available ROM Monitoring<br>&bull; Favorite.ini External Monitoring<br>&bull; Persistent DAT View via Tilde<br>&bull; Check for Update button on F1<br>&bull; -Bench Commandline Switch<br>&bull; Tweaks and bugfixes 2.8.12<br>&bull; See User Guide for Full ChangeLog</span></a></li>
+    <li>User Guide (PDF) <a href="IV-Play.User.Guide.pdf" target="_blank" style="color:#ff9966;" onclick="gtag('event','download',{'event_category':'Downloads','event_label':'User Guide View Online'});">View Online</a> | <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf" download style="color:#ff9966;" onclick="gtag('event','download',{'event_category':'Downloads','event_label':'User Guide Download'});">Download</a></li>
+    <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z" onclick="gtag('event','download',{'event_category':'Downloads','event_label':'MAME Snapshots 7z'});">MAME Snapshots (.7z)</a></li>
+    <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z" onclick="gtag('event','download',{'event_category':'Downloads','event_label':'MAME Icons 7z'});">MAME Icons (.7z)</a></li>
+    <li><a href="https://github.com/john-iv/iv-play/releases">Release Page (GitHub)</a></li>
+    <li class="highlight">Art assets updated to MAME 0.289 as of 5:54 PM 7/30/2026</li>
+</ul>
+<!-- HOME-DOWNLOADS:END -->
 
         <h2><a href="bench.html">MAME Benchmarks</a></h2>
 
@@ -408,78 +442,101 @@
 
         <p class="est-line">Est. 8/11/1998 &copy; john iv</p>
 
-        <!-- README rendered inline — version injected from IVPLAY config, README.md never needs a version edit -->
-        <div id="readme-content"></div>
+        <!-- HOME-README:BEGIN -->
+<div id="readme-content">
+<h1 id="why-ivplay">Why IV/Play</h1>
+<h2 id="overview">Overview</h2>
+<p>IV/Play (pronounced 'Four Play') is a keyboard-driven front-end for MAME™ in the tradition of MAMEUI. Conceived in 2006 and commissioned in 2011 by John IV of the original MAMEUI team, it keeps MAMEUI's navigation and shortcuts and rebuilds everything underneath for modern Windows PCs: a DirectX 11 / Direct2D renderer, a self-contained Native AOT executable, and a library that is ready to browse about a second after launch.</p>
+<p>IV/Play launches MAME or HBMAME; it leaves the emulator's own configuration to the emulator.</p>
+<h2 id="highlights">Highlights</h2>
+<ul>
+<li><strong>Instant and smooth.</strong> A fully populated list about a second after launch, and every pixel drawn on the GPU, so scrolling through tens of thousands of machines never judders.</li>
+<li><strong>A filter that understands you.</strong> Type <code>capcom late 90s no clones</code>, <code>2 screens lightgun</code> or <code>&quot;king of fighters&quot;</code>, and mix in field searches such as <code>manufacturer:sega workingstatus:imperfect</code> when you want precision.</li>
+<li><strong>Arcade and software lists together.</strong> More than 140,000 console and computer titles from MAME's software lists are searchable alongside the arcade machines: <code>name:zaxxon</code> finds the arcade game and its home ports.</li>
+<li><strong>Know what you can play.</strong> The Available and Missing lists audit your ROM folder, and Available keeps itself current as ROMs come and go. Arcade Only, Favorites, a Hidden list and your own custom lists cover the rest.</li>
+<li><strong>History at your fingertips.</strong> History, MAMEinfo and category data are built into search (<code>genre:</code>, <code>history:</code>, first MAME version) and one keypress away in the DAT Peek overlay.</li>
+<li><strong>Looks that follow your art.</strong> Dynamic themes derive text, border and scrollbar colors from your background image, and the interface stays sharp at 4K and across monitors with different scaling.</li>
+<li><strong>Benchmarking built in.</strong> Benchmark one game or a whole suite, interactively or unattended from the command line, and keep a history you can open in Excel. See the <a href="https://john-iv.github.io/iv-play/bench.html">MAME benchmarks</a> page.</li>
+<li><strong>Portable, nothing to install.</strong> One self-contained executable with no .NET runtime to install. Your favorites, custom lists and benchmark history live beside it and survive cache rebuilds and factory resets.</li>
+</ul>
+<h2 id="quick-start">Quick Start</h2>
+<ol>
+<li>Unpack <code>IV-Play.exe</code> and <code>e_sqlite3.dll</code> into your MAME folder, alongside <code>mame.exe</code>.</li>
+<li>Launch <code>IV-Play.exe</code>. It finds <code>mame.exe</code> (or asks you to locate it) and builds its database and caches on first run.</li>
+<li>From then on it is ready in about a second. Press <strong><code>F1</code></strong> to configure, <strong><code>Ctrl+F</code></strong> to filter and <strong><code>Enter</code></strong> to play. Using HBMAME or a differently named build? <strong><code>F4</code></strong> links any executable.</li>
+</ol>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Windows 11 preferred.</li>
+<li>A DirectX 11 GPU, a multi-core CPU and an SSD/NVMe drive are strongly recommended.</li>
+<li>MAME or HBMAME. No .NET installation is required.</li>
+</ul>
+<h2 id="essential-keys">Essential Keys</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>Enter</code></strong></td>
+<td>Launch the selected game.</td>
+</tr>
+<tr>
+<td><strong><code>Ctrl</code></strong>+<strong><code>F</code></strong></td>
+<td>Filter the list.</td>
+</tr>
+<tr>
+<td><strong><code>F1</code></strong></td>
+<td>Configuration.</td>
+</tr>
+<tr>
+<td><strong><code>Alt</code></strong>+<strong><code>P</code></strong> / <strong><code>Tab</code></strong></td>
+<td>Change view: list, large icons, grid or flat.</td>
+</tr>
+<tr>
+<td><strong><code>Alt</code></strong>+<strong><code>Ins</code></strong> / <strong><code>Del</code></strong></td>
+<td>Switch game list: Full, Arcade Only, Available, your own lists.</td>
+</tr>
+<tr>
+<td><strong><code>Ctrl</code></strong>+<strong><code>D</code></strong></td>
+<td>Add or remove a favorite.</td>
+</tr>
+<tr>
+<td><strong><code>~</code></strong> (Tilde)</td>
+<td>DAT Peek: history and MAMEinfo for the selected game.</td>
+</tr>
+<tr>
+<td><strong><code>Alt</code></strong>+<strong><code>Enter</code></strong></td>
+<td>Properties of the selected game.</td>
+</tr>
+<tr>
+<td><strong><code>Ctrl</code></strong>+<strong><code>B</code></strong> / <strong><code>F9</code></strong></td>
+<td>Benchmark the selected game / run the benchmark suite.</td>
+</tr>
+<tr>
+<td><strong><code>F5</code></strong></td>
+<td>Refresh from MAME and rebuild caches.</td>
+</tr>
+</tbody>
+</table>
+<p>Most keys can be rebound in F1. The full keyboard reference is in the User Guide.</p>
+<h2 id="credits">Credits</h2>
+<ul>
+<li>Creator &amp; Designer (2006-Present): John L. Hardy IV</li>
+<li>Legacy v1 Codebase (2011–2016): Matan Bareket</li>
+</ul>
+</div>
+<!-- HOME-README:END -->
 
     </div>
 </div>
 
-<!-- Build the download list from IVPLAY config -->
-<script>
-(function() {
-    var v   = IVPLAY.version;
-    var d   = IVPLAY.date;
-    var tip = IVPLAY.notes
-                .map(function(n) { return '&bull; ' + n; })
-                .join('<br>');
 
-    document.getElementById('download-list').innerHTML =
-        '<li>' +
-          '<a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z"' +
-          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
-          '\'event_label\':\'IV-Play ' + v + ' 7z\'});" class="tooltip">' +
-          'IV/Play <span id="ivplay-version">' + v + '</span> (.7z) (' + d + ')' +
-          '<span class="tooltiptext"><strong>Version ' + v + ' (' + d + ')</strong>' +
-          '<br>' + tip + '</span>' +
-          '</a>' +
-        '</li>' +
-        '<li>' +
-          'User Guide (PDF) ' +
-          '<a href="IV-Play.User.Guide.pdf" target="_blank" style="color:#ff9966;"' +
-          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
-          '\'event_label\':\'User Guide View Online\'});">View Online</a>' +
-          ' | ' +
-          '<a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf"' +
-          ' download style="color:#ff9966;"' +
-          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
-          '\'event_label\':\'User Guide Download\'});">Download</a>' +
-        '</li>' +
-        '<li>' +
-          '<a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z"' +
-          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
-          '\'event_label\':\'MAME Snapshots 7z\'});">MAME Snapshots (.7z)</a>' +
-        '</li>' +
-        '<li>' +
-          '<a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z"' +
-          ' onclick="gtag(\'event\',\'download\',{\'event_category\':\'Downloads\',' +
-          '\'event_label\':\'MAME Icons 7z\'});">MAME Icons (.7z)</a>' +
-        '</li>' +
-        '<li><a href="https://github.com/john-iv/iv-play/releases">Release Page (GitHub)</a></li>' +
-        '<li class="highlight">Art assets updated to MAME ' +
-          IVPLAY.artMameVer + ' as of ' + IVPLAY.artDate +
-        '</li>';
-})();
-</script>
 
-<!-- Fetch and render README.md. {{VERSION}} replaced from IVPLAY config. -->
-<script>
-fetch('https://raw.githubusercontent.com/john-iv/iv-play/main/README.md')
-    .then(function(r) { return r.text(); })
-    .then(function(md) {
-        md = md.replace(/\{\{VERSION\}\}/g, IVPLAY.version);            // inject version
-        md = md.replace(/^#\s+[^\n]+\n/m, '');                         // remove H1 title
-        md = md.replace(/<img[^>]+\/>\s*\n?/g, '');                    // remove screenshot img
-        md = md.replace(/^https?:\/\/[^\s\n]+\s*$/m, '');              // remove bare URL line
-        md = md.replace(/^\*\*Latest release:.*$/m, '');                // remove Latest release line (homepage has downloads)
-        md = md.replace(/^##\s+Learn More[^\n]*\n[\s\S]*?(?=^##\s|(?![\s\S]))/m, ''); // remove Learn More (Resources above lists these)
-        md = md.replace(/^(##\s)/m, '# Why IV/Play\n\n$1');            // inject H1 above the first README section
-        document.getElementById('readme-content').innerHTML = marked.parse(md);
-    })
-    .catch(function() {
-        var el = document.getElementById('readme-content');
-        if (el) el.style.display = 'none';
-    });
-</script>
+
 
 <script>
 (function () {

@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
-    <loc>https://john-iv.github.io/iv-play/index.html</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://john-iv.github.io/iv-play/</loc>
+    <lastmod>2026-10-07</lastmod>
   </url>
-
   <url>
     <loc>https://john-iv.github.io/iv-play/bench.html</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-10-07</lastmod>
   </url>
-
+  <url>
+    <loc>https://john-iv.github.io/iv-play/IV-Play.User.Guide.pdf</loc>
+    <lastmod>2026-10-03</lastmod>
+  </url>
 </urlset>
