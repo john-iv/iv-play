@@ -15,7 +15,7 @@ IV/Play launches MAME or HBMAME; it leaves the emulator's own configuration to t
 - **Instant and smooth.** A fully populated list about a second after launch, and every pixel drawn on the GPU, so scrolling through tens of thousands of machines never judders.
 - **A filter that understands you.** Type `capcom late 90s no clones`, `2 screens lightgun` or `"king of fighters"`, and mix in field searches such as `manufacturer:sega workingstatus:imperfect` when you want precision.
 - **Arcade and software lists together.** More than 140,000 console and computer titles from MAME's software lists are searchable alongside the arcade machines: `name:zaxxon` finds the arcade game and its home ports.
-- **Know what you can play.** The Available and Missing lists audit your ROM folder, and Available keeps itself current as ROMs come and go. Arcade Only, Favorites, a Hidden list and your own custom lists cover the rest.
+- **Know what you can play.** The Available list audits your ROM folder, BIOS and CHD sets included, and keeps itself current as ROMs come and go. Arcade Only, Favorites, a Hidden list and your own custom lists cover the rest.
 - **History at your fingertips.** History, MAMEinfo and category data are built into search (`genre:`, `history:`, first MAME version) and one keypress away in the DAT Peek overlay.
 - **Looks that follow your art.** Dynamic themes derive text, border and scrollbar colors from your background image, and the interface stays sharp at 4K and across monitors with different scaling.
 - **Benchmarking built in.** Benchmark one game or a whole suite, interactively or unattended from the command line, and keep a history you can open in Excel. See the [MAME benchmarks](https://john-iv.github.io/iv-play/bench.html) page.

@@ -29,7 +29,7 @@
       "name": "John IV"
     },
     "downloadUrl": "https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z",
-    "softwareVersion": "2.8.12",
+    "softwareVersion": "2.8.14",
     "keywords": "MAME, Official, IV/Play, benchmarking, MAMEUI, MAME32, MAME32QA, MAMEUI.INFO, icons, snaps, beautiful, snapshots, John IV"
   },
   {
@@ -55,7 +55,7 @@
     <link rel="canonical" href="https://john-iv.github.io/iv-play/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="IV/Play : MAME™ Front-End, Icons, Snapshots &amp; Benchmarks">
-    <meta id="og-description" property="og:description" content="High-performance, keyboard-driven MAME front-end with icons, snapshots, and benchmarks spanning 1997 to present. Download IV/Play 2.8.12.">
+    <meta id="og-description" property="og:description" content="High-performance, keyboard-driven MAME front-end with icons, snapshots, and benchmarks spanning 1997 to present. Download IV/Play 2.8.14.">
     <meta property="og:image" content="https://john-iv.github.io/iv-play/a.png">
     <meta property="og:url" content="https://john-iv.github.io/iv-play/">
     <title>IV/Play : MAME™ Front-End, Icons, Snapshots &amp; Benchmarks</title>
@@ -398,15 +398,15 @@
         function loadPlaylist() {
             const container = document.getElementById('video-container');
             const preview   = document.getElementById('preview-img');
-            const w = preview.clientWidth;
-            const h = preview.clientHeight;
+            const w = preview.naturalWidth || preview.clientWidth || 16;
+            const h = preview.naturalHeight || preview.clientHeight || 9;
             container.innerHTML =
                 '<iframe width="' + w + '" height="' + h + '" ' +
                 'src="https://www.youtube.com/embed/videoseries?list=PLnNsN2lu4_jT__2YB_JrczsONjyqw2Vmx&autoplay=1" ' +
                 'title="IV/Play Video Tutorials" frameborder="0" ' +
                 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
                 'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ' +
-                'style="width:' + w + 'px !important; height:' + h + 'px !important;"></iframe>';
+                'style="display:block; width:100%; height:auto; aspect-ratio:' + w + '/' + h + ';"></iframe>';
         }
         </script>
         <!-- END FIXED VIDEO BLOCK -->
@@ -422,7 +422,7 @@
         <h2>Downloads</h2>
         <!-- HOME-DOWNLOADS:BEGIN -->
 <ul class="download-links" id="download-list">
-    <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z" onclick="gtag(&#39;event&#39;,&#39;download&#39;,{&#39;event_category&#39;:&#39;Downloads&#39;,&#39;event_label&#39;:&quot;IV-Play 2.8.12 7z&quot;});" class="tooltip">IV/Play <span id="ivplay-version">2.8.12</span> (.7z) (8:16 PM 10/3/2026)<span class="tooltiptext"><strong>Version 2.8.12 (8:16 PM 10/3/2026)</strong><br>&bull; DPI &amp; Layout Modernization<br>&bull; Internal HiScore.ini<br>&bull; MAME Source .cpp Peek<br>&bull; TohoScope Int/Ext Toggle<br>&bull; Live Available ROM Monitoring<br>&bull; Favorite.ini External Monitoring<br>&bull; Persistent DAT View via Tilde<br>&bull; Check for Update button on F1<br>&bull; -Bench Commandline Switch<br>&bull; Tweaks and bugfixes 2.8.12<br>&bull; See User Guide for Full ChangeLog</span></a></li>
+    <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.7z" onclick="gtag(&#39;event&#39;,&#39;download&#39;,{&#39;event_category&#39;:&#39;Downloads&#39;,&#39;event_label&#39;:&quot;IV-Play 2.8.14 7z&quot;});" class="tooltip">IV/Play <span id="ivplay-version">2.8.14</span> (.7z) (10:27 AM 10/8/2026)<span class="tooltiptext"><strong>Version 2.8.14 (10:27 AM 10/8/2026)</strong><br>&bull; DPI &amp; Layout Modernization<br>&bull; Internal HiScore.ini<br>&bull; MAME Source .cpp Peek<br>&bull; TohoScope Int/Ext Toggle<br>&bull; Live ROM &amp; Favorites Monitoring<br>&bull; Persistent DAT View via Tilde<br>&bull; Check for Update button on F1<br>&bull; Unattended Benchmarking (-bench)<br>&bull; HBMAME Support Improvements<br>&bull; Driver Name &amp; Software History Search<br>&bull; More Precise Screen-Count &amp; CHD Filters<br>&bull; F1 Fits Smaller Screens<br>&bull; Arcade Only List Refinements<br>&bull; More Consistent Arcade Filtering at Startup<br>&bull; F5 Preserves Navigation During Refresh<br>&bull; More Accurate Available List (BIOS &amp; CHD aware)<br>&bull; Tweaks and bugfixes 2.8.12 &amp; 2.8.14<br>&bull; See User Guide for Full ChangeLog</span></a></li>
     <li>User Guide (PDF) <a href="IV-Play.User.Guide.pdf" target="_blank" style="color:#ff9966;" onclick="gtag('event','download',{'event_category':'Downloads','event_label':'User Guide View Online'});">View Online</a> | <a href="https://github.com/john-iv/iv-play/releases/download/Latest/IV-Play.User.Guide.pdf" download style="color:#ff9966;" onclick="gtag('event','download',{'event_category':'Downloads','event_label':'User Guide Download'});">Download</a></li>
     <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/Snap.7z" onclick="gtag('event','download',{'event_category':'Downloads','event_label':'MAME Snapshots 7z'});">MAME Snapshots (.7z)</a></li>
     <li><a href="https://github.com/john-iv/iv-play/releases/download/Latest/Icons.7z" onclick="gtag('event','download',{'event_category':'Downloads','event_label':'MAME Icons 7z'});">MAME Icons (.7z)</a></li>
@@ -453,7 +453,7 @@
 <li><strong>Instant and smooth.</strong> A fully populated list about a second after launch, and every pixel drawn on the GPU, so scrolling through tens of thousands of machines never judders.</li>
 <li><strong>A filter that understands you.</strong> Type <code>capcom late 90s no clones</code>, <code>2 screens lightgun</code> or <code>&quot;king of fighters&quot;</code>, and mix in field searches such as <code>manufacturer:sega workingstatus:imperfect</code> when you want precision.</li>
 <li><strong>Arcade and software lists together.</strong> More than 140,000 console and computer titles from MAME's software lists are searchable alongside the arcade machines: <code>name:zaxxon</code> finds the arcade game and its home ports.</li>
-<li><strong>Know what you can play.</strong> The Available and Missing lists audit your ROM folder, and Available keeps itself current as ROMs come and go. Arcade Only, Favorites, a Hidden list and your own custom lists cover the rest.</li>
+<li><strong>Know what you can play.</strong> The Available list audits your ROM folder, BIOS and CHD sets included, and keeps itself current as ROMs come and go. Arcade Only, Favorites, a Hidden list and your own custom lists cover the rest.</li>
 <li><strong>History at your fingertips.</strong> History, MAMEinfo and category data are built into search (<code>genre:</code>, <code>history:</code>, first MAME version) and one keypress away in the DAT Peek overlay.</li>
 <li><strong>Looks that follow your art.</strong> Dynamic themes derive text, border and scrollbar colors from your background image, and the interface stays sharp at 4K and across monitors with different scaling.</li>
 <li><strong>Benchmarking built in.</strong> Benchmark one game or a whole suite, interactively or unattended from the command line, and keep a history you can open in Excel. See the <a href="https://john-iv.github.io/iv-play/bench.html">MAME benchmarks</a> page.</li>
