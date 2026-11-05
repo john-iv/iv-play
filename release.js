@@ -42,7 +42,7 @@ var IVPLAY = {
         "Stable Artwork Geometry & Superseded-Read Protection",
         "Art, Icon & DAT Lookup Improvements",
         "Update Artwork Archives While Open, Then Refresh with F5",
-        "Shift-F12 Active Shortcut Reference & Steadier F7 Dashboard",
+        "F12 Active Shortcut Reference & Steadier F7 Dashboard",
         "Permanent Text Return, Shift Multi-Launch & Remapped Back Fixes",
         "Build GUID Visible in Explorer File Description",
         "Refresh, Monitoring & Cleanup Reliability",
