@@ -2,8 +2,8 @@
    Bump per release; buildId is the field that drives the update check. */
 var IVPLAY = {
     version:    "2.16",
-    buildId:    "0580f869-87a1-4e3d-8378-93b412c2d038",
-    date:       "12:50 PM 11/5/2026",
+    buildId:    "a05866d6-0a12-4c07-bc36-311014486a50",
+    date:       "5:47 PM 11/7/2026",
     url:        "https://github.com/john-iv/iv-play/releases",
     artMameVer: "0.289",
     artDate:    "5:54 PM 7/30/2026",
